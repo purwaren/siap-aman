@@ -2,9 +2,9 @@
 /* @var $this Controller */
 /* @var $model Klinik */
 
-$this->pageTitle = 'Kelola Data Kinik';
+$this->pageTitle = 'Kelola Data Suku Dinas';
 $this->breadcrumbs = array(
-    'Klinik'
+    'Suku Dinas'
 );
 ?>
 <!-- Main content -->
@@ -12,11 +12,11 @@ $this->breadcrumbs = array(
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title"><small>Daftar klinik yang tercatat di dalam sistem</small></h3>
+            <h3 class="box-title"><small>Daftar Suku Dinas yang tercatat di dalam sistem</small></h3>
         </div>
         <div class="box-body">
             <?php $this->widget('zii.widgets.grid.CGridView', array(
-                'id'=>'users-grid',
+                'id'=>'sudin-grid',
                 'dataProvider'=>$model->search(),
                 //'filter'=>$model,
                 'columns'=>array(
@@ -24,11 +24,10 @@ $this->breadcrumbs = array(
                         'header'=>'No',
                         'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize+$row+1'
                     ),
-                    'kode_klinik',
                     'nama',
-                    'kepemilikan',
-                    'penanggung_jawab',
-                    'tingkatan',
+                    'no_telp',
+                    'no_fax',
+                    'email',
                     array(
                         'class'=>'CButtonColumn',
                     ),
@@ -40,7 +39,7 @@ $this->breadcrumbs = array(
             )); ?>
         </div><!-- /.box-body -->
         <div class="box-footer">
-            <?php echo CHtml::link('Registrasi Klinik',array('klinik/create'),array('class'=>'btn btn-primary'))?>
+            <?php echo CHtml::link('Tambah Sudin',array('sudin/create'),array('class'=>'btn btn-primary'))?>
         </div><!-- /.box-footer-->
     </div><!-- /.box -->
 </section><!-- /.content -->

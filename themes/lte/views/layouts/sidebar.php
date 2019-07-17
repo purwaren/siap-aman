@@ -31,6 +31,12 @@
                     'itemOptions'=>array('class'=>'treeview')
                 ),
                 array(
+                    'label'=>'<i class="fa fa-users"></i> <span>Data Suku Dinas</span> <i class="fa fa-angle-left pull-right"></i>',
+                    'url'=>array('/sudin/admin'),
+                    'itemOptions'=>array('class'=>'treeview'),
+                    'visible'=>Yii::app()->user->checkAccess('admin'),
+                ),
+                array(
                     'label'=>'<i class="fa fa-users"></i> <span>Data Pendamping</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>array('/pendamping/admin'),
                     'itemOptions'=>array('class'=>'treeview'),
