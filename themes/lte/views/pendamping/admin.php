@@ -2,9 +2,9 @@
 /* @var $this Controller */
 /* @var $model Users */
 
-$this->pageTitle = 'Manajemen Pengguna';
+$this->pageTitle = 'Kelola Pendamping Akreditasi';
 $this->breadcrumbs = array(
-    'Manajemen Pengguna'
+    'Pendamping'
 );
 ?>
 <!-- Main content -->
@@ -13,10 +13,6 @@ $this->breadcrumbs = array(
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title"><small>Daftar pengguna yang tercatat di dalam sistem</small></h3>
-            <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
-                <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
-            </div>
         </div>
         <div class="box-body">
             <?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -28,24 +24,15 @@ $this->breadcrumbs = array(
                         'header'=>'No',
                         'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize+$row+1'
                     ),
-                    array(
-                        'name'=>'name',
-                        'htmlOptions'=>array('class'=>'hidden-xs'),
-                        'headerHtmlOptions'=>array('class'=>'hidden-xs'),
-                    ),
-                    'username',
+                    'nama',
+                    'tipe',
                     array(
                         'name'=>'email',
                         'htmlOptions'=>array('class'=>'hidden-xs'),
                         'headerHtmlOptions'=>array('class'=>'hidden-xs'),
                     ),
-                    'status',
-                    array(
-                        'name'=>'timestamp_created',
-                        'htmlOptions'=>array('class'=>'hidden-xs'),
-                        'headerHtmlOptions'=>array('class'=>'hidden-xs'),
-                    ),
-
+                    'jabatan',
+                    'no_hp',
                     array(
                         'class'=>'CButtonColumn',
                     ),
@@ -57,7 +44,7 @@ $this->breadcrumbs = array(
             )); ?>
         </div><!-- /.box-body -->
         <div class="box-footer">
-            <?php echo CHtml::link('Tambah Pengguna',array('users/create'),array('class'=>'btn btn-primary'))?>
+            <?php echo CHtml::link('Tambah Pendamping',array('pendamping/create'),array('class'=>'btn btn-primary'))?>
         </div><!-- /.box-footer-->
     </div><!-- /.box -->
 </section><!-- /.content -->

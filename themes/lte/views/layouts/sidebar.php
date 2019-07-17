@@ -31,6 +31,24 @@
                     'itemOptions'=>array('class'=>'treeview')
                 ),
                 array(
+                    'label'=>'<i class="fa fa-users"></i> <span>Data Pendamping</span> <i class="fa fa-angle-left pull-right"></i>',
+                    'url'=>array('/pendamping/admin'),
+                    'itemOptions'=>array('class'=>'treeview'),
+                    'visible'=>Yii::app()->user->checkAccess('admin'),
+                ),
+                array(
+                    'label'=>'<i class="fa fa-home"></i> <span>Data Klinik</span> <i class="fa fa-angle-left pull-right"></i>',
+                    'url'=>'#',
+                    'itemOptions'=>array('class'=>'treeview'),
+                    'items'=>array(
+                        array('label'=>'<i class="fa fa-file-text"></i> Daftar Klinik','url'=>array('/klinik/admin')),
+                        array('label'=>'<i class="fa fa-file-word-o"></i> Usulan Akreditasi','url'=>array('/klinik/admin')),
+                        array('label'=>'<i class="fa fa-file-excel-o"></i> Nilai Akreditasi','url'=>array('/klinik/admin')),
+                    ),
+                    'encodeLabel'=>false,
+                    'visible'=>Yii::app()->user->checkAccess('admin'),
+                ),
+                array(
                     'label'=>'<i class="fa fa-wrench"></i><span>Konfigurasi Sistem</span><i class="fa fa-angle-left pull-right"></i>',
                     'itemOptions'=>array('class'=>'treeview'),
                     'url'=>'#',
@@ -40,6 +58,11 @@
                     ),
                     'encodeLabel'=>false,
                     'visible'=>Yii::app()->user->checkAccess('admin'),
+                ),
+                array(
+                    'label'=>'<i class="fa fa-lock"></i> <span>Ganti Password</span> <i class="fa fa-angle-left pull-right"></i>',
+                    'url'=>array('/users/password'),
+                    'itemOptions'=>array('class'=>'treeview')
                 ),
             ),
             'encodeLabel'=>false,

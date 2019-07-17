@@ -32,16 +32,21 @@ class UsersController extends Controller
 				'users'=>array('@'),
 				'roles'=>array('admin'),
 			),
+            array('allow',
+                'actions'=>array('password'),
+                'users'=>array('@')
+            ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
 	}
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     * @throws CHttpException
+     */
 	public function actionView($id)
 	{
 		$this->render('view',array(
@@ -175,4 +180,30 @@ class UsersController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+    /**
+     * @throws CDbException
+     * @throws CException
+     * @throws CHttpException
+     */
+    public function actionPassword()
+    {
+        $user = $this->loadModel(Yii::app()->user->getId());
+        $model = new ChangePasswordForm();
+
+        if (isset($_POST['ChangePasswordForm'])) {
+            $model->attributes = $_POST['ChangePasswordForm'];
+            if ($model->save())
+            {
+                Yii::app()->user->setFlash('message', 'Password berhasil diubah');
+            }
+        }
+
+        $model->unsetAttributes();
+        $model->userid=$user->id;
+
+        $this->render('password', array(
+            'model'=>$model
+        ));
+    }
 }
