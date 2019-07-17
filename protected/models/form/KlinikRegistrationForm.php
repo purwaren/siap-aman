@@ -44,6 +44,7 @@ class KlinikRegistrationForm extends CFormModel
 
                 //tambah data klinik
                 $klinik = new Klinik();
+                $klinik->id_user = $user->id;
                 $klinik->nama = $this->nama_klinik;
                 $klinik->penanggung_jawab = $this->penanggung_jawab;
                 $klinik->created_at = new CDbExpression('NOW()');

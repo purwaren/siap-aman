@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'klinik':
  * @property integer $id
+ * @property integer $id_user
  * @property string $kode_klinik
  * @property string $nama
  * @property string $no_izin
@@ -16,6 +17,9 @@
  * @property string $created_at
  * @property string $updated_by
  * @property string $updated_at
+ *
+ * The followings are the available model relations:
+ * @property Users $idUser
  */
 class Klinik extends CActiveRecord
 {
@@ -35,14 +39,15 @@ class Klinik extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nama, penanggung_jawab, created_by', 'required'),
+			array('id_user, nama, penanggung_jawab, created_by, created_at', 'required'),
+			array('id_user', 'numerical', 'integerOnly'=>true),
 			array('kode_klinik, no_izin', 'length', 'max'=>64),
 			array('nama, penanggung_jawab', 'length', 'max'=>128),
 			array('kepemilikan, karakteristik, tingkatan, created_by, updated_by', 'length', 'max'=>32),
-			array('created_at, updated_at', 'safe'),
+			array('updated_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, kode_klinik, nama, no_izin, kepemilikan, penanggung_jawab, karakteristik, tingkatan, created_by, created_at, updated_by, updated_at', 'safe', 'on'=>'search'),
+			array('id, id_user, kode_klinik, nama, no_izin, kepemilikan, penanggung_jawab, karakteristik, tingkatan, created_by, created_at, updated_by, updated_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,6 +59,7 @@ class Klinik extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
 		);
 	}
 
@@ -64,6 +70,7 @@ class Klinik extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'id_user' => 'Id User',
 			'kode_klinik' => 'Kode Klinik',
 			'nama' => 'Nama',
 			'no_izin' => 'No Izin',
@@ -97,6 +104,7 @@ class Klinik extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('id_user',$this->id_user);
 		$criteria->compare('kode_klinik',$this->kode_klinik,true);
 		$criteria->compare('nama',$this->nama,true);
 		$criteria->compare('no_izin',$this->no_izin,true);
