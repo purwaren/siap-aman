@@ -30,7 +30,12 @@ class SiteController extends Controller
 		$this->layout = '//layouts/column2';
 		if(Yii::app()->user->isGuest)
 			$this->redirect(array('login'));
-		else $this->render('index');
+		else {
+		    if (Yii::app()->user->isKlinik()) {
+		        $this->render('index-klinik');
+            }
+		    else $this->render('index');
+        }
 	}
 
 	/**
@@ -110,4 +115,34 @@ class SiteController extends Controller
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+
+	/**
+     * Display registration page
+     */
+	public function actionRegister() {
+	    $this->layout = '//layouts/login';
+	    $model = new KlinikRegistrationForm();
+
+        // if it is ajax validation request
+        if(isset($_POST['ajax']) && $_POST['ajax']==='registration-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+        // collect user input data
+        if(isset($_POST['KlinikRegistrationForm']))
+        {
+            $model->attributes=$_POST['KlinikRegistrationForm'];
+            // validate user input and redirect to the previous page if valid
+            if($model->save()) {
+                $model->unsetAttributes();
+                Yii::app()->user->setFlash('message', 'Registrasi berhasil, silakan login');
+            }
+            else {
+                Yii::app()->user->setFlash('error', 'Registrasi gagal, silakan coba kembali beberapa saat lagi');
+            }
+        }
+        // display the login form
+        $this->render('register',array('model'=>$model));
+    }
 }

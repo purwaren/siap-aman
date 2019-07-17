@@ -35,7 +35,7 @@ class Klinik extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('kode_klinik, nama, no_izin, kepemilikan, penanggung_jawab, karakteristik, tingkatan, created_by', 'required'),
+			array('nama, penanggung_jawab, created_by', 'required'),
 			array('kode_klinik, no_izin', 'length', 'max'=>64),
 			array('nama, penanggung_jawab', 'length', 'max'=>128),
 			array('kepemilikan, karakteristik, tingkatan, created_by, updated_by', 'length', 'max'=>32),

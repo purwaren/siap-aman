@@ -1,12 +1,12 @@
 <?php
 /**
- * @var $model LoginForm
+ * @var $model KlinikRegistrationForm
  * @var $form CActiveForm
  * @var $this SiteController
  */
-$this->pageTitle='Log In';
+$this->pageTitle='Registrasi';
 $this->breadcrumbs=array(
-    'Log In',
+    'Registrasi',
 );
 ?>
 <div class="login-logo">
@@ -26,23 +26,48 @@ $this->breadcrumbs=array(
 <a href="<?php echo Yii::app()->getBaseUrl()?>" style="color:white;"><b>Sistem Aplikasi Akreditasi Mandiri Klinik</b></a>
 </h2>
 <div class="login-box-body">
-    <p class="login-box-msg">Silakan login terlebih dahulu</p>
-        <?php $form=$this->beginWidget('CActiveForm', array(
-            'id'=>'login-form',
-            'enableClientValidation'=>true,
-            'clientOptions'=>array(
-                'validateOnSubmit'=>true,
-            ),
-        )); ?>
+    <p class="login-box-msg">Isilah form registrasi berikut ini</p>
+    <?php if($message = Yii::app()->user->getFlash('message')) { ?>
+        <div class="alert alert-success">
+            <?php echo $message ?>
+        </div>
+    <?php } ?>
+    <?php if($error=Yii::app()->user->getFlash('error')) { ?>
+        <div class="alert alert-success">
+            <?php echo $error ?>
+        </div>
+    <?php } ?>
+    <?php $form=$this->beginWidget('CActiveForm', array(
+        'id'=>'login-form',
+        'enableClientValidation'=>true,
+        'clientOptions'=>array(
+            'validateOnSubmit'=>true,
+        ),
+    )); ?>
         <div class="form-group has-feedback">
             <?php echo $form->textField($model,'username',array('class'=>'form-control','placeholder'=>'Username')); ?>
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             <?php echo $form->error($model,'username'); ?>
         </div>
         <div class="form-group has-feedback">
+            <?php echo $form->textField($model,'email',array('class'=>'form-control','placeholder'=>'Email')); ?>
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            <?php echo $form->error($model,'email'); ?>
+        </div>
+        <div class="form-group has-feedback">
             <?php echo $form->passwordField($model,'password',array('class'=>'form-control','placeholder'=>'Password')); ?>
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             <?php echo $form->error($model,'password'); ?>
+        </div>
+        <div class="form-group has-feedback">
+            <?php echo $form->textField($model,'nama_klinik',array('class'=>'form-control','placeholder'=>'Nama Klinik')); ?>
+            <span class="form-control-feedback"></span>
+            <?php echo $form->error($model,'nama_klinik'); ?>
+        </div>
+        <div class="form-group has-feedback">
+            <?php echo $form->textField($model,'penanggung_jawab',array('class'=>'form-control','placeholder'=>'Nama Penanggung Jawab')); ?>
+            <span class="form-control-feedback"></span>
+            <?php echo $form->error($model,'penanggung_jawab'); ?>
         </div>
         <?php if(CCaptcha::checkRequirements()): ?>
             <div class="form-group has-feedback">
@@ -55,19 +80,13 @@ $this->breadcrumbs=array(
             </div>
         <?php endif; ?>
         <div class="row">
-            <div class="col-xs-8">
-                <div class="checkbox icheck">
-                    <label>
-                        <input type="checkbox"> Remember Me
-                    </label>
-                </div>
+            <div class="col-xs-6">
+                <?php echo CHtml::submitButton('Daftar',array('class'=>'btn btn-success btn-block btn-flat')); ?>
             </div><!-- /.col -->
-            <div class="col-xs-4">
-                <?php echo CHtml::submitButton('Login',array('class'=>'btn btn-success btn-block btn-flat')); ?>
+            <div class="col-xs-6">
+                <?php echo CHtml::link('Kembali',Yii::app()->createUrl('site/login'),array('class'=>'btn btn-primary btn-block btn-flat')); ?>
             </div><!-- /.col -->
         </div>
     <?php $this->endWidget(); ?>
-
-    <a href="<?php echo Yii::app()->createUrl('site/register')?>">Registrasi Klinik</a><br>
 
 </div><!-- /.login-box-body -->

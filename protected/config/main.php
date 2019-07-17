@@ -19,6 +19,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.models.form.*',
+		'application.models.constant.*',
 		'application.components.*',
 	),
 
@@ -53,7 +54,8 @@ return array(
 
 		'user'=>array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
+            'class'=>'EWebUser',
+			'allowAutoLogin'=>true
 		),
 
 		// uncomment the following to enable URLs in path-format
