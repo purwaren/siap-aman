@@ -1,0 +1,60 @@
+.form-group .error {
+    border-color: #dd4b39;
+}
+.form-group .errorMessage {
+    color: #dd4b39;
+}
+.profile-pict {
+    text-align: center;
+}
+.profile-pict img {
+    margin: 0 auto;
+    max-width: 200px;
+    padding: 3px;
+    border: 3px solid #d2d6de;
+}
+.img-receipt {
+    max-height: 350px;
+}
+.album .album-item {
+    border: #ECF0F5 1px solid;
+    padding: 0px 0px 10px 0px;
+    margin: 0px 10px 0px 0px;
+    text-align: center;
+}
+.album .album-item .item-overlay {
+    background-color: #ffaadc;
+    z-index: 1000;
+}
+
+.album .album-item .item-overlay:hover {
+    opacity: 0.7;
+}
+
+.album .album-item .item-overlay a.btn-danger {
+    position:absolute;
+    right: 0px;
+}
+
+.album .album-item .item-overlay a.btn-primary {
+    position:absolute;
+    left: 0px;
+}
+
+.album .album-item .item-overlay img {
+    border-bottom: #ECF0F5 1px solid;
+    margin-bottom: 5px;
+}
+.table-detail-view tbody tr th {
+    min-width: 150px !important;
+}
+
+.login-box {
+    margin: 3% auto !important;
+}
+.login-box h2 {
+    text-align: center;
+}
+.login-logo {
+    height: 150px;
+}
