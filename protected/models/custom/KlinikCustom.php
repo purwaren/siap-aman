@@ -1,0 +1,33 @@
+<?php
+/**
+ * Class KlinikCustom
+ */
+
+class KlinikCustom extends Klinik
+{
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'id_user' => 'Id User',
+            'kode_klinik' => 'Kode Klinik',
+            'nama' => 'Nama',
+            'no_izin' => 'No Izin',
+            'kepemilikan' => 'Kepemilikan',
+            'penanggung_jawab' => 'Penanggung Jawab',
+            'karakteristik' => 'Karakteristik',
+            'tingkatan' => 'Tingkatan',
+            'created_by' => 'Dibuat Oleh',
+            'created_at' => 'Waktu Entri',
+            'updated_by' => 'Diperbarui Oleh',
+            'updated_at' => 'Terakhir Diberbarui',
+        );
+    }
+
+
+
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+}

@@ -32,7 +32,8 @@ class SiteController extends Controller
 			$this->redirect(array('login'));
 		else {
 		    if (Yii::app()->user->isKlinik()) {
-		        $this->render('index-klinik');
+		        $model = KlinikCustom::model()->findByAttributes(array('id_user'=>Yii::app()->user->getId()));
+		        $this->render('index-klinik',array('model'=>$model));
             }
 		    else $this->render('index');
         }

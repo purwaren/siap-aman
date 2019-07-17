@@ -20,6 +20,7 @@ return array(
 		'application.models.*',
 		'application.models.form.*',
 		'application.models.constant.*',
+		'application.models.custom.*',
 		'application.components.*',
 	),
 
