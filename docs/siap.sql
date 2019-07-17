@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 17, 2019 at 07:03 AM
+-- Generation Time: Jul 17, 2019 at 12:28 PM
 -- Server version: 10.3.16-MariaDB-1:10.3.16+maria~stretch-log
 -- PHP Version: 5.6.40-8+0~20190531120521.15+stretch~1.gbpa77d1d
 
@@ -56,7 +56,8 @@ CREATE TABLE `authassignment` (
 
 INSERT INTO `authassignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('admin', 1, NULL, NULL),
-('unit', 2, NULL, NULL);
+('klinik', 8, NULL, 'N;'),
+('sudin', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -79,8 +80,9 @@ CREATE TABLE `authitem` (
 
 INSERT INTO `authitem` (`id`, `name`, `type`, `description`, `bizrule`, `data`) VALUES
 (1, 'admin', 2, 'role untuk admin', '', ''),
-(2, 'management', 2, 'role untuk management', '', ''),
-(3, 'unit', 2, 'role untuk unit pendidikan', '', '');
+(2, 'dinkes', 2, 'role untuk dinas kesehatan level provinsi', '', ''),
+(3, 'sudin', 2, 'role untuk suku dinas di level kabupaten/kota', '', ''),
+(4, 'klinik', 2, 'role untuk klinik', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -103,7 +105,9 @@ CREATE TABLE `berkas_akreditasi` (
   `id_pengajuan` int(10) NOT NULL,
   `tipe_berkas` int(10) DEFAULT NULL,
   `file_path` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deskripsi` varchar(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `deskripsi` varchar(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -138,18 +142,26 @@ CREATE TABLE `foto_klinik` (
 
 CREATE TABLE `klinik` (
   `id` int(10) NOT NULL,
-  `kode_klinik` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_user` int(10) NOT NULL,
+  `kode_klinik` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_izin` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kepemilikan` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `no_izin` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `kepemilikan` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `penanggung_jawab` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `karakteristik` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tingkatan` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `karakteristik` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tingkatan` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_by` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` datetime NOT NULL,
   `updated_by` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `klinik`
+--
+
+INSERT INTO `klinik` (`id`, `id_user`, `kode_klinik`, `nama`, `no_izin`, `kepemilikan`, `penanggung_jawab`, `karakteristik`, `tingkatan`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
+(1, 8, NULL, 'Sentra Medika', NULL, NULL, 'Purwa Ren', NULL, NULL, 'Guest', '2019-07-17 10:27:27', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -181,14 +193,14 @@ CREATE TABLE `pendamping` (
   `gelar_belakang` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tempat_lahir` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tgl_lahir` date NOT NULL,
-  `jabatan` int(32) NOT NULL,
+  `jabatan` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat` varchar(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `no_hp` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_by` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_by` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -272,7 +284,11 @@ CREATE TABLE `sudin` (
   `no_telp` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `no_fax` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `website` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `website` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `created_by` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_by` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -305,7 +321,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `salt`, `status`, `flag_delete`, `login_atemp`, `last_login_attempt`, `last_login_time`, `timestamp_created`, `timestamp_updated`, `user_create`, `user_update`) VALUES
 (1, 'Administrator', 'admin', 'and.thau@gmail.com', '$2y$13$2Qd1NqjjIj5Eyt1iVzcdT.8DNBaeI4NlIhvgg5L8sk0wpENWcjtg2', '$2y$13$jv/n.WhUXe0OdfVlkIGnc2', 1, 0, 0, NULL, NULL, '2016-03-17 13:28:17', NULL, 'admin', NULL),
-(2, 'Purwanto', 'purwa', 'purwanto@modefashiongroup.com', '$2y$13$E/8Q2W27QpEiEGBpZPW5HuoohCvsrKq.p.NtU8Pdr64RzyHDPM7/C', '$2y$13$rwqp1gCirA8u6cHtW/GlhT', 1, 0, 0, NULL, NULL, '2016-03-17 13:36:49', NULL, 'admin', NULL);
+(2, 'Purwanto', 'purwa', 'purwanto@modefashiongroup.com', '$2y$13$E/8Q2W27QpEiEGBpZPW5HuoohCvsrKq.p.NtU8Pdr64RzyHDPM7/C', '$2y$13$rwqp1gCirA8u6cHtW/GlhT', 1, 0, 0, NULL, NULL, '2016-03-17 13:36:49', NULL, 'admin', NULL),
+(8, 'Purwa Ren', 'purwaren', 'and.thau@gmail.com', '$2y$13$6cn8stmeXKUgYxWLkEPYauTPC69Kuy/6XVQy1qntktvhOrYpNQRpK', '$2y$13$3HLDJSnByAFBCkaFbZJypu', 1, 0, 0, NULL, NULL, '2019-07-17 10:27:27', NULL, 'Guest', NULL);
 
 -- --------------------------------------------------------
 
@@ -324,7 +341,7 @@ CREATE TABLE `YiiSession` (
 --
 
 INSERT INTO `YiiSession` (`id`, `expire`, `data`) VALUES
-('tlsept2drc7mgbeihmdvsdd1b6', 1563347839, 0x5969692e4343617074636861416374696f6e2e31353331366264622e736974652e636170746368617c733a363a2279616a6f6665223b5969692e4343617074636861416374696f6e2e31353331366264622e736974652e63617074636861636f756e747c693a323b65656535303730333861653237326164653066306166646538343763313730325f5f69647c733a313a2231223b65656535303730333861653237326164653066306166646538343763313730325f5f6e616d657c733a353a2261646d696e223b656565353037303338616532373261646530663061666465383437633137303266756c6c6e616d657c733a31333a2241646d696e6973747261746f72223b65656535303730333861653237326164653066306166646538343763313730325f5f7374617465737c613a313a7b733a383a2266756c6c6e616d65223b623a313b7d5969692e4343617074636861416374696f6e2e35386265396262322e736974652e636170746368617c733a373a227274796d6e7762223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e63617074636861636f756e747c693a323b64333361643434313333636665623339363139383561316632633136363931325f5f69647c733a313a2231223b64333361643434313333636665623339363139383561316632633136363931325f5f6e616d657c733a353a2261646d696e223b643333616434343133336366656233393631393835613166326331363639313266756c6c6e616d657c733a31333a2241646d696e6973747261746f72223b64333361643434313333636665623339363139383561316632633136363931325f5f7374617465737c613a313a7b733a383a2266756c6c6e616d65223b623a313b7d);
+('qfrrrf3klj6du09kscmia8hkm1', 1563365372, 0x5969692e4343617074636861416374696f6e2e35386265396262322e736974652e636170746368617c733a363a227269767a7861223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e63617074636861636f756e747c693a323b34323964363865393037363862326537623433366639343566363539663264645f5f69647c733a313a2231223b34323964363865393037363862326537623433366639343566363539663264645f5f6e616d657c733a353a2261646d696e223b343239643638653930373638623265376234333666393435663635396632646466756c6c6e616d657c733a31333a2241646d696e6973747261746f72223b34323964363865393037363862326537623433366639343566363539663264645f5f7374617465737c613a313a7b733a383a2266756c6c6e616d65223b623a313b7d);
 
 --
 -- Indexes for dumped tables
@@ -356,13 +373,16 @@ ALTER TABLE `authitemchild`
 --
 ALTER TABLE `klinik`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `kode_klinik` (`kode_klinik`);
+  ADD UNIQUE KEY `kode_klinik` (`kode_klinik`),
+  ADD KEY `fk_klinik_id_user` (`id_user`);
 
 --
 -- Indexes for table `pendamping`
 --
 ALTER TABLE `pendamping`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_pendamping_id_sudin` (`id_sudin`),
+  ADD KEY `fk_pendamping_id_user` (`id_user`);
 
 --
 -- Indexes for table `pengajuan_akreditasi`
@@ -403,13 +423,13 @@ ALTER TABLE `YiiSession`
 -- AUTO_INCREMENT for table `authitem`
 --
 ALTER TABLE `authitem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `klinik`
 --
 ALTER TABLE `klinik`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pendamping`
@@ -439,7 +459,7 @@ ALTER TABLE `sudin`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -458,6 +478,19 @@ ALTER TABLE `authassignment`
 ALTER TABLE `authitemchild`
   ADD CONSTRAINT `authitemchild_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `authitemchild_ibfk_2` FOREIGN KEY (`child`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `klinik`
+--
+ALTER TABLE `klinik`
+  ADD CONSTRAINT `fk_klinik_id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `pendamping`
+--
+ALTER TABLE `pendamping`
+  ADD CONSTRAINT `fk_pendamping_id_sudin` FOREIGN KEY (`id_sudin`) REFERENCES `sudin` (`id`),
+  ADD CONSTRAINT `fk_pendamping_id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
