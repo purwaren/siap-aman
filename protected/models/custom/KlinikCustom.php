@@ -30,4 +30,13 @@ class KlinikCustom extends Klinik
     {
         return parent::model($className);
     }
+
+    public static function getAllTingkatanOptions() {
+        return array(
+            'dasar'=>'Dasar',
+            'madya'=>'Madya',
+            'utama'=>'Utama',
+            'paripurna'=>'Paripurna'
+        );
+    }
 }
