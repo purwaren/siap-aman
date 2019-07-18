@@ -48,8 +48,8 @@ class KlinikUpdateForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'alamat_1' => 'Alamat Baris Pertama',
-            'alamat_2' => 'Alamat Baris Kedua',
+            'alamat_1' => 'Alamat (Jalan/RT/RW)',
+            'alamat_2' => 'Alamat (Perumahan/Kelurahan)',
             'qty_tempat_tidur' => 'Jumlah Tempat Tidur',
             'penyelenggaraan' => 'Kemampuan Penyelenggaraan'
         );
@@ -107,9 +107,6 @@ class KlinikUpdateForm extends CFormModel
                     'tingkatan','updated_at','updated_by'));
                 Yii::app()->user->setFlash('success', 'Data klinik telah diperbarui');
             }
-            else {
-                var_dump($klinik->getErrors());die();
-            }
 
             //save data alamat
             $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
@@ -139,9 +136,6 @@ class KlinikUpdateForm extends CFormModel
             $fasilitas->save();
 
             return true;
-        }
-        else {
-            var_dump($this->getErrors());die();
         }
     }
 }

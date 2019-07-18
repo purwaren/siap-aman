@@ -58,8 +58,6 @@
 	</div><!-- /.box-body -->
 	<div class="box-footer">
 		<?php echo CHtml::submitButton('Simpan',array('class'=>'btn btn-success col-sm-offset-2')); ?>
-		&nbsp;
-		<?php echo CHtml::linkButton('Kembali',array('class'=>'btn btn-danger','href'=>array('users/admin'))); ?>
 	</div>
 </div><!-- /.box -->
 

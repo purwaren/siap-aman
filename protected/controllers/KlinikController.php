@@ -28,7 +28,7 @@ class KlinikController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','index','view','profile','photo'),
+				'actions'=>array('create','update','admin','delete','index','view','profile','photo','upload'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -183,5 +183,13 @@ class KlinikController extends Controller
     public function actionPhoto() {
 	    $model = new UploadFotoKlinikForm();
 	    $this->render('photo',array('model'=>$model));
+    }
+
+    public function actionUpload($type) {
+	    if ($type == 'photo') {
+	        $model = new UploadFotoKlinikForm();
+	        $model->photo = $_FILES['file_data'];
+	        $model->save();
+        }
     }
 }

@@ -49,7 +49,12 @@ class KlinikRegistrationForm extends CFormModel
                 $klinik->penanggung_jawab = $this->penanggung_jawab;
                 $klinik->created_at = new CDbExpression('NOW()');
                 $klinik->created_by = $this->username;
-                return $klinik->save();
+                if ($klinik->save()) {
+                    $kontak = new KontakCustom();
+                    $kontak->id_klinik = $klinik->id;
+                    $kontak->email = $this->email;
+                    return $kontak->save();
+                }
             }
         }
     }

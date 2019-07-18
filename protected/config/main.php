@@ -124,16 +124,9 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'notification@alulumterpadu.sch.id',
-		'basePath'=>'/ajdevel/www',
+		'basePath'=>'/www',
 		'uploadPath'=>array(
-			'image'=>'/www/alulum/assets/images/',
-			'banner'=>'/www/alulum/assets/images/',
-			'file'=>'/www/alulum/assets/files/',
-			'album'=>'/www/alulum/assets/album/'
+			'photo'=>'/www/alulum/assets/images/'
 		),
-		'cardPath'=>'assets/card/',
-		'imageUrl'=>'http://devel.local/alulum/assets/images/',
-		'fileUrl'=>'http://devel.local/alulum/assets/files/',
-		'albumUrl'=>'http://devel.local/alulum/assets/album/'
 	),
 );
