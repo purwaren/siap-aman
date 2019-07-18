@@ -2,17 +2,57 @@
 /* @var $this KlinikController */
 /* @var $model KlinikUpdateForm */
 /* @var $form CActiveForm */
+/* @var $photos array */
+
+
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/assets/plugins/bootstrap-fileinput/fileinput.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/assets/plugins/bootstrap-fileinput/css/fileinput.min.css');
-Yii::app()->clientScript->registerScript('upload',"
-		$('#uploadFile').fileinput({
-			showCaption: false,
-			uploadUrl: '".Yii::app()->createUrl('klinik/upload',array('type'=>'photo'))."',
-			uploadAsync: true,
-			maxFileCount: 5
-		});
-	");
-
+if (empty($photos)) {
+    Yii::app()->clientScript->registerScript('upload',"
+        $('#uploadFile').fileinput({
+            showCaption: false,
+            uploadUrl: '".Yii::app()->createUrl('klinik/upload',array('type'=>'photo'))."',
+            uploadAsync: true,
+            maxFileCount: 5
+        });
+    ", CClientScript::POS_READY);
+} else {
+    Yii::app()->clientScript->registerScript('upload',"
+        var baseUrl = '".Yii::app()->baseUrl."/';
+        var photos = ".CJSON::encode($photos).";
+        var deleteUrl = '".Yii::app()->createUrl('klinik/upload',array('type'=>'delete'))."';
+        var pathPhotos = [];
+        var jsonPhotos = [];
+        for (i=0; i<photos.length; i++) {
+            pathPhotos[i] = baseUrl+photos[i].path_foto;
+            jsonPhotos.push({
+                type: 'image',
+                url: deleteUrl,
+                key: photos[i].id
+            });
+        }
+        
+        $('#uploadFile').fileinput({
+            initialPreview: pathPhotos,
+            initialPreviewAsData: true,
+            initialPreviewFileType: 'image',
+            initialPreviewConfig: jsonPhotos,
+            uploadUrl: '".Yii::app()->createUrl('klinik/upload',array('type'=>'photo'))."',
+            overwriteInitial: false,
+            maxFileSize: 2048,
+            maxFileCount: 5
+        });
+    ", CClientScript::POS_READY);
+    Yii::app()->clientScript->registerScript('uploaded',"
+        $('#uploadFile').on('filepredelete', function() {
+            var abort = true;
+            if (confirm('Anda yakin menghapus foto ini?')) {
+                abort = false;
+            }
+            return abort;
+        });
+    ",CClientScript::POS_END);
+}
 ?>
 <?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'klinik-form',

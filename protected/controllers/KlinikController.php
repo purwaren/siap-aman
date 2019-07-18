@@ -182,14 +182,31 @@ class KlinikController extends Controller
 
     public function actionPhoto() {
 	    $model = new UploadFotoKlinikForm();
-	    $this->render('photo',array('model'=>$model));
+	    $klinik = KlinikCustom::model()->findByAttributes(array('id_user'=>Yii::app()->user->getId()));
+	    $photos = FotoKlinikCustom::model()->findAllByAttributes(array('id_klinik'=>$klinik->id));
+	    $this->render('photo',array(
+	        'model'=>$model,
+            'photos'=>$photos
+        ));
     }
 
     public function actionUpload($type) {
 	    if ($type == 'photo') {
 	        $model = new UploadFotoKlinikForm();
 	        $model->photo = $_FILES['file_data'];
-	        $model->save();
+	        if ($model->save()) {
+	            echo CJSON::encode(array(
+	                'filelink' => Yii::app()->baseUrl.'/'.$model->filename,
+                    'filename' => $model->deskripsi
+                ));
+            }
+        }
+	    elseif ($type == 'delete') {
+	        $model = FotoKlinikCustom::model()->findByPk($_POST['key']);
+	        if (!empty($model)) {
+	            $model->delete();
+                echo '{}';
+            }
         }
     }
 }
