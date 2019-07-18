@@ -32,6 +32,9 @@ class FasilitasKlinikCustom extends FasilitasKlinik
 
     public function getPenyelenggaraan() {
         $options = self::getAllPenyelenggaraanOptions();
-        return $options[$this->penyelenggaraan];
+        if (!empty($this->penyelenggaraan)) {
+            return $options[$this->penyelenggaraan];
+        }
+        else return null;
     }
 }

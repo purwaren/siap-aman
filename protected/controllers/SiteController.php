@@ -34,8 +34,17 @@ class SiteController extends Controller
 		    if (Yii::app()->user->isKlinik()) {
 		        $model = KlinikCustom::model()->findByAttributes(array('id_user'=>Yii::app()->user->getId()));
 		        $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$model->id));
+		        if (empty($alamat)) {
+		            $alamat = new AlamatCustom();
+                }
 		        $kontak = KontakCustom::model()->findByAttributes(array('id_klinik'=>$model->id));
+		        if (empty($kontak)) {
+		            $kontak = new KontakCustom();
+                }
 		        $fasilitas = FasilitasKlinikCustom::model()->findByAttributes(array('id_klinik'=>$model->id));
+		        if (empty($fasilitas)) {
+		            $fasilitas = new FasilitasKlinikCustom();
+                }
 		        $this->render('index-klinik',array(
 		            'model'=>$model,
                     'alamat' => $alamat,
