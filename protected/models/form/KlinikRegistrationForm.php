@@ -31,7 +31,7 @@ class KlinikRegistrationForm extends CFormModel
             $user->email = $this->email;
             $user->username = $this->username;
             $user->name = $this->penanggung_jawab;
-            $user->user_create = Yii::app()->user->getName();
+            $user->user_create = $this->username;
             $user->timestamp_created = new CDbExpression('NOW()');
             $user->password = CPasswordHelper::hashPassword($this->password);
             $user->salt = CPasswordHelper::generateSalt();
@@ -48,7 +48,7 @@ class KlinikRegistrationForm extends CFormModel
                 $klinik->nama = $this->nama_klinik;
                 $klinik->penanggung_jawab = $this->penanggung_jawab;
                 $klinik->created_at = new CDbExpression('NOW()');
-                $klinik->created_by = Yii::app()->user->getName();
+                $klinik->created_by = $this->username;
                 return $klinik->save();
             }
         }

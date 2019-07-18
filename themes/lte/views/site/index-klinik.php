@@ -1,6 +1,10 @@
 <?php
 /* @var $this Controller */
-/* @var $model Klinik */
+/* @var $model KlinikCustom */
+/* @var $alamat AlamatCustom */
+/* @var $kontak KontakCustom */
+/* @var $fasilitas FasilitasKlinikCustom */
+
 $this->pageTitle = 'Dashboard';
 ?>
 
@@ -11,6 +15,8 @@ $this->pageTitle = 'Dashboard';
             <h3 class="box-title">Profile Klinik</h3>
         </div>
         <div class="box-body">
+            <a href="<?php echo Yii::app()->createUrl('klinik/profile')?>" class="btn btn-primary"><i class="fa fa-edit"></i> Update Profile</a>
+            <h4><i>Informasi Umum</i></h4>
             <?php $this->widget('zii.widgets.CDetailView', array(
                 'data'=>$model,
                 'attributes'=>array(
@@ -27,12 +33,50 @@ $this->pageTitle = 'Dashboard';
                     'updated_by'
                 ),
                 'htmlOptions'=>array(
-                    'class'=>'table table-hover table-striped'
+                    'class'=>'table table-hover table-striped detil-klinik'
+                ),
+            )); ?>
+            <h4><i>Alamat Klinik</i></h4>
+            <?php $this->widget('zii.widgets.CDetailView', array(
+                'data'=>$alamat,
+                'attributes'=>array(
+                    'alamat_1',
+                    'alamat_2',
+                    'kecamatan',
+                    'kota',
+                    'provinsi'
+                ),
+                'htmlOptions'=>array(
+                    'class'=>'table table-hover table-striped detil-klinik'
+                ),
+            )); ?>
+            <h4><i>Kontak Klinik / Media Komunikasi </i></h4>
+            <?php $this->widget('zii.widgets.CDetailView', array(
+                'data'=>$kontak,
+                'attributes'=>array(
+                    'no_telp',
+                    'no_fax',
+                    'email',
+                    'website',
+                ),
+                'htmlOptions'=>array(
+                    'class'=>'table table-hover table-striped detil-klinik'
+                ),
+            )); ?>
+            <h4><i>Fasilitas yang Disediakan Klinik</i></h4>
+            <?php $this->widget('zii.widgets.CDetailView', array(
+                'data'=>$fasilitas,
+                'attributes'=>array(
+                    'qty_tempat_tidur',
+                    array('name'=>'penyelenggaraan', 'value'=>$fasilitas->getPenyelenggaraan()),
+                ),
+                'htmlOptions'=>array(
+                    'class'=>'table table-hover table-striped detil-klinik'
                 ),
             )); ?>
         </div>
         <div class="box-footer">
-            <a href="<?php echo Yii::app()->createUrl('klinik/profile')?>" class="btn btn-primary">Update Profile</a>
+            <a href="<?php echo Yii::app()->createUrl('klinik/profile')?>" class="btn btn-primary"><i class="fa fa-edit"></i> Update Profile</a>
         </div>
     </div>
 </section>

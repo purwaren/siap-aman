@@ -4,11 +4,15 @@
  * This is the model class for table "kontak".
  *
  * The followings are the available columns in table 'kontak':
+ * @property integer $id
  * @property integer $id_klinik
  * @property string $no_telp
  * @property string $no_fax
  * @property string $email
  * @property string $website
+ *
+ * The followings are the available model relations:
+ * @property Klinik $idKlinik
  */
 class Kontak extends CActiveRecord
 {
@@ -34,7 +38,7 @@ class Kontak extends CActiveRecord
 			array('email, website', 'length', 'max'=>128),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_klinik, no_telp, no_fax, email, website', 'safe', 'on'=>'search'),
+			array('id, id_klinik, no_telp, no_fax, email, website', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,6 +50,7 @@ class Kontak extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'idKlinik' => array(self::BELONGS_TO, 'Klinik', 'id_klinik'),
 		);
 	}
 
@@ -55,6 +60,7 @@ class Kontak extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'id' => 'ID',
 			'id_klinik' => 'Id Klinik',
 			'no_telp' => 'No Telp',
 			'no_fax' => 'No Fax',
@@ -81,6 +87,7 @@ class Kontak extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('id',$this->id);
 		$criteria->compare('id_klinik',$this->id_klinik);
 		$criteria->compare('no_telp',$this->no_telp,true);
 		$criteria->compare('no_fax',$this->no_fax,true);

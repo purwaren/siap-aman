@@ -4,9 +4,13 @@
  * This is the model class for table "fasilitas_klinik".
  *
  * The followings are the available columns in table 'fasilitas_klinik':
+ * @property integer $id
  * @property integer $id_klinik
  * @property integer $qty_tempat_tidur
  * @property string $penyelenggaraan
+ *
+ * The followings are the available model relations:
+ * @property Klinik $idKlinik
  */
 class FasilitasKlinik extends CActiveRecord
 {
@@ -31,7 +35,7 @@ class FasilitasKlinik extends CActiveRecord
 			array('penyelenggaraan', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_klinik, qty_tempat_tidur, penyelenggaraan', 'safe', 'on'=>'search'),
+			array('id, id_klinik, qty_tempat_tidur, penyelenggaraan', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -43,6 +47,7 @@ class FasilitasKlinik extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'idKlinik' => array(self::BELONGS_TO, 'Klinik', 'id_klinik'),
 		);
 	}
 
@@ -52,6 +57,7 @@ class FasilitasKlinik extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'id' => 'ID',
 			'id_klinik' => 'Id Klinik',
 			'qty_tempat_tidur' => 'Qty Tempat Tidur',
 			'penyelenggaraan' => 'Penyelenggaraan',
@@ -76,6 +82,7 @@ class FasilitasKlinik extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('id',$this->id);
 		$criteria->compare('id_klinik',$this->id_klinik);
 		$criteria->compare('qty_tempat_tidur',$this->qty_tempat_tidur);
 		$criteria->compare('penyelenggaraan',$this->penyelenggaraan,true);

@@ -49,6 +49,13 @@
                     'visible'=>Yii::app()->user->isKlinik()
                 ),
                 array(
+                    'label'=>'<i class="fa fa-upload"></i> <span>Upload Dokumen</span> <i class="fa fa-angle-left pull-right"></i>',
+                    'url'=>array('klinik/upload'),
+                    'itemOptions'=>array('class'=>'treeview'),
+                    'visible'=>Yii::app()->user->isKlinik()
+                ),
+
+                array(
                     'label'=>'<i class="fa fa-users"></i> <span>Data Suku Dinas</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>array('/sudin/admin'),
                     'itemOptions'=>array('class'=>'treeview'),

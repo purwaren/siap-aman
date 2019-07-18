@@ -4,9 +4,13 @@
  * This is the model class for table "foto_klinik".
  *
  * The followings are the available columns in table 'foto_klinik':
+ * @property integer $id
  * @property integer $id_klinik
  * @property string $path_foto
  * @property string $deskripsi
+ *
+ * The followings are the available model relations:
+ * @property Klinik $idKlinik
  */
 class FotoKlinik extends CActiveRecord
 {
@@ -32,7 +36,7 @@ class FotoKlinik extends CActiveRecord
 			array('deskripsi', 'length', 'max'=>512),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_klinik, path_foto, deskripsi', 'safe', 'on'=>'search'),
+			array('id, id_klinik, path_foto, deskripsi', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -44,6 +48,7 @@ class FotoKlinik extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'idKlinik' => array(self::BELONGS_TO, 'Klinik', 'id_klinik'),
 		);
 	}
 
@@ -53,6 +58,7 @@ class FotoKlinik extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'id' => 'ID',
 			'id_klinik' => 'Id Klinik',
 			'path_foto' => 'Path Foto',
 			'deskripsi' => 'Deskripsi',
@@ -77,6 +83,7 @@ class FotoKlinik extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('id',$this->id);
 		$criteria->compare('id_klinik',$this->id_klinik);
 		$criteria->compare('path_foto',$this->path_foto,true);
 		$criteria->compare('deskripsi',$this->deskripsi,true);

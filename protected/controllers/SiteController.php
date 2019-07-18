@@ -33,7 +33,15 @@ class SiteController extends Controller
 		else {
 		    if (Yii::app()->user->isKlinik()) {
 		        $model = KlinikCustom::model()->findByAttributes(array('id_user'=>Yii::app()->user->getId()));
-		        $this->render('index-klinik',array('model'=>$model));
+		        $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$model->id));
+		        $kontak = KontakCustom::model()->findByAttributes(array('id_klinik'=>$model->id));
+		        $fasilitas = FasilitasKlinikCustom::model()->findByAttributes(array('id_klinik'=>$model->id));
+		        $this->render('index-klinik',array(
+		            'model'=>$model,
+                    'alamat' => $alamat,
+                    'kontak' => $kontak,
+                    'fasilitas' => $fasilitas
+                ));
             }
 		    else $this->render('index');
         }

@@ -165,10 +165,15 @@ class KlinikController extends Controller
 
     /**
      * Display / Update currently login klinik profile
+     * @throws CDbException
      */
 	public function actionProfile() {
 
 	    $model = KlinikUpdateForm::getInstance(Yii::app()->user->getId());
+	    if (isset($_POST['KlinikUpdateForm'])) {
+	        $model->attributes = $_POST['KlinikUpdateForm'];
+	        $model->save();
+        }
 
 	    $this->render('profile',array(
 	        'model'=>$model

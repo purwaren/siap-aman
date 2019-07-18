@@ -23,6 +23,15 @@
 		</div>
 	</div>
 	<div class="box-body">
+        <?php if ($success=Yii::app()->user->getFlash('success')) { ?>
+        <div class="alert alert-success">
+            <?php echo $success ?>
+        </div>
+        <?php } elseif ($error=Yii::app()->user->getFlash('error')) { ?>
+        <div class="alert alert-error">
+            <?php echo $error ?>
+        </div>
+        <?php } ?>
         <h4><i>Informasi Umum Terkait Klinik</i></h4>
         <div class="col-lg-12">
             <div class="form-group">
@@ -129,8 +138,8 @@
         </div>
 	</div><!-- /.box-body -->
 	<div class="box-footer">
-		<?php echo CHtml::submitButton('Simpan',array('class'=>'btn btn-success')); ?>
-		<?php echo CHtml::linkButton('Batal',array('class'=>'btn btn-danger','href'=>array('site/index'))); ?>
+        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
+        <a href="<?php echo Yii::app()->createUrl('site/index')?>" class="btn btn-danger"><i class="fa fa-times"></i> Batal</a>
 	</div>
 </div><!-- /.box -->
 

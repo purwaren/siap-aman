@@ -55,6 +55,11 @@ class KlinikUpdateForm extends CFormModel
         );
     }
 
+    /**
+     * Get instance for this model
+     * @param $id_user
+     * @return KlinikUpdateForm
+     */
     public static function getInstance($id_user) {
         $form = new KlinikUpdateForm();
         $klinik = KlinikCustom::model()->findByAttributes(array('id_user'=>$id_user));
@@ -85,5 +90,58 @@ class KlinikUpdateForm extends CFormModel
             }
         }
         return $form;
+    }
+
+    /**
+     * @throws CDbException
+     */
+    public function save() {
+        if ($this->validate()) {
+            //save data klinik
+            $klinik = KlinikCustom::model()->findByAttributes(array('id_user'=>$this->id_user));
+            if (!empty($klinik)) {
+                $klinik->attributes = $this->attributes;
+                $klinik->updated_at = new CDbExpression('NOW()');
+                $klinik->updated_by = Yii::app()->user->getName();
+                $klinik->update(array('kode_klinik','nama','no_izin', 'kepemilikan', 'penanggung_jawab','karakteristik',
+                    'tingkatan','updated_at','updated_by'));
+                Yii::app()->user->setFlash('success', 'Data klinik telah diperbarui');
+            }
+            else {
+                var_dump($klinik->getErrors());die();
+            }
+
+            //save data alamat
+            $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
+            if (empty($alamat)) {
+                $alamat = new AlamatCustom();
+            }
+            $alamat->attributes = $this->attributes;
+            $alamat->id_klinik = $klinik->id;
+            $alamat->save();
+
+            //save data kontak
+            $kontak = KontakCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
+            if (empty($kontak)) {
+                $kontak = new KontakCustom();
+            }
+            $kontak->attributes = $this->attributes;
+            $kontak->id_klinik = $klinik->id;
+            $kontak->save();
+
+            //save data fasilitas klinik
+            $fasilitas = FasilitasKlinikCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
+            if (empty($fasilitas)) {
+                $fasilitas = new FasilitasKlinikCustom();
+            }
+            $fasilitas->attributes = $this->attributes;
+            $fasilitas->id_klinik = $klinik->id;
+            $fasilitas->save();
+
+            return true;
+        }
+        else {
+            var_dump($this->getErrors());die();
+        }
     }
 }
