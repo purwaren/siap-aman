@@ -37,20 +37,14 @@
                     'visible'=>Yii::app()->user->isKlinik()
                 ),
                 array(
-                    'label'=>'<i class="fa fa-image"></i> <span>Foto Klinik</span> <i class="fa fa-angle-left pull-right"></i>',
+                    'label'=>'<i class="fa fa-image"></i> <span>Upload Foto</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>array('klinik/photo'),
                     'itemOptions'=>array('class'=>'treeview'),
                     'visible'=>Yii::app()->user->isKlinik()
                 ),
                 array(
-                    'label'=>'<i class="fa fa-file-text"></i> <span>Pengajuan Akreditasi</span> <i class="fa fa-angle-left pull-right"></i>',
-                    'url'=>array('klinik/assessment'),
-                    'itemOptions'=>array('class'=>'treeview'),
-                    'visible'=>Yii::app()->user->isKlinik()
-                ),
-                array(
-                    'label'=>'<i class="fa fa-upload"></i> <span>Upload Dokumen</span> <i class="fa fa-angle-left pull-right"></i>',
-                    'url'=>array('klinik/upload'),
+                    'label'=>'<i class="fa fa-file-text"></i> <span>Pengajuan Permohonan</span> <i class="fa fa-angle-left pull-right"></i>',
+                    'url'=>array('klinik/submit'),
                     'itemOptions'=>array('class'=>'treeview'),
                     'visible'=>Yii::app()->user->isKlinik()
                 ),
@@ -74,6 +68,7 @@
                     'items'=>array(
                         array('label'=>'<i class="fa fa-file-text"></i> Daftar Klinik','url'=>array('/klinik/admin')),
                         array('label'=>'<i class="fa fa-file-word-o"></i> Usulan Akreditasi','url'=>array('/klinik/admin')),
+                        array('label'=>'<i class="fa fa-file-word-o"></i> Pemantauan Pendampingan','url'=>array('/klinik/monitor')),
                         array('label'=>'<i class="fa fa-file-excel-o"></i> Nilai Akreditasi','url'=>array('/klinik/admin')),
                     ),
                     'encodeLabel'=>false,

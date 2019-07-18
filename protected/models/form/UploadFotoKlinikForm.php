@@ -12,7 +12,7 @@ class UploadFotoKlinikForm extends CFormModel
 
     public function save() {
         $this->photo = CUploadedFile::getInstanceByName('file_data');
-        $filename = 'img_'.date('YmdHis').'.'.$this->photo->extensionName;
+        $filename = 'img_'.date('YmdHis').'_'.rand(100, 9999).'.'.$this->photo->extensionName;
         $path = Yii::app()->params['uploadPath']['photo'].$filename;
         $this->filename = Yii::app()->params['urlPhoto'].$filename;
         $original_name = $this->photo->name;
