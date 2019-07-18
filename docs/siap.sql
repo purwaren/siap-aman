@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 17, 2019 at 12:28 PM
+-- Generation Time: Jul 18, 2019 at 02:03 AM
 -- Server version: 10.3.16-MariaDB-1:10.3.16+maria~stretch-log
 -- PHP Version: 5.6.40-8+0~20190531120521.15+stretch~1.gbpa77d1d
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `alamat` (
+  `id` int(11) NOT NULL,
   `id_klinik` int(10) NOT NULL,
   `alamat_1` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat_2` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -36,6 +37,13 @@ CREATE TABLE `alamat` (
   `kota` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `provinsi` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `alamat`
+--
+
+INSERT INTO `alamat` (`id`, `id_klinik`, `alamat_1`, `alamat_2`, `kecamatan`, `kota`, `provinsi`) VALUES
+(1, 1, 'Jalan Mawar No 16', '', 'Pancoran', 'Jakarta Selatan', 'DKI Jakarta');
 
 -- --------------------------------------------------------
 
@@ -57,6 +65,7 @@ CREATE TABLE `authassignment` (
 INSERT INTO `authassignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('admin', 1, NULL, NULL),
 ('klinik', 8, NULL, 'N;'),
+('klinik', 9, NULL, 'N;'),
 ('sudin', 2, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -117,10 +126,18 @@ CREATE TABLE `berkas_akreditasi` (
 --
 
 CREATE TABLE `fasilitas_klinik` (
+  `id` int(11) NOT NULL,
   `id_klinik` int(10) NOT NULL,
   `qty_tempat_tidur` int(10) DEFAULT NULL,
   `penyelenggaraan` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `fasilitas_klinik`
+--
+
+INSERT INTO `fasilitas_klinik` (`id`, `id_klinik`, `qty_tempat_tidur`, `penyelenggaraan`) VALUES
+(1, 1, 10, 'rawat_inap');
 
 -- --------------------------------------------------------
 
@@ -129,6 +146,7 @@ CREATE TABLE `fasilitas_klinik` (
 --
 
 CREATE TABLE `foto_klinik` (
+  `id` int(11) NOT NULL,
   `id_klinik` int(10) NOT NULL,
   `path_foto` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deskripsi` varchar(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL
@@ -161,7 +179,8 @@ CREATE TABLE `klinik` (
 --
 
 INSERT INTO `klinik` (`id`, `id_user`, `kode_klinik`, `nama`, `no_izin`, `kepemilikan`, `penanggung_jawab`, `karakteristik`, `tingkatan`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
-(1, 8, NULL, 'Sentra Medika', NULL, NULL, 'Purwa Ren', NULL, NULL, 'Guest', '2019-07-17 10:27:27', NULL, NULL);
+(1, 8, 'KL001', 'Sentra Medika', '01/MARET/2019', 'Pribadi', 'Purwa Ren', 'Karakterisik', 'dasar', 'Guest', '2019-07-17 10:27:27', 'purwaren', '2019-07-18 02:02:36'),
+(2, 9, NULL, 'Medika Sejahtera', NULL, NULL, 'Nafis Pradana', NULL, NULL, 'Guest', '2019-07-17 12:55:13', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -170,12 +189,20 @@ INSERT INTO `klinik` (`id`, `id_user`, `kode_klinik`, `nama`, `no_izin`, `kepemi
 --
 
 CREATE TABLE `kontak` (
+  `id` int(11) NOT NULL,
   `id_klinik` int(10) NOT NULL,
   `no_telp` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `no_fax` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `website` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kontak`
+--
+
+INSERT INTO `kontak` (`id`, `id_klinik`, `no_telp`, `no_fax`, `email`, `website`) VALUES
+(1, 1, '021 665772', '', 'sentra.medika@gmail.com', '');
 
 -- --------------------------------------------------------
 
@@ -228,6 +255,18 @@ CREATE TABLE `ref_tipe_berkas` (
   `id` int(10) NOT NULL,
   `nama` varchar(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ref_tipe_berkas`
+--
+
+INSERT INTO `ref_tipe_berkas` (`id`, `nama`) VALUES
+(1, 'Surat Permohonan'),
+(2, 'Profil Klinik'),
+(3, 'Laporan Pra Survey'),
+(4, 'Surat Pengantar'),
+(5, 'Instrumen Pemantauan'),
+(6, 'Rekomendasi');
 
 -- --------------------------------------------------------
 
@@ -322,7 +361,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `salt`, `status`, `flag_delete`, `login_atemp`, `last_login_attempt`, `last_login_time`, `timestamp_created`, `timestamp_updated`, `user_create`, `user_update`) VALUES
 (1, 'Administrator', 'admin', 'and.thau@gmail.com', '$2y$13$2Qd1NqjjIj5Eyt1iVzcdT.8DNBaeI4NlIhvgg5L8sk0wpENWcjtg2', '$2y$13$jv/n.WhUXe0OdfVlkIGnc2', 1, 0, 0, NULL, NULL, '2016-03-17 13:28:17', NULL, 'admin', NULL),
 (2, 'Purwanto', 'purwa', 'purwanto@modefashiongroup.com', '$2y$13$E/8Q2W27QpEiEGBpZPW5HuoohCvsrKq.p.NtU8Pdr64RzyHDPM7/C', '$2y$13$rwqp1gCirA8u6cHtW/GlhT', 1, 0, 0, NULL, NULL, '2016-03-17 13:36:49', NULL, 'admin', NULL),
-(8, 'Purwa Ren', 'purwaren', 'and.thau@gmail.com', '$2y$13$6cn8stmeXKUgYxWLkEPYauTPC69Kuy/6XVQy1qntktvhOrYpNQRpK', '$2y$13$3HLDJSnByAFBCkaFbZJypu', 1, 0, 0, NULL, NULL, '2019-07-17 10:27:27', NULL, 'Guest', NULL);
+(8, 'Purwa Ren', 'purwaren', 'and.thau@gmail.com', '$2y$13$6cn8stmeXKUgYxWLkEPYauTPC69Kuy/6XVQy1qntktvhOrYpNQRpK', '$2y$13$3HLDJSnByAFBCkaFbZJypu', 1, 0, 0, NULL, NULL, '2019-07-17 10:27:27', NULL, 'Guest', NULL),
+(9, 'Nafis Pradana', 'nafis', 'nafis@gmail.com', '$2y$13$.EKgtKvey5VqXDFpWChBRuw2bO/9kb/7uRFRkviQnX.QxitI2Csri', '$2y$13$XUFVMGfrX1ejsSChAmBx16', 1, 0, 0, NULL, NULL, '2019-07-17 12:55:13', NULL, 'Guest', NULL);
 
 -- --------------------------------------------------------
 
@@ -341,11 +381,18 @@ CREATE TABLE `YiiSession` (
 --
 
 INSERT INTO `YiiSession` (`id`, `expire`, `data`) VALUES
-('qfrrrf3klj6du09kscmia8hkm1', 1563365372, 0x5969692e4343617074636861416374696f6e2e35386265396262322e736974652e636170746368617c733a363a227269767a7861223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e63617074636861636f756e747c693a323b34323964363865393037363862326537623433366639343566363539663264645f5f69647c733a313a2231223b34323964363865393037363862326537623433366639343566363539663264645f5f6e616d657c733a353a2261646d696e223b343239643638653930373638623265376234333666393435663635396632646466756c6c6e616d657c733a31333a2241646d696e6973747261746f72223b34323964363865393037363862326537623433366639343566363539663264645f5f7374617465737c613a313a7b733a383a2266756c6c6e616d65223b623a313b7d);
+('pe11trl82sv3kbet6h39bnd9l3', 1563416258, 0x5969692e4343617074636861416374696f6e2e35386265396262322e736974652e636170746368617c733a373a227075646f736f72223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e63617074636861636f756e747c693a323b34323964363865393037363862326537623433366639343566363539663264645f5f69647c733a313a2238223b34323964363865393037363862326537623433366639343566363539663264645f5f6e616d657c733a383a22707572776172656e223b343239643638653930373638623265376234333666393435663635396632646466756c6c6e616d657c733a393a2250757277612052656e223b34323964363865393037363862326537623433366639343566363539663264645f5f7374617465737c613a313a7b733a383a2266756c6c6e616d65223b623a313b7d6769695f5f72657475726e55726c7c733a31393a222f736961702f696e6465782e7068702f676969223b6769695f5f69647c733a353a227969696572223b6769695f5f6e616d657c733a353a227969696572223b6769695f5f7374617465737c613a303a7b7d);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `alamat`
+--
+ALTER TABLE `alamat`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `alamat_fk_id_klinik` (`id_klinik`);
 
 --
 -- Indexes for table `authassignment`
@@ -369,12 +416,33 @@ ALTER TABLE `authitemchild`
   ADD KEY `child` (`child`);
 
 --
+-- Indexes for table `fasilitas_klinik`
+--
+ALTER TABLE `fasilitas_klinik`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fasilitas_fk_id_klinik` (`id_klinik`);
+
+--
+-- Indexes for table `foto_klinik`
+--
+ALTER TABLE `foto_klinik`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `foto_fk_id_klinik` (`id_klinik`);
+
+--
 -- Indexes for table `klinik`
 --
 ALTER TABLE `klinik`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `kode_klinik` (`kode_klinik`),
   ADD KEY `fk_klinik_id_user` (`id_user`);
+
+--
+-- Indexes for table `kontak`
+--
+ALTER TABLE `kontak`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `kontak_fk_id_klinik` (`id_klinik`);
 
 --
 -- Indexes for table `pendamping`
@@ -420,16 +488,40 @@ ALTER TABLE `YiiSession`
 --
 
 --
+-- AUTO_INCREMENT for table `alamat`
+--
+ALTER TABLE `alamat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `authitem`
 --
 ALTER TABLE `authitem`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `fasilitas_klinik`
+--
+ALTER TABLE `fasilitas_klinik`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `foto_klinik`
+--
+ALTER TABLE `foto_klinik`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `klinik`
 --
 ALTER TABLE `klinik`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `kontak`
+--
+ALTER TABLE `kontak`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pendamping`
@@ -447,7 +539,7 @@ ALTER TABLE `pengajuan_akreditasi`
 -- AUTO_INCREMENT for table `ref_tipe_berkas`
 --
 ALTER TABLE `ref_tipe_berkas`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sudin`
@@ -459,11 +551,17 @@ ALTER TABLE `sudin`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `alamat`
+--
+ALTER TABLE `alamat`
+  ADD CONSTRAINT `alamat_fk_id_klinik` FOREIGN KEY (`id_klinik`) REFERENCES `klinik` (`id`);
 
 --
 -- Constraints for table `authassignment`
@@ -480,10 +578,28 @@ ALTER TABLE `authitemchild`
   ADD CONSTRAINT `authitemchild_ibfk_2` FOREIGN KEY (`child`) REFERENCES `authitem` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `fasilitas_klinik`
+--
+ALTER TABLE `fasilitas_klinik`
+  ADD CONSTRAINT `fasilitas_fk_id_klinik` FOREIGN KEY (`id_klinik`) REFERENCES `klinik` (`id`);
+
+--
+-- Constraints for table `foto_klinik`
+--
+ALTER TABLE `foto_klinik`
+  ADD CONSTRAINT `foto_fk_id_klinik` FOREIGN KEY (`id_klinik`) REFERENCES `klinik` (`id`);
+
+--
 -- Constraints for table `klinik`
 --
 ALTER TABLE `klinik`
   ADD CONSTRAINT `fk_klinik_id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `kontak`
+--
+ALTER TABLE `kontak`
+  ADD CONSTRAINT `kontak_fk_id_klinik` FOREIGN KEY (`id_klinik`) REFERENCES `klinik` (`id`);
 
 --
 -- Constraints for table `pendamping`
