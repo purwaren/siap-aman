@@ -39,4 +39,8 @@ class KlinikCustom extends Klinik
             'paripurna'=>'Paripurna'
         );
     }
+
+    public static function getInstance() {
+        return self::model()->findByAttributes(array('id_user'=>Yii::app()->user->getId()));
+    }
 }

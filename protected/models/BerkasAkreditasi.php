@@ -4,12 +4,16 @@
  * This is the model class for table "berkas_akreditasi".
  *
  * The followings are the available columns in table 'berkas_akreditasi':
+ * @property integer $id
  * @property integer $id_pengajuan
  * @property integer $tipe_berkas
  * @property string $file_path
  * @property string $deskripsi
  * @property string $created_by
  * @property string $created_at
+ *
+ * The followings are the available model relations:
+ * @property PengajuanAkreditasi $idPengajuan
  */
 class BerkasAkreditasi extends CActiveRecord
 {
@@ -37,7 +41,7 @@ class BerkasAkreditasi extends CActiveRecord
 			array('created_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_pengajuan, tipe_berkas, file_path, deskripsi, created_by, created_at', 'safe', 'on'=>'search'),
+			array('id, id_pengajuan, tipe_berkas, file_path, deskripsi, created_by, created_at', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -49,6 +53,7 @@ class BerkasAkreditasi extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'idPengajuan' => array(self::BELONGS_TO, 'PengajuanAkreditasi', 'id_pengajuan'),
 		);
 	}
 
@@ -58,6 +63,7 @@ class BerkasAkreditasi extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'id' => 'ID',
 			'id_pengajuan' => 'Id Pengajuan',
 			'tipe_berkas' => 'Tipe Berkas',
 			'file_path' => 'File Path',
@@ -85,6 +91,7 @@ class BerkasAkreditasi extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('id',$this->id);
 		$criteria->compare('id_pengajuan',$this->id_pengajuan);
 		$criteria->compare('tipe_berkas',$this->tipe_berkas);
 		$criteria->compare('file_path',$this->file_path,true);

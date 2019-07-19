@@ -126,8 +126,10 @@ return array(
 		'adminEmail'=>'notification@alulumterpadu.sch.id',
 		'basePath'=>'/www',
 		'uploadPath'=>array(
-			'photo'=>'/www/siap/assets/images/'
+			'photo'=>'/www/siap/assets/images/',
+			'doc'=>'/www/siap/assets/docs/'
 		),
-        'urlPhoto'=>'assets/images/'
+        'urlPhoto'=>'assets/images/',
+        'urlDoc'=>'assets/docs/',
 	),
 );

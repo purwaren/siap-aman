@@ -28,7 +28,7 @@ class KlinikController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','index','view','profile','photo','upload'),
+				'actions'=>array('create','update','admin','delete','index','view','profile','photo','upload','submit','document'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -190,7 +190,7 @@ class KlinikController extends Controller
         ));
     }
 
-    public function actionUpload($type) {
+    public function actionUpload($type, $file_type='') {
 	    if ($type == 'photo') {
 	        $model = new UploadFotoKlinikForm();
 	        $model->photo = $_FILES['file_data'];
@@ -208,5 +208,35 @@ class KlinikController extends Controller
                 echo '{}';
             }
         }
+
+	    elseif ($type == 'document') {
+	        $model = new UploadBerkasAkreditasiForm();
+	        $model->file = $_FILES['file_data'];
+	        $model->type = $file_type;
+            if ($model->save()) {
+                echo CJSON::encode(array(
+                    'filelink' => Yii::app()->baseUrl.'/'.$model->filename,
+                    'filename' => $model->deskripsi
+                ));
+            }
+        }
+    }
+
+    public function actionDocument() {
+        $model = new UploadBerkasAkreditasiForm();
+        $pengajuan = PengajuanAkreditasiCustom::getInstance();
+        $doc = new BerkasAkreditasiCustom();
+        $doc->id_pengajuan = $pengajuan->id;
+	    $this->render('document',array(
+            'model'=>$model,
+            'doc'=>$doc
+        ));
+    }
+
+    public function actionSubmit() {
+
+	    $this->render('submit',array(
+
+        ));
     }
 }

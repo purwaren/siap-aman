@@ -43,6 +43,12 @@
                     'visible'=>Yii::app()->user->isKlinik()
                 ),
                 array(
+                    'label'=>'<i class="fa fa-archive"></i> <span>Upload Dokumen</span> <i class="fa fa-angle-left pull-right"></i>',
+                    'url'=>array('klinik/document'),
+                    'itemOptions'=>array('class'=>'treeview'),
+                    'visible'=>Yii::app()->user->isKlinik()
+                ),
+                array(
                     'label'=>'<i class="fa fa-file-text"></i> <span>Pengajuan Permohonan</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>array('klinik/submit'),
                     'itemOptions'=>array('class'=>'treeview'),
