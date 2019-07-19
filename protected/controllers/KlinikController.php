@@ -28,9 +28,13 @@ class KlinikController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','index','view','profile','photo','upload','submit','document'),
+				'actions'=>array('create','update','admin','delete','index','view'),
 				'users'=>array('@'),
 			),
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions'=>array('profile','photo','upload','submit','document'),
+                'users'=>array('klinik'),
+            ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -216,7 +220,7 @@ class KlinikController extends Controller
             if ($model->save()) {
                 echo CJSON::encode(array(
                     'filelink' => Yii::app()->baseUrl.'/'.$model->filename,
-                    'filename' => $model->deskripsi
+                    'filename' => $model->description
                 ));
             }
         }
