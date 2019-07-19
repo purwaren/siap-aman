@@ -43,4 +43,17 @@ class KlinikCustom extends Klinik
     public static function getInstance() {
         return self::model()->findByAttributes(array('id_user'=>Yii::app()->user->getId()));
     }
+
+    public function isComplete() {
+        return $this->validate();
+    }
+
+
+
+    public function hasPhotos() {
+        $photos = FotoKlinikCustom::model()->countByAttributes(array(
+            'id_klinik'=> $this->id
+        ));
+        return $photos;
+    }
 }

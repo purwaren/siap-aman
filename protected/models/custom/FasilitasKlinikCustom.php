@@ -37,4 +37,8 @@ class FasilitasKlinikCustom extends FasilitasKlinik
         }
         else return null;
     }
+
+    public function isComplete() {
+        return $this->validate();
+    }
 }

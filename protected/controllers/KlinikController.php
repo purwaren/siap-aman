@@ -234,9 +234,18 @@ class KlinikController extends Controller
     }
 
     public function actionSubmit() {
+        $klinik = KlinikCustom::getInstance();
+        $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
+        $kontak = KontakCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
+        $fasilitas = FasilitasKlinikCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
+        $pengajuan = PengajuanAkreditasiCustom::getInstance();
 
-	    $this->render('submit',array(
-
+        $this->render('submit',array(
+            'klinik'=>$klinik,
+            'alamat'=>$alamat,
+            'kontak'=>$kontak,
+            'fasilitas'=>$fasilitas,
+            'pengajuan'=>$pengajuan
         ));
     }
 }

@@ -34,4 +34,11 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
         }
         return $model;
     }
+
+    public function hasDocuments() {
+        $docs = BerkasAkreditasiCustom::model()->countByAttributes(array(
+            'id_pengajuan'=>$this->id
+        ));
+        return $docs;
+    }
 }
