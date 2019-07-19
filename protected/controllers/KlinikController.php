@@ -33,7 +33,7 @@ class KlinikController extends Controller
 			),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions'=>array('profile','photo','upload','submit','document'),
-                'users'=>array('klinik'),
+                'roles'=>array('klinik'),
             ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
