@@ -61,7 +61,8 @@
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($model,'karakteristik'); ?>
-                <?php echo $form->textField($model,'karakteristik',array('class'=>'form-control')); ?>
+                <?php echo $form->dropDownList($model,'karakteristik',KlinikCustom::getAllJenisKlinikOptions(),
+                    array('class'=>'form-control', 'prompt'=>'Pilih Jenis Klinik')); ?>
                 <?php echo $form->error($model,'karakteristik'); ?>
             </div>
             <div class="form-group">

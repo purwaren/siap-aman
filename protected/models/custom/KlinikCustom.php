@@ -15,7 +15,7 @@ class KlinikCustom extends Klinik
             'no_izin' => 'No Izin',
             'kepemilikan' => 'Kepemilikan',
             'penanggung_jawab' => 'Penanggung Jawab',
-            'karakteristik' => 'Karakteristik',
+            'karakteristik' => 'Jenis Klinik',
             'tingkatan' => 'Tingkatan',
             'created_by' => 'Dibuat Oleh',
             'created_at' => 'Waktu Entri',
@@ -55,5 +55,12 @@ class KlinikCustom extends Klinik
             'id_klinik'=> $this->id
         ));
         return $photos;
+    }
+
+    public static function getAllJenisKlinikOptions() {
+        return array(
+            'pratama' => 'Pratama',
+            'utama'=> 'Utama'
+        );
     }
 }

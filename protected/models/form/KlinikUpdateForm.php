@@ -52,7 +52,8 @@ class KlinikUpdateForm extends CFormModel
             'alamat_1' => 'Alamat (Jalan/RT/RW)',
             'alamat_2' => 'Alamat (Perumahan/Kelurahan)',
             'qty_tempat_tidur' => 'Jumlah Tempat Tidur',
-            'penyelenggaraan' => 'Kemampuan Penyelenggaraan'
+            'penyelenggaraan' => 'Kemampuan Penyelenggaraan',
+            'karakteristik' => 'Jenis Klinik'
         );
     }
 

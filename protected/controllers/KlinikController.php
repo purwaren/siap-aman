@@ -247,7 +247,6 @@ class KlinikController extends Controller
         $form_pengajuan->jenis_pengajuan = $pengajuan->jenis_pengajuan;
 
         if (isset($_POST['PengajuanAkreditasiForm'])) {
-            die();
             $form_pengajuan->attributes = $_POST['PengajuanAkreditasiForm'];
             $form_pengajuan->pengajuan = $pengajuan;
             if ($form_pengajuan->save()) {
