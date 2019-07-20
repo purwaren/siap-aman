@@ -27,7 +27,7 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$this->layout = '//layouts/column2';
+        $this->layout = '//layouts/column2';
 		if(Yii::app()->user->isGuest)
 			$this->redirect(array('login'));
 		else {

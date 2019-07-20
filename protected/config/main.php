@@ -22,6 +22,7 @@ return array(
 		'application.models.constant.*',
 		'application.models.custom.*',
 		'application.components.*',
+        'application.vendors.phpexcel.PHPExcel'
 	),
 
 	'modules'=>array(

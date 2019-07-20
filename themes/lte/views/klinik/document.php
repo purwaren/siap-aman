@@ -13,5 +13,9 @@ $this->breadcrumbs = array(
 ?>
 <!-- Main content -->
 <section class="content">
-    <?php $this->renderPartial('_formUploadDocument',array('model'=>$model,'doc'=>$doc))?>
+    <?php $this->renderPartial('_formUploadDocument',array(
+        'model'=>$model,
+        'doc'=>$doc,
+        'sa_resume'=>$sa_resume
+    ))?>
 </section><!-- /.content -->

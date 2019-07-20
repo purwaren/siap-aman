@@ -3,6 +3,7 @@
 /* @var $model KlinikUpdateForm */
 /* @var $form CActiveForm */
 /* @var $doc BerkasAkreditasiCustom */
+/* @var $sa_resume SAResumeCustom */
 
 
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/assets/plugins/bootstrap-fileinput/fileinput.min.js', CClientScript::POS_END);
@@ -41,7 +42,7 @@ if (empty($photos)) {
 ));
 ?>
 <!-- Default box -->
-<div class="box">
+<div class="box box-primary">
 	<div class="box-header with-border">
 		<h3 class="box-title"><small>Upload dokumen pendukung untuk permohonan akreditasi</small></h3>
 		<div class="box-tools pull-right">
@@ -129,6 +130,47 @@ if (empty($photos)) {
                 'template'=>'{items}'
             )); ?>
         </div>
+
 	</div><!-- /.box-body -->
 </div><!-- /.box -->
 <?php $this->endWidget(); ?>
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title"><small>Ringkasan penilaian Self Assessment</small></h3>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+            <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="col-lg-12">
+            <?php $this->widget('zii.widgets.grid.CGridView', array(
+                'id'=>'sa-resume-grid',
+                'dataProvider'=>$sa_resume->search(),
+                //'filter'=>$model,
+                'columns'=>array(
+                    array(
+                        'header'=>'No',
+                        'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize+$row+1'
+                    ),
+                    'bab',
+                    'score',
+                    'max_score',
+                    array(
+                        'header'=>'Capaian',
+                        'value'=>0
+                    ),
+                ),
+                'htmlOptions' => array(
+                    'class' => 'table table-striped'
+                ),
+                'pagerCssClass' => 'dataTables_paginate paging_bootstrap',
+                'itemsCssClass' => 'table table-striped table-hover',
+                'cssFile' => false,
+                'summaryCssClass' => 'dataTables_info',
+                'template'=>'{items}'
+            )); ?>
+        </div>
+    </div>
+</div>
+

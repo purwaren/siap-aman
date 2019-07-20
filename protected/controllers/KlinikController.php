@@ -231,9 +231,14 @@ class KlinikController extends Controller
         $pengajuan = PengajuanAkreditasiCustom::getInstance();
         $doc = new BerkasAkreditasiCustom();
         $doc->id_pengajuan = $pengajuan->id;
+        $sa_resume = SAResumeCustom::model()->findByAttributes(array('id_pengajuan'=>$pengajuan->id));
+        if (empty($sa_resume)) {
+            $sa_resume = new SAResumeCustom();
+        }
 	    $this->render('document',array(
             'model'=>$model,
-            'doc'=>$doc
+            'doc'=>$doc,
+            'sa_resume'=>$sa_resume
         ));
     }
 
