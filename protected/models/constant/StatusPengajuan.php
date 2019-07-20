@@ -9,4 +9,14 @@ class StatusPengajuan
     const VISIT = 3;
     const DITERIMA = 4;
     const REKOMENDASI = 5;
+
+    public static function getAllStatusPengajuanOptions() {
+        return array(
+            self::DRAFT => 'Draft',
+            self::DIAJUKAN => 'Diajukan',
+            self::DITOLAK => 'Ditolak',
+            self::DITERIMA => 'Diterima',
+            self::REKOMENDASI => 'Rekomendasi',
+        );
+    }
 }

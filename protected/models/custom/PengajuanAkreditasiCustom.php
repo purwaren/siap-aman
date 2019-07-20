@@ -43,6 +43,11 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
         );
     }
 
+    public function getJenisPengajuan() {
+        $options = self::getAllJenisPengajuanOptions();
+        return $options[$this->jenis_pengajuan];
+    }
+
     public function hasDocuments() {
         $docs = BerkasAkreditasiCustom::model()->countByAttributes(array(
             'id_pengajuan'=>$this->id
@@ -61,5 +66,10 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
             return 1;
         }
         else return $no_urut+1;
+    }
+
+    public function getStatus() {
+        $options = StatusPengajuan::getAllStatusPengajuanOptions();
+        return $options[$this->status];
     }
 }

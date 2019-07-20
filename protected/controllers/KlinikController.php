@@ -28,7 +28,7 @@ class KlinikController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','index','view'),
+				'actions'=>array('create','update','admin','delete','index','view','monitor'),
 				'users'=>array('@'),
 			),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -262,5 +262,14 @@ class KlinikController extends Controller
             'pengajuan'=>$pengajuan,
             'form_pengajuan'=>$form_pengajuan,
         ));
+    }
+
+    public function actionMonitor() {
+	    if (Yii::app()->user->isKlinik()) {
+	        $pengajuan = PengajuanAkreditasiCustom::getInstance();
+	        $this->render('monitor-klinik', array(
+	            'pengajuan'=>$pengajuan
+            ));
+        }
     }
 }
