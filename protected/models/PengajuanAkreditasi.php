@@ -6,10 +6,14 @@
  * The followings are the available columns in table 'pengajuan_akreditasi':
  * @property integer $id
  * @property integer $id_klinik
+ * @property integer $no_urut
  * @property string $tgl_pengajuan
  * @property string $jenis_pengajuan
  * @property string $tgl_penetapan
  * @property integer $status
+ *
+ * The followings are the available model relations:
+ * @property BerkasAkreditasi[] $berkasAkreditasis
  */
 class PengajuanAkreditasi extends CActiveRecord
 {
@@ -30,12 +34,12 @@ class PengajuanAkreditasi extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_klinik', 'required'),
-			array('id_klinik, status', 'numerical', 'integerOnly'=>true),
+			array('id_klinik, no_urut, status', 'numerical', 'integerOnly'=>true),
 			array('jenis_pengajuan', 'length', 'max'=>32),
 			array('tgl_pengajuan, tgl_penetapan', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_klinik, tgl_pengajuan, jenis_pengajuan, tgl_penetapan, status', 'safe', 'on'=>'search'),
+			array('id, id_klinik, no_urut, tgl_pengajuan, jenis_pengajuan, tgl_penetapan, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -47,6 +51,7 @@ class PengajuanAkreditasi extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'berkasAkreditasis' => array(self::HAS_MANY, 'BerkasAkreditasi', 'id_pengajuan'),
 		);
 	}
 
@@ -58,6 +63,7 @@ class PengajuanAkreditasi extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'id_klinik' => 'Id Klinik',
+			'no_urut' => 'No Urut',
 			'tgl_pengajuan' => 'Tgl Pengajuan',
 			'jenis_pengajuan' => 'Jenis Pengajuan',
 			'tgl_penetapan' => 'Tgl Penetapan',
@@ -85,6 +91,7 @@ class PengajuanAkreditasi extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('id_klinik',$this->id_klinik);
+		$criteria->compare('no_urut',$this->no_urut);
 		$criteria->compare('tgl_pengajuan',$this->tgl_pengajuan,true);
 		$criteria->compare('jenis_pengajuan',$this->jenis_pengajuan,true);
 		$criteria->compare('tgl_penetapan',$this->tgl_penetapan,true);

@@ -24,7 +24,7 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
         $klinik = KlinikCustom::getInstance();
         $model = self::model()->findByAttributes(array(
             'id_klinik' => $klinik->id,
-            'status' => StatusPengajuan::DRAFT
+            'status' => array(StatusPengajuan::DRAFT, StatusPengajuan::DIAJUKAN, StatusPengajuan::VISIT, StatusPengajuan::DITERIMA)
         ));
         if (empty($model)) {
             $model = new PengajuanAkreditasiCustom();
@@ -35,10 +35,31 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
         return $model;
     }
 
+    public static function getAllJenisPengajuanOptions() {
+        return array(
+            'pertama' => 'Usulan Pertama',
+            'remedial' => 'Remedial',
+            'perpanjangan' => 'Perpanjangan'
+        );
+    }
+
     public function hasDocuments() {
         $docs = BerkasAkreditasiCustom::model()->countByAttributes(array(
             'id_pengajuan'=>$this->id
         ));
         return $docs;
+    }
+
+    /**
+     * @return int|mixed
+     * @throws CException
+     */
+    public function getLastNoUrut() {
+        $cmd = Yii::app()->db->createCommand('SELECT MAX(no_urut) FROM pengajuan_akreditasi');
+        $no_urut = $cmd->queryScalar();
+        if (empty($no_urut)) {
+            return 1;
+        }
+        else return $no_urut+1;
     }
 }

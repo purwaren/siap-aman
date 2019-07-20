@@ -1,11 +1,13 @@
 <?php
 /* @var $this UsersController */
+/* @var $form CActiveForm */
 /* @var $model Users */
 /* @var $klinik KlinikCustom */
 /* @var $kontak KontakCustom */
 /* @var $alamat AlamatCustom */
 /* @var $fasilitas FasilitasKlinikCustom */
 /* @var $pengajuan PengajuanAkreditasiCustom */
+/* @var $form_pengajuan PengajuanAkreditasiForm */
 
 
 
@@ -30,6 +32,9 @@ $this->breadcrumbs=array(
 			</div>
 		</div>
 		<div class="box-body">
+            <?php if ($success=Yii::app()->user->getFlash('success')) {?>
+                <div class="alert alert-success"><?php echo $success ?></div>
+            <?php } ?>
             <h4><i>Kelengkapan Profile Klinik</i></h4>
             <table class="table table-striped table-hover submit-assessment">
                 <tbody>
@@ -104,13 +109,38 @@ $this->breadcrumbs=array(
             <?php
                 $submitable=false;
                 if ($klinik->isComplete() && !empty($alamat) && !empty($kontak) && !empty($fasilitas)
-                && $klinik->hasPhotos() >= 2 && $pengajuan->hasDocuments() >= 3) {
+                && $klinik->hasPhotos() >= 2 && $pengajuan->hasDocuments() >= 3 && $pengajuan->status == StatusPengajuan::DRAFT) {
                     $submitable=true;
                 }
             ?>
-            <?php if($submitable) {
-                echo CHtml::linkButton('Submit Permohonan', array('href'=>array('klinik/submit','do'=>'submit'),'class'=>'btn btn-primary'));
-            } else { ?>
+            <?php
+                if($submitable) {
+                    $form=$this->beginWidget('CActiveForm', array(
+                        'id'=>'submit-form',
+                        // Please note: When you enable ajax validation, make sure the corresponding
+                        // controller action is handling ajax validation correctly.
+                        // There is a call to performAjaxValidation() commented in generated controller code.
+                        // See class documentation of CActiveForm for details on this.
+                        'enableAjaxValidation'=>false,
+                        'htmlOptions'=>array('class'=>'form-horizontal'),
+                    ));
+            ?>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <?php echo $form->labelEx($form_pengajuan,'jenis_pengajuan'); ?>
+                            <?php echo $form->dropDownList($form_pengajuan,'jenis_pengajuan', PengajuanAkreditasiCustom::getAllJenisPengajuanOptions(),
+                                array('class'=>'form-control','prompt'=>'Pilih Jenis Usulan')); ?>
+                            <?php echo $form->error($form_pengajuan,'jenis_pengajuan'); ?>
+                        </div>
+                        <div class="form-group">
+                            <?php echo CHtml::submitButton('Submit Permohonan', array('class'=>'btn btn-primary')) ?>
+                        </div>
+                    </div>
+
+            <?php $this->endWidget(); ?>
+            <?php } elseif($pengajuan->status > StatusPengajuan::DRAFT) { ?>
+                    <div class="alert alert-info">Anda sudah mengajukan permohonan, silahkan pantau dari menu Pemantauan</div>
+            <?php } else { ?>
             <button class="btn btn-primary" disabled>Submit Permohonan</button>
             <?php } ?>
 		</div><!-- /.box-footer-->

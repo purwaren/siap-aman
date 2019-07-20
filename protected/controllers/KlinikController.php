@@ -237,19 +237,31 @@ class KlinikController extends Controller
         ));
     }
 
-    public function actionSubmit() {
+    public function actionSubmit($do='') {
         $klinik = KlinikCustom::getInstance();
         $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
         $kontak = KontakCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
         $fasilitas = FasilitasKlinikCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
         $pengajuan = PengajuanAkreditasiCustom::getInstance();
+        $form_pengajuan = new PengajuanAkreditasiForm();
+        $form_pengajuan->jenis_pengajuan = $pengajuan->jenis_pengajuan;
+
+        if (isset($_POST['PengajuanAkreditasiForm'])) {
+            die();
+            $form_pengajuan->attributes = $_POST['PengajuanAkreditasiForm'];
+            $form_pengajuan->pengajuan = $pengajuan;
+            if ($form_pengajuan->save()) {
+                Yii::app()->user->setFlash('success', 'Permohonan berhasil diajukan');
+            }
+        }
 
         $this->render('submit',array(
             'klinik'=>$klinik,
             'alamat'=>$alamat,
             'kontak'=>$kontak,
             'fasilitas'=>$fasilitas,
-            'pengajuan'=>$pengajuan
+            'pengajuan'=>$pengajuan,
+            'form_pengajuan'=>$form_pengajuan,
         ));
     }
 }

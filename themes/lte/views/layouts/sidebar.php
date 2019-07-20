@@ -54,7 +54,12 @@
                     'itemOptions'=>array('class'=>'treeview'),
                     'visible'=>Yii::app()->user->isKlinik()
                 ),
-
+                array(
+                    'label'=>'<i class="fa fa-file-text"></i> <span>Pemantauan</span> <i class="fa fa-angle-left pull-right"></i>',
+                    'url'=>array('klinik/monitor'),
+                    'itemOptions'=>array('class'=>'treeview'),
+                    'visible'=>Yii::app()->user->isKlinik()
+                ),
                 array(
                     'label'=>'<i class="fa fa-users"></i> <span>Data Suku Dinas</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>array('/sudin/admin'),
