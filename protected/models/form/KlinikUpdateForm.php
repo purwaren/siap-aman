@@ -42,7 +42,7 @@ class KlinikUpdateForm extends CFormModel
             array('no_telp, no_fax, email, website', 'safe'),
             array('qty_tempat_tidur, penyelenggaraan', 'safe'),
             array('nama, no_izin, penanggung_jawab, tingkatan, alamat_1, kecamatan, kota, provinsi, no_telp, email, 
-            qty_tempat_tidur, penyelenggaraan','required')
+            qty_tempat_tidur, penyelenggaraan, karakteristik','required')
         );
     }
 
