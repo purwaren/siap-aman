@@ -4,6 +4,7 @@
 /* @var $form CActiveForm */
 /* @var $doc BerkasAkreditasiCustom */
 /* @var $sa_resume SAResumeCustom */
+/* @var $pengajuan PengajuanAkreditasiCustom */
 
 
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/assets/plugins/bootstrap-fileinput/fileinput.min.js', CClientScript::POS_END);
@@ -115,7 +116,8 @@ if (empty($photos)) {
                             'delete'=>array(
                                 'label'=>'<i class="fa fa-trash"></i>',
                                 'imageUrl'=>false,
-                                'options'=>array('class'=>'btn btn-xs btn-danger','title'=>'Hapus','data-toggle'=>'tooltip')
+                                'options'=>array('class'=>'btn btn-xs btn-danger','title'=>'Hapus','data-toggle'=>'tooltip'),
+                                'visible'=> '$data->idPengajuan->status == StatusPengajuan::DRAFT'
                             )
                         )
                     ),

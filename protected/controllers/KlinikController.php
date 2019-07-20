@@ -238,7 +238,8 @@ class KlinikController extends Controller
 	    $this->render('document',array(
             'model'=>$model,
             'doc'=>$doc,
-            'sa_resume'=>$sa_resume
+            'sa_resume'=>$sa_resume,
+            'pengajuan'=>$pengajuan
         ));
     }
 

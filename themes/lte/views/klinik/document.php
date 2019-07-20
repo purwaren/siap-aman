@@ -3,7 +3,8 @@
 /* @var $model KlinikUpdateForm */
 /* @var $photos array */
 /* @var $doc BerkasAkreditasiCustom */
-
+/* @var $sa_resume SAResumeCustom */
+/* @var $pengajuan PengajuanAkreditasiCustom */
 
 $this->pageTitle = 'Upload Dokumen Klinik';
 $this->breadcrumbs = array(
@@ -16,6 +17,7 @@ $this->breadcrumbs = array(
     <?php $this->renderPartial('_formUploadDocument',array(
         'model'=>$model,
         'doc'=>$doc,
-        'sa_resume'=>$sa_resume
+        'sa_resume'=>$sa_resume,
+        'pengajuan'=>$pengajuan
     ))?>
 </section><!-- /.content -->
