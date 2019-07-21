@@ -9,6 +9,7 @@ class StatusPengajuan
     const VISIT = 3;
     const DITERIMA = 4;
     const REKOMENDASI = 5;
+    const BATAL = 6;
 
     public static function getAllStatusPengajuanOptions() {
         return array(
@@ -17,6 +18,7 @@ class StatusPengajuan
             self::DITOLAK => 'Ditolak',
             self::DITERIMA => 'Diterima',
             self::REKOMENDASI => 'Rekomendasi',
-        );
+            self::BATAL => 'Dibatalkan'
+         );
     }
 }

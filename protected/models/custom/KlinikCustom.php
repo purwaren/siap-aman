@@ -63,4 +63,8 @@ class KlinikCustom extends Klinik
             'utama'=> 'Utama'
         );
     }
+
+    public static function countAllRegisteredKlinik() {
+        return self::model()->count();
+    }
 }

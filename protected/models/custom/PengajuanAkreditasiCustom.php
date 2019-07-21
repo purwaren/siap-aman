@@ -72,4 +72,16 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
         $options = StatusPengajuan::getAllStatusPengajuanOptions();
         return $options[$this->status];
     }
+
+    public static function countAll() {
+        return self::model()->count();
+    }
+
+    public static function countAllCanceled() {
+        return self::model()->countByAttributes(array('status'=>array(StatusPengajuan::BATAL, StatusPengajuan::DITOLAK)));
+    }
+
+    public static function countAllAccept() {
+        return self::model()->countByAttributes(array('status'=>array(StatusPengajuan::DITERIMA, StatusPengajuan::REKOMENDASI)));
+    }
 }

@@ -10,7 +10,7 @@ $this->pageTitle = 'Dashboard';
             <!-- small box -->
             <div class="small-box bg-aqua">
                 <div class="inner">
-                    <h3>150</h3>
+                    <h3><?php echo KlinikCustom::countAllRegisteredKlinik() ?></h3>
 
                     <p>Klinik</p>
                 </div>
@@ -25,7 +25,7 @@ $this->pageTitle = 'Dashboard';
             <!-- small box -->
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <h3>53</h3>
+                    <h3><?php echo PengajuanAkreditasiCustom::countAll() ?></h3>
 
                     <p>Usulan Akreditasi</p>
                 </div>
@@ -40,7 +40,7 @@ $this->pageTitle = 'Dashboard';
             <!-- small box -->
             <div class="small-box bg-red">
                 <div class="inner">
-                    <h3>44</h3>
+                    <h3><?php echo PengajuanAkreditasiCustom::countAllCanceled()?></h3>
 
                     <p>Batal Akreditasi</p>
                 </div>
@@ -55,7 +55,7 @@ $this->pageTitle = 'Dashboard';
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>65</h3>
+                    <h3><?php echo PengajuanAkreditasiCustom::countAllAccept()?></h3>
 
                     <p>Hasil Akreditasi</p>
                 </div>
