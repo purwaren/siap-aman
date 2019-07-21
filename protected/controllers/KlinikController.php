@@ -218,6 +218,10 @@ class KlinikController extends Controller
 	        $model->file = $_FILES['file_data'];
 	        $model->type = $file_type;
             if ($model->save()) {
+                if ($model->type == DocumentType::SELF_ASSESSMENT) {
+                    $model->readFile();
+                }
+
                 echo CJSON::encode(array(
                     'filelink' => Yii::app()->baseUrl.'/'.$model->filename,
                     'filename' => $model->description

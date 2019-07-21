@@ -28,6 +28,9 @@ $this->breadcrumbs=array(
             <?php if ($success=Yii::app()->user->getFlash('success')) {?>
                 <div class="alert alert-success"><?php echo $success ?></div>
             <?php } ?>
+            <?php if (empty($pengajuan->jenis_pengajuan)) { ?>
+                <div class="alert alert-warning">Anda belum mengajukan permohonan, silakan lakukan pengajuan permohonan terlebih dahulu</div>
+            <?php } else { ?>
             <div class="col-lg-6 col-xs-12">
                 <?php $this->widget('zii.widgets.CDetailView', array(
                     'data'=>$pengajuan,
@@ -51,6 +54,7 @@ $this->breadcrumbs=array(
                     ),
                 )); ?>
             </div>
+            <?php } ?>
 		</div>
 		<div class="box-footer">
 
