@@ -248,7 +248,7 @@ class KlinikController extends Controller
         $sa_resume = new SAResumeCustom();
         $sa_resume->unsetAttributes();
         $sa_resume->id_pengajuan = $pengajuan->id;
-        
+
         if (!empty($id) && $do=='delete') {
             $tmp = BerkasAkreditasiCustom::model()->findByPk($id);
             $tmp->delete();

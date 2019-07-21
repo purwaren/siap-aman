@@ -24,15 +24,22 @@ class UploadBerkasAkreditasiForm extends CFormModel
         $path = Yii::app()->params['uploadPath']['doc'].$filename;
         $this->filename = Yii::app()->params['urlDoc'].$filename;
         $original_name = $this->file->name;
+        $this->description = $original_name;
         if ($this->file->saveAs($path)) {
-            $berkas = new BerkasAkreditasiCustom();
             $pengajuan = PengajuanAkreditasiCustom::getInstance();
+            $berkas = BerkasAkreditasiCustom::model()->findByAttributes(array(
+                'id_pengajuan' => $pengajuan->id,
+                'tipe_berkas' => $this->type
+            ));
+            if (empty($berkas)) {
+                $berkas = new BerkasAkreditasiCustom();
+                $berkas->created_by = Yii::app()->user->getName();
+                $berkas->created_at = new CDbExpression('NOW()');
+            }
             $berkas->id_pengajuan = $pengajuan->id;
             $berkas->file_path = $this->filename;
             $berkas->deskripsi = $original_name;
             $berkas->tipe_berkas = $this->type;
-            $berkas->created_by = Yii::app()->user->getName();
-            $berkas->created_at = new CDbExpression('NOW()');
             return $berkas->save();
         }
     }
@@ -81,7 +88,7 @@ class UploadBerkasAkreditasiForm extends CFormModel
             $bab2->score = $score2;
             $bab2->save();
 
-            $bab3 = SAResumeCustom::model()->findByAttributes(array('id_pengajuan'=>$pengajuan->id, 'bab'=>'II'));
+            $bab3 = SAResumeCustom::model()->findByAttributes(array('id_pengajuan'=>$pengajuan->id, 'bab'=>'III'));
             if (empty($bab3)) {
                 $bab3 = new SAResumeCustom();
                 $bab3->created_by = Yii::app()->user->getName();
@@ -96,12 +103,18 @@ class UploadBerkasAkreditasiForm extends CFormModel
             $bab3->score = $score3;
             $bab3->save();
 
-            $bab4 = new SAResumeCustom();
+            $bab4 = SAResumeCustom::model()->findByAttributes(array('id_pengajuan'=>$pengajuan->id, 'bab'=>'IV'));
+            if (empty($bab4)) {
+                $bab4 = new SAResumeCustom();
+                $bab4->created_by = Yii::app()->user->getName();
+                $bab4->created_at = new CDbExpression('NOW()');
+            } else {
+                $bab4->updated_by = Yii::app()->user->getName();
+                $bab4->updated_at = new CDbExpression('NOW()');
+            }
             $bab4->id_pengajuan = $pengajuan->id;
             $bab4->bab = 'IV';
             $bab4->score = $score4;
-            $bab4->created_by = Yii::app()->user->getName();
-            $bab4->created_at = new CDbExpression('NOW()');
             $bab4->save();
         }
     }
