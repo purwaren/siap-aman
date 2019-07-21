@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'sa_resume':
  * @property integer $id
  * @property integer $id_pengajuan
- * @property integer $bab
+ * @property string $bab
  * @property integer $score
  * @property string $created_at
  * @property string $created_by
@@ -31,8 +31,9 @@ class SaResume extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_pengajuan, bab, score, created_by', 'required'),
-			array('id_pengajuan, bab, score', 'numerical', 'integerOnly'=>true),
+			array('id_pengajuan, bab, created_by', 'required'),
+			array('id_pengajuan, score', 'numerical', 'integerOnly'=>true),
+			array('bab', 'length', 'max'=>8),
 			array('created_by, updated_by', 'length', 'max'=>32),
 			array('created_at, updated_at', 'safe'),
 			// The following rule is used by search().
@@ -89,7 +90,7 @@ class SaResume extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('id_pengajuan',$this->id_pengajuan);
-		$criteria->compare('bab',$this->bab);
+		$criteria->compare('bab',$this->bab,true);
 		$criteria->compare('score',$this->score);
 		$criteria->compare('created_at',$this->created_at,true);
 		$criteria->compare('created_by',$this->created_by,true);

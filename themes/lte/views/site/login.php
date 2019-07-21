@@ -10,12 +10,12 @@ $this->breadcrumbs=array(
 );
 ?>
 <div class="login-logo">
-    <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <?php echo CHtml::image(Yii::app()->theme->baseUrl.'/assets/img/logo_dki.png','logo dki',array(
                 'class'=>'img-responsive'
         ))?>
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <?php echo CHtml::image(Yii::app()->theme->baseUrl.'/assets/img/logo_dinkes.png', 'logo dinkes', array(
                 'class'=>'img-responsive'
         ))?>

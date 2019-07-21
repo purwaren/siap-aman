@@ -194,6 +194,11 @@ class KlinikController extends Controller
         ));
     }
 
+    /**
+     * @param $type
+     * @param string $file_type
+     * @throws CDbException
+     */
     public function actionUpload($type, $file_type='') {
 	    if ($type == 'photo') {
 	        $model = new UploadFotoKlinikForm();
@@ -230,15 +235,25 @@ class KlinikController extends Controller
         }
     }
 
-    public function actionDocument() {
+    /**
+     * @param string $id
+     * @param string $do
+     * @throws CDbException
+     */
+    public function actionDocument($id='', $do='') {
         $model = new UploadBerkasAkreditasiForm();
         $pengajuan = PengajuanAkreditasiCustom::getInstance();
         $doc = new BerkasAkreditasiCustom();
         $doc->id_pengajuan = $pengajuan->id;
-        $sa_resume = SAResumeCustom::model()->findByAttributes(array('id_pengajuan'=>$pengajuan->id));
-        if (empty($sa_resume)) {
-            $sa_resume = new SAResumeCustom();
+        $sa_resume = new SAResumeCustom();
+        $sa_resume->unsetAttributes();
+        $sa_resume->id_pengajuan = $pengajuan->id;
+        
+        if (!empty($id) && $do=='delete') {
+            $tmp = BerkasAkreditasiCustom::model()->findByPk($id);
+            $tmp->delete();
         }
+
 	    $this->render('document',array(
             'model'=>$model,
             'doc'=>$doc,

@@ -117,7 +117,8 @@ if (empty($photos)) {
                                 'label'=>'<i class="fa fa-trash"></i>',
                                 'imageUrl'=>false,
                                 'options'=>array('class'=>'btn btn-xs btn-danger','title'=>'Hapus','data-toggle'=>'tooltip'),
-                                'visible'=> '$data->idPengajuan->status == StatusPengajuan::DRAFT'
+                                'visible'=> '$data->idPengajuan->status == StatusPengajuan::DRAFT',
+                                'url'=>'Yii::app()->createUrl("klinik/document",array("id"=>$data->id,"do"=>"delete"))'
                             )
                         )
                     ),
@@ -157,10 +158,13 @@ if (empty($photos)) {
                     ),
                     'bab',
                     'score',
-                    'max_score',
+                    array(
+                        'name'=>'max_score',
+                        'value'=>'$data->getMaxScore()'
+                    ),
                     array(
                         'header'=>'Capaian',
-                        'value'=>0
+                        'value'=> '$data->getProgress()'
                     ),
                 ),
                 'htmlOptions' => array(

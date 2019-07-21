@@ -31,4 +31,33 @@ class SAResumeCustom extends SaResume
         $score = SAScoreMaximum::getAllMaxScoreOptions();
         return $score[$this->bab];
     }
+
+    public function getProgress() {
+        if (!empty($this->score)) {
+            $tmp = round($this->score/$this->getMaxScore()*100, 2);
+            return $tmp.' %';
+        } else {
+            return '0 %';
+        }
+    }
+
+    public function search()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('id_pengajuan',$this->id_pengajuan);
+        $criteria->compare('bab',$this->bab,true);
+        $criteria->compare('score',$this->score);
+        $criteria->compare('created_at',$this->created_at,true);
+        $criteria->compare('created_by',$this->created_by,true);
+        $criteria->compare('updated_at',$this->updated_at,true);
+        $criteria->compare('updated_by',$this->updated_by,true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 }
