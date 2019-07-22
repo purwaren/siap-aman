@@ -45,10 +45,11 @@ class SudinController extends Controller
 		);
 	}
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     * @throws CHttpException
+     */
 	public function actionView($id)
 	{
 		$this->render('view',array(
@@ -62,14 +63,15 @@ class SudinController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Sudin;
+		$model=new SudinForm();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Sudin']))
+		if(isset($_POST['SudinForm']))
 		{
-			$model->attributes=$_POST['Sudin'];
+			$model->attributes=$_POST['SudinForm'];
+
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -152,7 +154,7 @@ class SudinController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Sudin::model()->findByPk($id);
+		$model=SudinCustom::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

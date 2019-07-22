@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'sudin':
  * @property integer $id
+ * @property string $id_regency
  * @property string $nama
  * @property string $alamat
  * @property string $no_telp
@@ -15,6 +16,10 @@
  * @property string $created_by
  * @property string $updated_at
  * @property string $updated_by
+ *
+ * The followings are the available model relations:
+ * @property Pendamping[] $pendampings
+ * @property RefRegencies $idRegency
  */
 class Sudin extends CActiveRecord
 {
@@ -34,14 +39,15 @@ class Sudin extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nama, alamat, no_telp', 'required'),
+			array('id_regency, nama, alamat, no_telp', 'required'),
+			array('id_regency', 'length', 'max'=>4),
 			array('nama, email, website', 'length', 'max'=>128),
 			array('alamat', 'length', 'max'=>512),
 			array('no_telp, no_fax, created_by, updated_by', 'length', 'max'=>32),
 			array('created_at, updated_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, nama, alamat, no_telp, no_fax, email, website, created_at, created_by, updated_at, updated_by', 'safe', 'on'=>'search'),
+			array('id, id_regency, nama, alamat, no_telp, no_fax, email, website, created_at, created_by, updated_at, updated_by', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -53,6 +59,8 @@ class Sudin extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pendampings' => array(self::HAS_MANY, 'Pendamping', 'id_sudin'),
+			'idRegency' => array(self::BELONGS_TO, 'RefRegencies', 'id_regency'),
 		);
 	}
 
@@ -63,6 +71,7 @@ class Sudin extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'id_regency' => 'Id Regency',
 			'nama' => 'Nama',
 			'alamat' => 'Alamat',
 			'no_telp' => 'No Telp',
@@ -95,6 +104,7 @@ class Sudin extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('id_regency',$this->id_regency,true);
 		$criteria->compare('nama',$this->nama,true);
 		$criteria->compare('alamat',$this->alamat,true);
 		$criteria->compare('no_telp',$this->no_telp,true);
