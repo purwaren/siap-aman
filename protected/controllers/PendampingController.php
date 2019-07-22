@@ -56,20 +56,21 @@ class PendampingController extends Controller
 		));
 	}
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
+    /**
+     * Creates a new model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @throws CException
+     */
 	public function actionCreate()
 	{
-		$model=new Pendamping;
+		$model=new CreatePendampingForm();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Pendamping']))
+		if(isset($_POST['CreatePendampingForm']))
 		{
-			$model->attributes=$_POST['Pendamping'];
+			$model->attributes=$_POST['CreatePendampingForm'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

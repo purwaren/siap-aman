@@ -13,7 +13,7 @@
  * @property string $gelar_belakang
  * @property string $tempat_lahir
  * @property string $tgl_lahir
- * @property integer $jabatan
+ * @property string $jabatan
  * @property string $alamat
  * @property string $no_hp
  * @property string $email
@@ -21,6 +21,10 @@
  * @property string $created_at
  * @property string $updated_by
  * @property string $updated_at
+ *
+ * The followings are the available model relations:
+ * @property Sudin $idSudin
+ * @property Users $idUser
  */
 class Pendamping extends CActiveRecord
 {
@@ -40,12 +44,12 @@ class Pendamping extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_sudin, id_user, tipe, nama, tempat_lahir, tgl_lahir, jabatan, created_by', 'required'),
-			array('id_sudin, id_user, jabatan', 'numerical', 'integerOnly'=>true),
-			array('tipe, gelar_depan, gelar_belakang, tempat_lahir, no_hp, created_by, updated_by', 'length', 'max'=>32),
+			array('id_sudin, id_user, tipe, nama, created_by', 'required'),
+			array('id_sudin, id_user', 'numerical', 'integerOnly'=>true),
+			array('tipe, gelar_depan, gelar_belakang, tempat_lahir, jabatan, no_hp, created_by, updated_by', 'length', 'max'=>32),
 			array('nama, email', 'length', 'max'=>128),
 			array('alamat', 'length', 'max'=>512),
-			array('created_at, updated_at', 'safe'),
+			array('tgl_lahir, created_at, updated_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, id_sudin, id_user, tipe, nama, gelar_depan, gelar_belakang, tempat_lahir, tgl_lahir, jabatan, alamat, no_hp, email, created_by, created_at, updated_by, updated_at', 'safe', 'on'=>'search'),
@@ -60,6 +64,8 @@ class Pendamping extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'idSudin' => array(self::BELONGS_TO, 'Sudin', 'id_sudin'),
+			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
 		);
 	}
 
@@ -116,7 +122,7 @@ class Pendamping extends CActiveRecord
 		$criteria->compare('gelar_belakang',$this->gelar_belakang,true);
 		$criteria->compare('tempat_lahir',$this->tempat_lahir,true);
 		$criteria->compare('tgl_lahir',$this->tgl_lahir,true);
-		$criteria->compare('jabatan',$this->jabatan);
+		$criteria->compare('jabatan',$this->jabatan,true);
 		$criteria->compare('alamat',$this->alamat,true);
 		$criteria->compare('no_hp',$this->no_hp,true);
 		$criteria->compare('email',$this->email,true);
