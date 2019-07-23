@@ -66,7 +66,11 @@ if (empty($photos)) {
                 <?php echo CHtml::label('Profil Klinik','profile') ?>
                 <div class="input-group input-group-sm">
                     <span class="input-group-btn">
-						<input type="file" multiple class="file-loading" id="profileKlinik" data-show-preview="false"/>
+                        <?php if ($pengajuan->status == StatusPengajuan::DRAFT) {?>
+ 						    <input type="file" multiple class="file-loading" id="profileKlinik" data-show-preview="false"/>
+ 						<?php } else {?>
+                            <input type="file" multiple class="file-loading" id="profileKlinik" data-show-preview="false" disabled/>
+                        <?php } ?>
 					</span>
                 </div>
             </div>
@@ -74,7 +78,11 @@ if (empty($photos)) {
                 <?php echo CHtml::label('Surat Permohonan','permohonan') ?>
                 <div class="input-group input-group-sm">
                     <span class="input-group-btn">
-						<input type="file" multiple class="file-loading" id="suratPermohonan" data-show-preview="false"/>
+						<?php if ($pengajuan->status == StatusPengajuan::DRAFT) {?>
+                            <input type="file" multiple class="file-loading" id="suratPermohonan" data-show-preview="false"/>
+                        <?php } else {?>
+                            <input type="file" multiple class="file-loading" id="suratPermohonan" data-show-preview="false" disabled/>
+                        <?php } ?>
 					</span>
                 </div>
             </div>
@@ -82,7 +90,11 @@ if (empty($photos)) {
                 <?php echo CHtml::label('Borang Self Assessment','borang') ?>
                 <div class="input-group input-group-sm">
                     <span class="input-group-btn">
-						<input type="file" multiple class="file-loading" id="borangSA" data-show-preview="false"/>
+						<?php if ($pengajuan->status == StatusPengajuan::DRAFT) {?>
+                            <input type="file" multiple class="file-loading" id="borangSA" data-show-preview="false"/>
+                        <?php } else {?>
+                            <input type="file" multiple class="file-loading" id="borangSA" data-show-preview="false" disabled/>
+                        <?php } ?>
 					</span>
                 </div>
             </div>
