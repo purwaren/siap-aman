@@ -174,6 +174,7 @@ class KlinikController extends Controller
 	public function actionProfile() {
 
 	    $model = KlinikUpdateForm::getInstance(Yii::app()->user->getId());
+
 	    if (isset($_POST['KlinikUpdateForm'])) {
 	        $model->attributes = $_POST['KlinikUpdateForm'];
 	        $model->save();

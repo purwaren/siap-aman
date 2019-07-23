@@ -6,6 +6,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/assets/pl
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/assets/plugins/select2/select2.full.min.js');
 Yii::app()->clientScript->registerScript('form', "
         $('#kota').select2();
+        $('#kecamatan').select2();
         $('#kota').on('change', function(){
             var kota = $(this).val();
             var url = '".Yii::app()->createUrl('wilayah/kecamatan')."?id_kota='+kota;
@@ -117,7 +118,7 @@ Yii::app()->clientScript->registerScript('form', "
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($model,'kecamatan'); ?>
-                <?php echo $form->dropDownList($model,'kecamatan',array(),
+                <?php echo $form->dropDownList($model,'kecamatan', DistrictCustom::getAllDistrictOptions($model->kota),
                     array('class'=>'form-control','prompt'=>'Pilih Kecamatan','id'=>'kecamatan')); ?>
                 <?php echo $form->error($model,'kecamatan'); ?>
             </div>

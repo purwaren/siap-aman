@@ -1,5 +1,9 @@
 <?php
-/* @var $this Controller */
+/* @var $this SiteController */
+/* @var $pengajuan PengajuanAkreditasiCustom */
+
+
+
 $this->pageTitle = 'Dashboard';
 ?>
 
@@ -67,17 +71,66 @@ $this->pageTitle = 'Dashboard';
         </div>
         <!-- ./col -->
     </div>
-    <!-- Default box -->
-    <div class="box">
-        <div class="box-header with-border">
-            <h3 class="box-title">Daftar Usulan Akreditasi</h3>
+    <div class="row">
+        <div class="col-lg-6 col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Usulan Akreditasi Klinik</h3>
+                </div>
+                <div class="box-body">
+                    <?php $this->widget('zii.widgets.grid.CGridView', array(
+                        'id'=>'pengajuan-grid',
+                        'dataProvider'=>$pengajuan->search(),
+                        //'filter'=>$model,
+                        'columns'=>array(
+                            'no_urut',
+                            'idKlinik.nama',
+                            array(
+                                'name'=>'jenis_pengajuan',
+                                'value'=>'$data->getJenisPengajuan()',
+                            ),
+                            array(
+                                'name'=>'tgl_pengajuan',
+                                'value'=>'DateUtil::dateToString($data->tgl_pengajuan)'
+                            ),
+                            array(
+                                'class'=>'CButtonColumn',
+                                'template' => '{view}',
+                                'buttons'=>array(
+                                    'view'=>array(
+                                        'label'=>'<i class="fa fa-search"></i>',
+                                        'imageUrl'=>false,
+                                        'options'=>array('class'=>'btn btn-xs btn-primary','title'=>'Detail','data-toggle'=>'tooltip')
+                                    )
+                                )
+                            ),
+                        ),
+                        'itemsCssClass'=>'table table-striped table-bordered table-hover dataTable',
+                        'cssFile' => false,
+                        'summaryCssClass' => 'dataTables_info',
+                        'template'=>'{items}{summary}'
+                    )); ?>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
         </div>
-        <div class="box-body">
-            Start creating your amazing application!
-        </div><!-- /.box-body -->
-        <div class="box-footer">
-            Footer
-        </div><!-- /.box-footer-->
-    </div><!-- /.box -->
+        <div class="col-lg-6 col-xs-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Progres Pendaftaran Klinik</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <canvas id="pieChart" style="height:250px"></canvas>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
 
 </section><!-- /.content -->

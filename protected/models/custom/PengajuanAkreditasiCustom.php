@@ -14,7 +14,7 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
     {
         return array(
             'tgl_pengajuan' => 'Tanggal Pengajuan',
-            'jenis_pengajuan' => 'Jenis Usulan  '
+            'jenis_pengajuan' => 'Jenis Usulan '
         );
     }
 
@@ -86,5 +86,32 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
 
     public static function countAllAccept() {
         return self::model()->countByAttributes(array('status'=>array(StatusPengajuan::DITERIMA, StatusPengajuan::REKOMENDASI)));
+    }
+
+    public function search()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('id_klinik',$this->id_klinik);
+        $criteria->compare('no_urut',$this->no_urut);
+        $criteria->compare('tgl_pengajuan',$this->tgl_pengajuan,true);
+        $criteria->compare('jenis_pengajuan',$this->jenis_pengajuan,true);
+        $criteria->compare('tgl_penetapan',$this->tgl_penetapan,true);
+        $criteria->compare('status',$this->status);
+        $criteria->compare('status_info',$this->status_info);
+        $criteria->compare('status_alamat',$this->status_alamat);
+        $criteria->compare('status_kontak',$this->status_kontak);
+        $criteria->compare('status_fasilitas',$this->status_fasilitas);
+        $criteria->compare('status_foto',$this->status_foto);
+        $criteria->compare('status_dokumen',$this->status_dokumen);
+
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'pagination'=>array('pageSize'=>5)
+        ));
     }
 }

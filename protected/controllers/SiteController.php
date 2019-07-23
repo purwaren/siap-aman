@@ -52,7 +52,13 @@ class SiteController extends Controller
                     'fasilitas' => $fasilitas
                 ));
             }
-		    else $this->render('index');
+		    else {
+		        $pengajuan = new PengajuanAkreditasiCustom('search');
+		        $pengajuan->status = array(StatusPengajuan::DIAJUKAN, StatusPengajuan::VISIT, StatusPengajuan::DITERIMA);
+		        $this->render('index', array(
+		            'pengajuan' => $pengajuan
+                ));
+            }
         }
 	}
 
