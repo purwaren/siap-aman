@@ -48,9 +48,25 @@ class KlinikController extends Controller
      */
 	public function actionView($id)
 	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
+        $model = $this->loadModel($id);
+        $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$model->id));
+        if (empty($alamat)) {
+            $alamat = new AlamatCustom();
+        }
+        $kontak = KontakCustom::model()->findByAttributes(array('id_klinik'=>$model->id));
+        if (empty($kontak)) {
+            $kontak = new KontakCustom();
+        }
+        $fasilitas = FasilitasKlinikCustom::model()->findByAttributes(array('id_klinik'=>$model->id));
+        if (empty($fasilitas)) {
+            $fasilitas = new FasilitasKlinikCustom();
+        }
+        $this->render('view',array(
+            'model'=>$model,
+            'alamat' => $alamat,
+            'kontak' => $kontak,
+            'fasilitas' => $fasilitas
+        ));
 	}
 
     /**
@@ -82,24 +98,21 @@ class KlinikController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      * @throws CHttpException
+     * @throws CDbException
      */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+	    $klinik = $this->loadModel($id);
+        $model = KlinikUpdateForm::getInstance($klinik->id_user);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        if (isset($_POST['KlinikUpdateForm'])) {
+            $model->attributes = $_POST['KlinikUpdateForm'];
+            $model->save();
+        }
 
-		if(isset($_POST['Klinik']))
-		{
-			$model->attributes=$_POST['Klinik'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
+        $this->render('profile',array(
+            'model'=>$model
+        ));
 	}
 
     /**

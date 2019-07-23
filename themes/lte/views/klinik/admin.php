@@ -60,8 +60,5 @@ $this->breadcrumbs = array(
                 'template'=>'{items}{summary}'
             )); ?>
         </div><!-- /.box-body -->
-        <div class="box-footer">
-            <?php echo CHtml::link('Registrasi Klinik',array('klinik/create'),array('class'=>'btn btn-primary'))?>
-        </div><!-- /.box-footer-->
     </div><!-- /.box -->
 </section><!-- /.content -->
