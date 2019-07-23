@@ -42,9 +42,18 @@ $this->pageTitle = 'Dashboard';
                 'attributes'=>array(
                     'alamat_1',
                     'alamat_2',
-                    'kecamatan',
-                    'kota',
-                    'provinsi'
+                    array(
+                        'name'=>'kecamatan',
+                        'value'=>$alamat->getDistrict(),
+                    ),
+                    array(
+                        'name'=>'kota',
+                        'value'=>$alamat->getRegency(),
+                    ),
+                    array(
+                        'name'=>'provinsi',
+                        'value'=>$alamat->getProvince(),
+                    ),
                 ),
                 'htmlOptions'=>array(
                     'class'=>'table table-hover table-striped detil-klinik'
