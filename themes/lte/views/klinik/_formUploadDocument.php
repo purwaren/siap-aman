@@ -87,7 +87,7 @@ if (empty($photos)) {
                 </div>
             </div>
             <div class="form-group">
-                <?php echo CHtml::label('Borang Self Assessment','borang') ?>
+                <?php echo CHtml::label('Borang Self Assessment (<a href="'.Yii::app()->request->baseUrl.'/assets/docs/template-self-assessment.xlsx'.'">Unduh Borang Di Sini</a>)','borang') ?>
                 <div class="input-group input-group-sm">
                     <span class="input-group-btn">
 						<?php if ($pengajuan->status == StatusPengajuan::DRAFT) {?>
