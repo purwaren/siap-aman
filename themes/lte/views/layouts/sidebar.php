@@ -78,7 +78,7 @@
                     'itemOptions'=>array('class'=>'treeview'),
                     'items'=>array(
                         array('label'=>'<i class="fa fa-file-text"></i> Daftar Klinik','url'=>array('/klinik/admin')),
-                        array('label'=>'<i class="fa fa-file-word-o"></i> Usulan Akreditasi','url'=>array('/klinik/admin')),
+                        array('label'=>'<i class="fa fa-file-word-o"></i> Usulan Akreditasi','url'=>array('/akreditasi/admin')),
                         array('label'=>'<i class="fa fa-file-word-o"></i> Pemantauan Pendampingan','url'=>array('/klinik/monitor')),
                         array('label'=>'<i class="fa fa-file-excel-o"></i> Nilai Akreditasi','url'=>array('/klinik/admin')),
                     ),

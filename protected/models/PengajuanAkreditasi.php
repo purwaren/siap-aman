@@ -14,6 +14,7 @@
  *
  * The followings are the available model relations:
  * @property BerkasAkreditasi[] $berkasAkreditasis
+ * @property Klinik $idKlinik
  */
 class PengajuanAkreditasi extends CActiveRecord
 {
@@ -52,6 +53,7 @@ class PengajuanAkreditasi extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'berkasAkreditasis' => array(self::HAS_MANY, 'BerkasAkreditasi', 'id_pengajuan'),
+			'idKlinik' => array(self::BELONGS_TO, 'Klinik', 'id_klinik'),
 		);
 	}
 

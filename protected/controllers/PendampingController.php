@@ -80,11 +80,12 @@ class PendampingController extends Controller
 		));
 	}
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
+    /**
+     * Updates a particular model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id the ID of the model to be updated
+     * @throws CHttpException
+     */
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
@@ -104,11 +105,13 @@ class PendampingController extends Controller
 		));
 	}
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
+    /**
+     * Deletes a particular model.
+     * If deletion is successful, the browser will be redirected to the 'admin' page.
+     * @param integer $id the ID of the model to be deleted
+     * @throws CDbException
+     * @throws CHttpException
+     */
 	public function actionDelete($id)
 	{
 		$this->loadModel($id)->delete();
@@ -134,10 +137,10 @@ class PendampingController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Pendamping('search');
+		$model=new PendampingCustom('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Pendamping']))
-			$model->attributes=$_GET['Pendamping'];
+		if(isset($_GET['PendampingCustom']))
+			$model->attributes=$_GET['PendampingCustom'];
 
 		$this->render('admin',array(
 			'model'=>$model,

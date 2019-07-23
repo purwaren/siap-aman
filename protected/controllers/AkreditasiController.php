@@ -1,6 +1,6 @@
 <?php
 
-class SudinController extends Controller
+class AkreditasiController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -27,17 +27,9 @@ class SudinController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('index','view','create','update','admin','delete'),
 				'users'=>array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -45,11 +37,10 @@ class SudinController extends Controller
 		);
 	}
 
-    /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
-     * @throws CHttpException
-     */
+	/**
+	 * Displays a particular model.
+	 * @param integer $id the ID of the model to be displayed
+	 */
 	public function actionView($id)
 	{
 		$this->render('view',array(
@@ -63,15 +54,14 @@ class SudinController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new SudinForm();
+		$model=new PengajuanAkreditasiCustom;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['SudinForm']))
+		if(isset($_POST['PengajuanAkreditasiCustom']))
 		{
-			$model->attributes=$_POST['SudinForm'];
-
+			$model->attributes=$_POST['PengajuanAkreditasiCustom'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -93,9 +83,9 @@ class SudinController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Sudin']))
+		if(isset($_POST['PengajuanAkreditasiCustom']))
 		{
-			$model->attributes=$_POST['Sudin'];
+			$model->attributes=$_POST['PengajuanAkreditasiCustom'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -124,7 +114,7 @@ class SudinController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Sudin');
+		$dataProvider=new CActiveDataProvider('PengajuanAkreditasiCustom');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -135,10 +125,10 @@ class SudinController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new SudinCustom('search');
+		$model=new PengajuanAkreditasiCustom('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['SudinCustom']))
-			$model->attributes=$_GET['SudinCustom'];
+		if(isset($_GET['PengajuanAkreditasiCustom']))
+			$model->attributes=$_GET['PengajuanAkreditasiCustom'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -149,12 +139,12 @@ class SudinController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Sudin the loaded model
+	 * @return PengajuanAkreditasiCustom the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=SudinCustom::model()->findByPk($id);
+		$model=PengajuanAkreditasiCustom::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -162,11 +152,11 @@ class SudinController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Sudin $model the model to be validated
+	 * @param PengajuanAkreditasiCustom $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='sudin-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='pengajuan-akreditasi-custom-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

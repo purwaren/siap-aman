@@ -2,6 +2,26 @@
 /* @var $this KlinikController */
 /* @var $model KlinikUpdateForm */
 /* @var $form CActiveForm */
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/assets/plugins/select2/select2.css');
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/assets/plugins/select2/select2.full.min.js');
+Yii::app()->clientScript->registerScript('form', "
+        $('#kota').select2();
+        $('#kota').on('change', function(){
+            var kota = $(this).val();
+            var url = '".Yii::app()->createUrl('wilayah/kecamatan')."?id_kota='+kota;
+            ".CHtml::ajax(array(
+                'url'=>'js:url',
+                'type'=>'POST',
+                'dataType'=>'JSON',
+                'success'=>"function(response){
+                    $('#kecamatan').select2({
+                        data: response
+                    });
+                }"
+            ))."
+        });
+    ", CClientScript::POS_END);
+
 ?>
 <?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'klinik-form',
@@ -85,20 +105,23 @@
                 <?php echo $form->error($model,'alamat_2'); ?>
             </div>
             <div class="form-group">
-                <?php echo $form->labelEx($model,'kecamatan'); ?>
-                <?php echo $form->textField($model,'kecamatan',array('class'=>'form-control')); ?>
-                <?php echo $form->error($model,'kecamatan'); ?>
+                <?php echo $form->labelEx($model,'provinsi'); ?>
+                <?php echo $form->dropDownList($model,'provinsi',ProvinceCustom::getAllProvinceOptions(),array('class'=>'form-control')); ?>
+                <?php echo $form->error($model,'provinsi'); ?>
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($model,'kota'); ?>
-                <?php echo $form->textField($model,'kota',array('class'=>'form-control')); ?>
+                <?php echo $form->dropDownList($model,'kota',RegencyCustom::getAllRegencyOptions(),
+                    array('class'=>'form-control','prompt'=>'Pilih Kabupaten/Kota','id'=>'kota')); ?>
                 <?php echo $form->error($model,'kota'); ?>
             </div>
             <div class="form-group">
-                <?php echo $form->labelEx($model,'provinsi'); ?>
-                <?php echo $form->textField($model,'provinsi',array('class'=>'form-control')); ?>
-                <?php echo $form->error($model,'provinsi'); ?>
+                <?php echo $form->labelEx($model,'kecamatan'); ?>
+                <?php echo $form->dropDownList($model,'kecamatan',array(),
+                    array('class'=>'form-control','prompt'=>'Pilih Kecamatan','id'=>'kecamatan')); ?>
+                <?php echo $form->error($model,'kecamatan'); ?>
             </div>
+
         </div>
         <h4><i>Kontak / Media Komunikasi Klinik</i></h4>
         <div class="col-lg-12">

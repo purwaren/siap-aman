@@ -42,7 +42,7 @@ $this->breadcrumbs=array(
                         <th style="width: 25%">Informasi Umum</th>
                         <td>
                             <?php if($klinik->isComplete()) { ?>
-                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i> Lengkap</a>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i></a>
                             <?php } else { ?>
                                 <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-warning"></i> Belum Lengkap</a>
                             <?php } ?>
@@ -52,7 +52,7 @@ $this->breadcrumbs=array(
                         <th>Alamat Klinik</th>
                         <td>
                             <?php if(!empty($alamat)) { ?>
-                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i> Lengkap</a>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i></a>
                             <?php } else { ?>
                                 <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-warning"></i> Belum Lengkap</a>
                             <?php } ?>
@@ -62,7 +62,7 @@ $this->breadcrumbs=array(
                         <th>Kontak Klinik</th>
                         <td>
                             <?php if(!empty($kontak)) { ?>
-                            <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i> Lengkap</a>
+                            <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i></a>
                             <?php } else { ?>
                                 <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-warning"></i> Belum Lengkap</a>
                             <?php } ?>
@@ -72,7 +72,7 @@ $this->breadcrumbs=array(
                         <th>Fasilitas Klinik</th>
                         <td>
                             <?php if(!empty($fasilitas)) { ?>
-                            <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i> Lengkap</a>
+                            <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i></a>
                             <?php } else { ?>
                                 <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-warning"></i> Belum Lengkap</a>
                             <?php } ?>
@@ -82,7 +82,7 @@ $this->breadcrumbs=array(
                         <th>Foto Klinik</th>
                         <td>
                             <?php if($klinik->hasPhotos() >=2 ) { ?>
-                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i> Lengkap</a>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i></a>
                             <?php } elseif ($klinik->hasPhotos() > 0) { ?>
                                 <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-warning"></i> Belum Lengkap</a>
                             <?php } else { ?>
@@ -94,7 +94,7 @@ $this->breadcrumbs=array(
                         <th>Dokumen Pendukung</th>
                         <td>
                             <?php if($pengajuan->hasDocuments() >= 3) {?>
-                                <a class="btn btn-sm btn-success" href="#"> <i class="fa fa-check-square-o"></i> Lengkap</a>
+                                <a class="btn btn-sm btn-success" href="#"> <i class="fa fa-check-square-o"></i></a>
                             <?php } elseif ($pengajuan->hasDocuments() > 0) {?>
                                 <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-warning"></i> Belum Lengkap</a>
                             <?php } else { ?>

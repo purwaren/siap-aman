@@ -2,9 +2,9 @@
 /* @var $this Controller */
 /* @var $model Users */
 
-$this->pageTitle = 'Kelola Pendamping Akreditasi';
+$this->pageTitle = 'Kelola Usulan Akreditasi';
 $this->breadcrumbs = array(
-    'Pendamping'
+    'Akreditasi'
 );
 ?>
 <!-- Main content -->
@@ -12,7 +12,7 @@ $this->breadcrumbs = array(
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title"><small>Daftar pengguna yang tercatat di dalam sistem</small></h3>
+            <h3 class="box-title"><small>Daftar usulan akreditasi yang perlu untuk diproses</small></h3>
         </div>
         <div class="box-body">
             <?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -24,23 +24,24 @@ $this->breadcrumbs = array(
                         'header'=>'No',
                         'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize+$row+1'
                     ),
-                    'nama',
+                    'idKlinik.kode_klinik',
+                    'idKlinik.nama',
                     array(
-                        'name'=>'tipe',
-                        'value'=>'$data->getTipe()'
+                        'name'=>'tgl_pengajuan',
+                        'value'=>'DateUtil::dateToString($data->tgl_pengajuan)'
                     ),
                     array(
-                        'name'=>'email',
-                        'htmlOptions'=>array('class'=>'hidden-xs'),
-                        'headerHtmlOptions'=>array('class'=>'hidden-xs'),
+                        'name'=>'jenis_pengajuan',
+                        'value'=>'ucfirst($data->jenis_pengajuan    )'
                     ),
                     array(
                         'class'=>'CButtonColumn',
+                        'template'=>'{view}',
                         'buttons'=>array(
                             'view'=>array(
                                 'label'=>'<i class="fa fa-search"></i>',
                                 'imageUrl'=>false,
-                                'options'=>array('class'=>'btn btn-xs btn-primary','title'=>'Detail','data-toggle'=>'tooltip')
+                                'options'=>array('class'=>'btn btn-xs btn-primary','title'=>'Detail Usulan','data-toggle'=>'tooltip')
                             ),
                             'update'=>array(
                                 'label'=>'<i class="fa fa-edit"></i>',
@@ -61,8 +62,5 @@ $this->breadcrumbs = array(
                 'template'=>'{items}{summary}'
             )); ?>
         </div><!-- /.box-body -->
-        <div class="box-footer">
-            <?php echo CHtml::link('Tambah Pendamping',array('pendamping/create'),array('class'=>'btn btn-primary'))?>
-        </div><!-- /.box-footer-->
     </div><!-- /.box -->
 </section><!-- /.content -->

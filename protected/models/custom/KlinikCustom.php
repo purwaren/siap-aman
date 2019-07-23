@@ -33,6 +33,7 @@ class KlinikCustom extends Klinik
 
     public static function getAllTingkatanOptions() {
         return array(
+            'belum'=>'Belum Akreditasi',
             'dasar'=>'Dasar',
             'madya'=>'Madya',
             'utama'=>'Utama',
