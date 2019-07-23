@@ -11,6 +11,12 @@
  * @property string $jenis_pengajuan
  * @property string $tgl_penetapan
  * @property integer $status
+ * @property integer $status_info
+ * @property integer $status_alamat
+ * @property integer $status_kontak
+ * @property integer $status_fasilitas
+ * @property integer $status_foto
+ * @property integer $status_dokumen
  *
  * The followings are the available model relations:
  * @property BerkasAkreditasi[] $berkasAkreditasis
@@ -35,12 +41,12 @@ class PengajuanAkreditasi extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_klinik', 'required'),
-			array('id_klinik, no_urut, status', 'numerical', 'integerOnly'=>true),
+			array('id_klinik, no_urut, status, status_info, status_alamat, status_kontak, status_fasilitas, status_foto, status_dokumen', 'numerical', 'integerOnly'=>true),
 			array('jenis_pengajuan', 'length', 'max'=>32),
 			array('tgl_pengajuan, tgl_penetapan', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_klinik, no_urut, tgl_pengajuan, jenis_pengajuan, tgl_penetapan, status', 'safe', 'on'=>'search'),
+			array('id, id_klinik, no_urut, tgl_pengajuan, jenis_pengajuan, tgl_penetapan, status, status_info, status_alamat, status_kontak, status_fasilitas, status_foto, status_dokumen', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,6 +76,12 @@ class PengajuanAkreditasi extends CActiveRecord
 			'jenis_pengajuan' => 'Jenis Pengajuan',
 			'tgl_penetapan' => 'Tgl Penetapan',
 			'status' => 'Status',
+			'status_info' => 'Status Info',
+			'status_alamat' => 'Status Alamat',
+			'status_kontak' => 'Status Kontak',
+			'status_fasilitas' => 'Status Fasilitas',
+			'status_foto' => 'Status Foto',
+			'status_dokumen' => 'Status Dokumen',
 		);
 	}
 
@@ -98,6 +110,12 @@ class PengajuanAkreditasi extends CActiveRecord
 		$criteria->compare('jenis_pengajuan',$this->jenis_pengajuan,true);
 		$criteria->compare('tgl_penetapan',$this->tgl_penetapan,true);
 		$criteria->compare('status',$this->status);
+		$criteria->compare('status_info',$this->status_info);
+		$criteria->compare('status_alamat',$this->status_alamat);
+		$criteria->compare('status_kontak',$this->status_kontak);
+		$criteria->compare('status_fasilitas',$this->status_fasilitas);
+		$criteria->compare('status_foto',$this->status_foto);
+		$criteria->compare('status_dokumen',$this->status_dokumen);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
