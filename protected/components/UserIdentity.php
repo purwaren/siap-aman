@@ -39,6 +39,11 @@ class UserIdentity extends CUserIdentity
 
 				//set session variable
 				$this->setState('fullname', $user->name);
+				$pendamping = PendampingCustom::model()->findByAttributes(array('id_user'=>$user->id));
+				if (!empty($pendamping)) {
+				    $this->setState('regency_id', $pendamping->idSudin->id_regency);
+				    $this->setState('regency', $pendamping->idSudin->idRegency->name);
+                }
 			}
 			$user->last_login_attempt = new CDbExpression('NOW()');
 		}

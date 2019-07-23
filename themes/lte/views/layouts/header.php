@@ -17,6 +17,12 @@
         </a>
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-clock-o"></i>
+                        <span id="clock">12:01:31</span>
+                    </a>
+                </li>
                 <!-- Notifications: style can be found in dropdown.less -->
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -49,8 +55,12 @@
                         <li class="user-header">
                             <img src="<?php echo Yii::app()->theme->baseUrl?>/assets/img/avatar04.png" class="img-circle" alt="User Image">
                             <p>
-                                <?php echo Yii::app()->user->fullname?> - Web Admin
-                                <small>Aktif dari Juli 2019</small>
+                                <?php echo Yii::app()->user->fullname?><br />
+                                <?php
+                                    if (Yii::app()->user->isSudin())  {
+                                        echo '<small>'.Yii::app()->user->regency.'</small>';
+                                    }
+                                ?>
                             </p>
                         </li>
                         <!-- Menu Footer-->

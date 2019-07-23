@@ -19,7 +19,12 @@
  * @property string $updated_at
  *
  * The followings are the available model relations:
+ * @property Alamat[] $alamats
+ * @property FasilitasKlinik[] $fasilitasKliniks
+ * @property FotoKlinik[] $fotoKliniks
  * @property Users $idUser
+ * @property Kontak[] $kontaks
+ * @property PengajuanAkreditasi[] $pengajuanAkreditasis
  */
 class Klinik extends CActiveRecord
 {
@@ -39,7 +44,7 @@ class Klinik extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user, nama, penanggung_jawab, created_by, created_at', 'required'),
+			array('nama, penanggung_jawab, created_by, created_at', 'required'),
 			array('id_user', 'numerical', 'integerOnly'=>true),
 			array('kode_klinik, no_izin', 'length', 'max'=>64),
 			array('nama, penanggung_jawab', 'length', 'max'=>128),
@@ -59,7 +64,12 @@ class Klinik extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user')
+			'alamats' => array(self::HAS_MANY, 'Alamat', 'id_klinik'),
+			'fasilitasKliniks' => array(self::HAS_MANY, 'FasilitasKlinik', 'id_klinik'),
+			'fotoKliniks' => array(self::HAS_MANY, 'FotoKlinik', 'id_klinik'),
+			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
+			'kontaks' => array(self::HAS_MANY, 'Kontak', 'id_klinik'),
+			'pengajuanAkreditasis' => array(self::HAS_MANY, 'PengajuanAkreditasi', 'id_klinik'),
 		);
 	}
 

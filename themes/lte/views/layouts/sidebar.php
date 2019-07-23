@@ -83,7 +83,7 @@
                         array('label'=>'<i class="fa fa-file-excel-o"></i> Nilai Akreditasi','url'=>array('/klinik/admin')),
                     ),
                     'encodeLabel'=>false,
-                    'visible'=>Yii::app()->user->isAdmin(),
+                    'visible'=>!Yii::app()->user->isKlinik(),
                 ),
                 array(
                     'label'=>'<i class="fa fa-wrench"></i><span>Konfigurasi Sistem</span><i class="fa fa-angle-left pull-right"></i>',

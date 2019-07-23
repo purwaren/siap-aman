@@ -5,6 +5,8 @@
 
 class KlinikCustom extends Klinik
 {
+    public $id_regency;
+
     public function attributeLabels()
     {
         return array(

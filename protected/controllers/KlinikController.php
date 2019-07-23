@@ -41,10 +41,11 @@ class KlinikController extends Controller
 		);
 	}
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     * @throws CHttpException
+     */
 	public function actionView($id)
 	{
 		$this->render('view',array(
@@ -52,20 +53,21 @@ class KlinikController extends Controller
 		));
 	}
 
-	/**
-	 * Creates a new model.
-	 * If creation is successful, the browser will be redirected to the 'view' page.
-	 */
+    /**
+     * Creates a new model.
+     * If creation is successful, the browser will be redirected to the 'view' page.
+     * @throws CDbException
+     */
 	public function actionCreate()
 	{
-		$model=new Klinik;
+		$model=new KlinikUpdateForm();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Klinik']))
+		if(isset($_POST['KlinikUpdateForm']))
 		{
-			$model->attributes=$_POST['Klinik'];
+			$model->attributes=$_POST['KlinikUpdateForm'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -75,11 +77,12 @@ class KlinikController extends Controller
 		));
 	}
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
+    /**
+     * Updates a particular model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id the ID of the model to be updated
+     * @throws CHttpException
+     */
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
@@ -99,11 +102,13 @@ class KlinikController extends Controller
 		));
 	}
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
+    /**
+     * Deletes a particular model.
+     * If deletion is successful, the browser will be redirected to the 'admin' page.
+     * @param integer $id the ID of the model to be deleted
+     * @throws CDbException
+     * @throws CHttpException
+     */
 	public function actionDelete($id)
 	{
 		$this->loadModel($id)->delete();
@@ -129,10 +134,14 @@ class KlinikController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Klinik('search');
+		$model=new KlinikCustom('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Klinik']))
-			$model->attributes=$_GET['Klinik'];
+        if (Yii::app()->user->isSudin()) {
+            $model->id_regency = Yii::app()->user->regency_id;
+        }
+
+		if(isset($_GET['KlinikCustom']))
+			$model->attributes=$_GET['KlinikCustom'];
 
 		$this->render('admin',array(
 			'model'=>$model,

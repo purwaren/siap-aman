@@ -36,6 +36,7 @@ $this->breadcrumbs = array(
                     ),
                     array(
                         'class'=>'CButtonColumn',
+                        'template'=>'{view} {delete}',
                         'buttons'=>array(
                             'view'=>array(
                                 'label'=>'<i class="fa fa-search"></i>',

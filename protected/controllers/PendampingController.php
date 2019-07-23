@@ -45,14 +45,24 @@ class PendampingController extends Controller
 		);
 	}
 
-	/**
-	 * Displays a particular model.
-	 * @param integer $id the ID of the model to be displayed
-	 */
+    /**
+     * Displays a particular model.
+     * @param integer $id the ID of the model to be displayed
+     * @throws CHttpException
+     */
 	public function actionView($id)
 	{
+	    $pendidikan = new RiwayatPendidikanCustom('search');
+	    $pendidikan->id_pendamping = $id;
+	    $sertifikasi = new SertifikasiCustom('search');
+	    $sertifikasi->id_pendamping = $id;
+	    $pekerjaan = new RiwayatPekerjaanCustom('search');
+	    $pekerjaan->id_pendamping = $id;
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+            'pendidikan'=>$pendidikan,
+            'sertifikasi'=>$sertifikasi,
+            'pekerjaan'=>$pekerjaan
 		));
 	}
 
@@ -156,7 +166,7 @@ class PendampingController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Pendamping::model()->findByPk($id);
+		$model=PendampingCustom::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

@@ -49,6 +49,7 @@ $this->breadcrumbs = array(
                                 'label'=>'<i class="fa fa-trash"></i>',
                                 'imageUrl'=>false,
                                 'options'=>array('class'=>'btn btn-xs btn-danger','title'=>'Hapus','data-toggle'=>'tooltip'),
+                                'visible'=>'Yii::app()->user->isAdmin()'
                             )
                         )
                     ),
