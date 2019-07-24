@@ -32,7 +32,7 @@ $this->breadcrumbs = array(
                     ),
                     array(
                         'name'=>'jenis_pengajuan',
-                        'value'=>'ucfirst($data->jenis_pengajuan    )'
+                        'value'=>'ucfirst($data->jenis_pengajuan)'
                     ),
                     array(
                         'class'=>'CButtonColumn',

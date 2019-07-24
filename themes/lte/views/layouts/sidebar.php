@@ -64,13 +64,13 @@
                     'label'=>'<i class="fa fa-users"></i> <span>Data Suku Dinas</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>array('/sudin/admin'),
                     'itemOptions'=>array('class'=>'treeview'),
-                    'visible'=>Yii::app()->user->isAdmin(),
+                    'visible'=>Yii::app()->user->isAdmin() || Yii::app()->user->isDinkes(),
                 ),
                 array(
                     'label'=>'<i class="fa fa-users"></i> <span>Data Pendamping</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>array('/pendamping/admin'),
                     'itemOptions'=>array('class'=>'treeview'),
-                    'visible'=>Yii::app()->user->isAdmin(),
+                    'visible'=>Yii::app()->user->isAdmin() || Yii::app()->user->isDinkes(),
                 ),
                 array(
                     'label'=>'<i class="fa fa-home"></i> <span>Data Klinik</span> <i class="fa fa-angle-left pull-right"></i>',

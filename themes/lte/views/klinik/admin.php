@@ -30,7 +30,7 @@ $this->breadcrumbs = array(
                     'penanggung_jawab',
                     array(
                         'name'=>'tingkatan',
-                        'value'=>'ucfirst($data->tingkatan)'
+                        'value'=>'$data->getTingkatan()'
                     ),
                     array(
                         'class'=>'CButtonColumn',

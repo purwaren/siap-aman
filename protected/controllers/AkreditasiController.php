@@ -127,6 +127,10 @@ class AkreditasiController extends Controller
 	{
 		$model=new PengajuanAkreditasiCustom('search');
 		$model->unsetAttributes();  // clear any default values
+        if (Yii::app()->user->isSudin()) {
+            $model->id_regency = Yii::app()->user->regency_id;
+        }
+
 		if(isset($_GET['PengajuanAkreditasiCustom']))
 			$model->attributes=$_GET['PengajuanAkreditasiCustom'];
 

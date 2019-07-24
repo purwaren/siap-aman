@@ -25,7 +25,10 @@ $this->pageTitle = 'Detil Klinik: '.$model->nama;
                     'kepemilikan',
                     'penanggung_jawab',
                     'karakteristik',
-                    'tingkatan',
+                    array(
+                        'name'=>'tingkatan',
+                        'value'=>$model->getTingkatan()
+                    ),
                     'created_at',
                     'created_by',
                     'updated_at',

@@ -43,6 +43,15 @@ class KlinikCustom extends Klinik
         );
     }
 
+    public function getTingkatan() {
+        $options = self::getAllTingkatanOptions();
+        if (!empty($this->tingkatan)) {
+            return $options[$this->tingkatan];
+        } else {
+            return null;
+        }
+    }
+
     public static function getInstance() {
         return self::model()->findByAttributes(array('id_user'=>Yii::app()->user->getId()));
     }
@@ -69,5 +78,38 @@ class KlinikCustom extends Klinik
 
     public static function countAllRegisteredKlinik() {
         return self::model()->count();
+    }
+
+    /**
+     * @return CActiveDataProvider
+     */
+    public function search()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('id_user',$this->id_user);
+        $criteria->compare('kode_klinik',$this->kode_klinik,true);
+        $criteria->compare('nama',$this->nama,true);
+        $criteria->compare('no_izin',$this->no_izin,true);
+        $criteria->compare('kepemilikan',$this->kepemilikan,true);
+        $criteria->compare('penanggung_jawab',$this->penanggung_jawab,true);
+        $criteria->compare('karakteristik',$this->karakteristik,true);
+        $criteria->compare('tingkatan',$this->tingkatan,true);
+        $criteria->compare('created_by',$this->created_by,true);
+        $criteria->compare('created_at',$this->created_at,true);
+        $criteria->compare('updated_by',$this->updated_by,true);
+        $criteria->compare('updated_at',$this->updated_at,true);
+
+        if (!empty($this->id_regency)) {
+            $criteria->join = 'left join alamat t2 on t2.id_klinik = t.id';
+            $criteria->compare('t2.kota', $this->id_regency);
+        }
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
     }
 }
