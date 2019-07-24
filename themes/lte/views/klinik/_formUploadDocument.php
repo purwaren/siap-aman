@@ -122,8 +122,8 @@ if (empty($photos)) {
                             'download'=>array(
                                 'label'=>'<i class="fa fa-download"></i>',
                                 'imageUrl'=>false,
-                                'url'=>'Yii::app()->createUrl("klinik/download",array("id"=>$data->id))',
-                                'options'=>array('class'=>'btn btn-xs btn-warning','title'=>'Download','data-toggle'=>'tooltip')
+                                'url'=>'Yii::app()->request->baseUrl."/".$data->file_path',
+                                'options'=>array('class'=>'btn btn-xs btn-warning','title'=>'Download','data-toggle'=>'tooltip','target'=>'_new')
                             ),
                             'delete'=>array(
                                 'label'=>'<i class="fa fa-trash"></i>',

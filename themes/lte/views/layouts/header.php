@@ -17,12 +17,12 @@
         </a>
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-                <li class="dropdown notifications-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-clock-o"></i>
-                        <span id="clock">12:01:31</span>
-                    </a>
-                </li>
+<!--                <li class="dropdown notifications-menu">-->
+<!--                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+<!--                        <i class="fa fa-clock-o"></i>-->
+<!--                        <span id="clock">12:01:31</span>-->
+<!--                    </a>-->
+<!--                </li>-->
                 <!-- Notifications: style can be found in dropdown.less -->
                 <li class="dropdown notifications-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">

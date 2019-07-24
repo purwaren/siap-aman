@@ -312,12 +312,48 @@ class KlinikController extends Controller
         ));
     }
 
-    public function actionMonitor() {
+    public function actionMonitor($id='') {
 	    if (Yii::app()->user->isKlinik()) {
 	        $pengajuan = PengajuanAkreditasiCustom::getInstance();
 	        $this->render('monitor-klinik', array(
 	            'pengajuan'=>$pengajuan
             ));
+        }
+	    else {
+	        if (empty($id)) {
+                $pengajuan = new PengajuanAkreditasiCustom('search');
+                $this->render('monitor', array(
+                    'pengajuan' => $pengajuan
+                ));
+            }
+	        else {
+                $model = PengajuanAkreditasiCustom::model()->findByPk($id);
+                $doc = new BerkasAkreditasiCustom();
+                $doc->id_pengajuan = $model->id;
+                //get all data for klinik
+                $images = FotoKlinikCustom::model()->findAllByAttributes(array('id_klinik'=>$model->id_klinik));
+                $klinik = KlinikCustom::model()->findByPk($model->id_klinik);
+                $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$model->id_klinik));
+                $kontak = KontakCustom::model()->findByAttributes(array('id_klinik'=>$model->id_klinik));
+                $fasilitas = FasilitasKlinikCustom::model()->findByAttributes(array('id_klinik'=>$model->id_klinik));
+
+                if (isset($_POST['PengajuanAkreditasiCustom'])) {
+                    $model->attributes = $_POST['PengajuanAkreditasiCustom'];
+                    if ($model->update(array('status_info','status_kontak','status_alamat','status_fasilitas','status_foto','status_dokumen'))){
+                        Yii::app()->user->setFlash('success', 'Status verifikasi berhasil diupdate');
+                    }
+                }
+
+                $this->render('monitor-detail',array(
+                    'model'=>$model,
+                    'doc'=>$doc,
+                    'images'=>$images,
+                    'klinik'=>$klinik,
+                    'kontak'=>$kontak,
+                    'alamat'=>$alamat,
+                    'fasilitas'=>$fasilitas
+                ));
+            }
         }
     }
 }

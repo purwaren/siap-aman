@@ -9,7 +9,7 @@ Yii::app()->clientScript->registerScript('chartjs', "
     var totalKlinik = 834;
     var totalRegistered = ".KlinikCustom::countAllRegisteredKlinik().";
     var pieData = [
-        {value: totalKlinik-totalRegistered, color: '#f56954', highlight: '#f56954', label:'Belum Registrasi'},
+        {value: totalKlinik-totalRegistered, color: '#43add7', highlight: '#43add7', label:'Belum Registrasi'},
         {value: totalRegistered, color: '#00a65a', highlight: '#00a65a', label:'Sudah Registrasi'},
     ];
     
@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerScript('chartjs', "
       //Number - The width of each segment stroke
       segmentStrokeWidth   : 1,
       //Number - The percentage of the chart that we cut out of the middle
-      percentageInnerCutout: 25, // This is 0 for Pie charts
+      percentageInnerCutout: 50, // This is 0 for Pie charts
       //Number - Amount of animation steps
       animationSteps       : 100,
       //String - Animation easing effect
