@@ -36,4 +36,18 @@ class SudinCustom extends Sudin
         }
         return $options;
     }
+
+    public static function countAvailableKlinik() {
+        $criteria = new CDbCriteria();
+        $criteria->select = 'SUM(jumlah_klinik) AS jumlah_klinik';
+        if (Yii::app()->user->isSudin()) {
+            $criteria->compare('id_regency', Yii::app()->user->regency_id);
+        }
+
+        $model = self::model()->find($criteria);
+        if (!empty($model)) {
+            return $model->jumlah_klinik;
+        }
+        else return 0;
+    }
 }

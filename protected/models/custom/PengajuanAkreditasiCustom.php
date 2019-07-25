@@ -81,15 +81,33 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
     public static function countAll() {
         $criteria = new CDbCriteria();
         $criteria->condition = 'no_urut IS NOT NULL';
+        if (Yii::app()->user->isSudin()) {
+            $criteria->join = 'left join klinik t2 on t2.id = t.id_klinik left join alamat t3 on t3.id_klinik = t2.id';
+            $criteria->compare('t3.kota', Yii::app()->user->regency_id);
+        }
         return self::model()->count($criteria);
     }
 
     public static function countAllCanceled() {
-        return self::model()->countByAttributes(array('status'=>array(StatusPengajuan::BATAL, StatusPengajuan::DITOLAK)));
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'no_urut IS NOT NULL';
+        if (Yii::app()->user->isSudin()) {
+            $criteria->join = 'left join klinik t2 on t2.id = t.id_klinik left join alamat t3 on t3.id_klinik = t2.id';
+            $criteria->compare('t3.kota', Yii::app()->user->regency_id);
+        }
+        $criteria->compare('status', array(StatusPengajuan::BATAL, StatusPengajuan::DITOLAK));
+        return self::model()->count($criteria);
     }
 
     public static function countAllAccept() {
-        return self::model()->countByAttributes(array('status'=>array(StatusPengajuan::DITERIMA, StatusPengajuan::REKOMENDASI)));
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'no_urut IS NOT NULL';
+        if (Yii::app()->user->isSudin()) {
+            $criteria->join = 'left join klinik t2 on t2.id = t.id_klinik left join alamat t3 on t3.id_klinik = t2.id';
+            $criteria->compare('t3.kota', Yii::app()->user->regency_id);
+        }
+        $criteria->compare('status', array(StatusPengajuan::DITERIMA, StatusPengajuan::REKOMENDASI));
+        return self::model()->count($criteria);
     }
 
     /**

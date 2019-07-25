@@ -1,13 +1,16 @@
 <?php
 /* @var $this SiteController */
 /* @var $pengajuan PengajuanAkreditasiCustom */
+$totalKlinik = SudinCustom::countAvailableKlinik();
+$registeredKlinik = KlinikCustom::countAllRegisteredKlinik();
+$progress = round($registeredKlinik/$totalKlinik*100, 2);
 
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/assets/plugins/chartjs/Chart.min.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerScript('chartjs', "
     var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
     var pieChart = new Chart(pieChartCanvas);
-    var totalKlinik = 834;
-    var totalRegistered = ".KlinikCustom::countAllRegisteredKlinik().";
+    var totalKlinik = ".$totalKlinik.";
+    var totalRegistered = ".$registeredKlinik.";
     var pieData = [
         {value: totalKlinik-totalRegistered, color: '#dd4b39 ', highlight: '#dd4b39', label:'Belum Registrasi'},
         {value: totalRegistered, color: '#43add7', highlight: '#43add7', label:'Sudah Registrasi'},
@@ -40,6 +43,7 @@ Yii::app()->clientScript->registerScript('chartjs', "
 ", CClientScript::POS_READY);
 
 $this->pageTitle = 'Dashboard';
+
 ?>
 
 <!-- Main content -->
@@ -56,7 +60,7 @@ $this->pageTitle = 'Dashboard';
                 <div class="icon">
                     <i class="ion ion-document"></i>
                 </div>
-                <a href="#" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo Yii::app()->createUrl('klinik/admin')?>" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -71,7 +75,7 @@ $this->pageTitle = 'Dashboard';
                 <div class="icon">
                     <i class="ion ion-document-text"></i>
                 </div>
-                <a href="#" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo Yii::app()->createUrl('klinik/monitor')?>" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -86,7 +90,7 @@ $this->pageTitle = 'Dashboard';
                 <div class="icon">
                     <i class="ion ion-android-cancel"></i>
                 </div>
-                <a href="#" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo Yii::app()->createUrl('akreditasi/admin')?>" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -101,7 +105,7 @@ $this->pageTitle = 'Dashboard';
                 <div class="icon">
                     <i class="ion ion-checkmark"></i>
                 </div>
-                <a href="#" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo Yii::app()->createUrl('akreditasi/admin')?>" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -143,7 +147,14 @@ $this->pageTitle = 'Dashboard';
                         'itemsCssClass'=>'table table-striped table-bordered table-hover dataTable',
                         'cssFile' => false,
                         'summaryCssClass' => 'dataTables_info',
-                        'template'=>'{items}{summary}'
+                        'template'=>'{summary}{items}{pager}',
+                        'pagerCssClass'=>'dataTables_paginate paging_simple_numbers text-center',
+                        'pager'=>array(
+                            'htmlOptions'=>array('class'=>'pagination'),
+                            'internalPageCssClass'=>'paginate_button',
+                            'selectedPageCssClass'=>'active',
+                            'header'=>''
+                        )
                     )); ?>
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
@@ -151,7 +162,7 @@ $this->pageTitle = 'Dashboard';
         <div class="col-lg-5 col-xs-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Progres Pendaftaran Klinik</h3>
+                    <h3 class="box-title">Progres Pendaftaran Klinik: <?php echo $progress.'%' ?></h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -159,7 +170,7 @@ $this->pageTitle = 'Dashboard';
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
-                <div class="box-body" style="height: 300px">
+                <div class="box-body" style="height: 342px">
                     <canvas id="pieChart" style="height:250px"></canvas>
                 </div>
                 <!-- /.box-body -->

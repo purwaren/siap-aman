@@ -12,6 +12,7 @@
  * @property string $no_fax
  * @property string $email
  * @property string $website
+ * @property integer $jumlah_klinik
  * @property string $created_at
  * @property string $created_by
  * @property string $updated_at
@@ -40,6 +41,7 @@ class Sudin extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_regency, nama, alamat, no_telp', 'required'),
+			array('jumlah_klinik', 'numerical', 'integerOnly'=>true),
 			array('id_regency', 'length', 'max'=>4),
 			array('nama, email, website', 'length', 'max'=>128),
 			array('alamat', 'length', 'max'=>512),
@@ -47,7 +49,7 @@ class Sudin extends CActiveRecord
 			array('created_at, updated_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_regency, nama, alamat, no_telp, no_fax, email, website, created_at, created_by, updated_at, updated_by', 'safe', 'on'=>'search'),
+			array('id, id_regency, nama, alamat, no_telp, no_fax, email, website, jumlah_klinik, created_at, created_by, updated_at, updated_by', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,6 +80,7 @@ class Sudin extends CActiveRecord
 			'no_fax' => 'No Fax',
 			'email' => 'Email',
 			'website' => 'Website',
+			'jumlah_klinik' => 'Jumlah Klinik',
 			'created_at' => 'Created At',
 			'created_by' => 'Created By',
 			'updated_at' => 'Updated At',
@@ -111,6 +114,7 @@ class Sudin extends CActiveRecord
 		$criteria->compare('no_fax',$this->no_fax,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('website',$this->website,true);
+		$criteria->compare('jumlah_klinik',$this->jumlah_klinik);
 		$criteria->compare('created_at',$this->created_at,true);
 		$criteria->compare('created_by',$this->created_by,true);
 		$criteria->compare('updated_at',$this->updated_at,true);
