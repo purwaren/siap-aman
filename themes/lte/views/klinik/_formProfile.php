@@ -55,11 +55,12 @@ Yii::app()->clientScript->registerScript('form', "
         <?php } ?>
         <h4><i>Informasi Umum Terkait Klinik</i></h4>
         <div class="col-lg-12">
+            <!--
             <div class="form-group">
                 <?php echo $form->labelEx($model,'kode_klinik'); ?>
                 <?php echo $form->textField($model,'kode_klinik',array('class'=>'form-control')); ?>
                 <?php echo $form->error($model,'kode_klinik'); ?>
-            </div>
+            </div> -->
             <div class="form-group">
                 <?php echo $form->labelEx($model,'nama'); ?>
                 <?php echo $form->textField($model,'nama',array('class'=>'form-control')); ?>

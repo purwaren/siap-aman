@@ -81,7 +81,7 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
     public static function countAll() {
         $criteria = new CDbCriteria();
         $criteria->condition = 'no_urut IS NOT NULL';
-        return self::model()->count();
+        return self::model()->count($criteria);
     }
 
     public static function countAllCanceled() {
@@ -96,6 +96,42 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
      * @return CActiveDataProvider
      */
     public function search()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('id_klinik',$this->id_klinik);
+        $criteria->compare('tgl_pengajuan',$this->tgl_pengajuan,true);
+        $criteria->compare('jenis_pengajuan',$this->jenis_pengajuan,true);
+        $criteria->compare('tgl_penetapan',$this->tgl_penetapan,true);
+        $criteria->compare('status',$this->status);
+        $criteria->compare('status_info',$this->status_info);
+        $criteria->compare('status_alamat',$this->status_alamat);
+        $criteria->compare('status_kontak',$this->status_kontak);
+        $criteria->compare('status_fasilitas',$this->status_fasilitas);
+        $criteria->compare('status_foto',$this->status_foto);
+        $criteria->compare('status_dokumen',$this->status_dokumen);
+        $criteria->condition = 'no_urut IS NOT NULL';
+
+        if (!empty($this->id_regency)) {
+            $criteria->join = 'left join klinik t2 ON t.id_klinik = t2.id left join alamat t3 on t3.id_klinik = t2.id';
+            $criteria->compare('t3.kota', $this->id_regency);
+        }
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'sort'=>array(
+                'defaultOrder'=>'no_urut ASC'
+            )
+        ));
+    }
+
+    /**
+     * @return CActiveDataProvider
+     */
+    public function searchForDashboard()
     {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
@@ -122,7 +158,10 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
-            'pagination'=>array('pageSize'=>5)
+            'pagination'=>array('pageSize'=>5),
+            'sort'=>array(
+                'defaultOrder'=>'no_urut ASC'
+            )
         ));
     }
 }

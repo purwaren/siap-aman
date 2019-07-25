@@ -124,9 +124,34 @@ class KlinikController extends Controller
      */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+        $klinik = $this->loadModel($id);
+        $user = Users::model()->findByPk($klinik->id_user);
+        $authManager = Yii::app()->authManager;
+        $assignments = $authManager->getAuthAssignments($user->id);
+        var_dump($assignments);
+        if (!empty($assignments)) {
+            foreach ($assignments as $row) {
+                $authManager->revoke($row->getItemName(), $id);
+            }
+        }
+        $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
+        if (!empty($alamat)) {
+            $alamat->delete();
+        }
 
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+        $kontak = KontakCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
+        if (!empty($kontak)) {
+            $kontak->delete();
+        }
+
+        $fasilitas = FasilitasKlinikCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
+        if (!empty($fasilitas)) {
+            $fasilitas->delete();
+        }
+        $klinik->delete();
+        $user->delete();
+
+        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}

@@ -77,3 +77,7 @@ table.detil-klinik tbody tr th, table.monitor-klinik tbody tr th {
 #sudin-box {
     height: 500px;
 }
+
+div.grid-view div.dataTables_paginate ul.pagination {
+    margin: 2px 0;
+}

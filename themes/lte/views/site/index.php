@@ -9,8 +9,8 @@ Yii::app()->clientScript->registerScript('chartjs', "
     var totalKlinik = 834;
     var totalRegistered = ".KlinikCustom::countAllRegisteredKlinik().";
     var pieData = [
-        {value: totalKlinik-totalRegistered, color: '#43add7', highlight: '#43add7', label:'Belum Registrasi'},
-        {value: totalRegistered, color: '#00a65a', highlight: '#00a65a', label:'Sudah Registrasi'},
+        {value: totalKlinik-totalRegistered, color: '#dd4b39 ', highlight: '#dd4b39', label:'Belum Registrasi'},
+        {value: totalRegistered, color: '#43add7', highlight: '#43add7', label:'Sudah Registrasi'},
     ];
     
     var pieOptions     = {
@@ -107,7 +107,7 @@ $this->pageTitle = 'Dashboard';
         <!-- ./col -->
     </div>
     <div class="row">
-        <div class="col-lg-6 col-xs-12">
+        <div class="col-lg-7 col-xs-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Usulan Akreditasi Klinik</h3>
@@ -115,7 +115,7 @@ $this->pageTitle = 'Dashboard';
                 <div class="box-body">
                     <?php $this->widget('zii.widgets.grid.CGridView', array(
                         'id'=>'pengajuan-grid',
-                        'dataProvider'=>$pengajuan->search(),
+                        'dataProvider'=>$pengajuan->searchForDashboard(),
                         //'filter'=>$model,
                         'columns'=>array(
                             'no_urut',
@@ -148,7 +148,7 @@ $this->pageTitle = 'Dashboard';
                 </div><!-- /.box-body -->
             </div><!-- /.box -->
         </div>
-        <div class="col-lg-6 col-xs-12">
+        <div class="col-lg-5 col-xs-12">
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Progres Pendaftaran Klinik</h3>
@@ -159,7 +159,7 @@ $this->pageTitle = 'Dashboard';
                         <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
                     </div>
                 </div>
-                <div class="box-body">
+                <div class="box-body" style="height: 300px">
                     <canvas id="pieChart" style="height:250px"></canvas>
                 </div>
                 <!-- /.box-body -->

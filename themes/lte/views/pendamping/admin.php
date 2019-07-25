@@ -59,7 +59,14 @@ $this->breadcrumbs = array(
                 'itemsCssClass'=>'table table-striped table-bordered table-hover dataTable',
                 'cssFile' => false,
                 'summaryCssClass' => 'dataTables_info',
-                'template'=>'{items}{summary}'
+                'template'=>'{summary}{items}{pager}',
+                'pagerCssClass'=>'dataTables_paginate paging_simple_numbers text-center',
+                'pager'=>array(
+                    'htmlOptions'=>array('class'=>'pagination'),
+                    'internalPageCssClass'=>'paginate_button',
+                    'selectedPageCssClass'=>'active',
+                    'header'=>''
+                )
             )); ?>
         </div><!-- /.box-body -->
         <div class="box-footer">

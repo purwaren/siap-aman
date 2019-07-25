@@ -26,7 +26,10 @@ class DateUtil
      */
     public static function dateToString($date) {
         $month = self::getAllMonthOptions();
-        $tmp = explode('-', $date);
-        return $tmp[2].' '.$month[$tmp[1]].' '.$tmp[0];
+        if (!empty($date)) {
+            $tmp = explode('-', $date);
+            return $tmp[2] . ' ' . $month[$tmp[1]] . ' ' . $tmp[0];
+        }
+        else return null;
     }
 }
