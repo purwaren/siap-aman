@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 25, 2019 at 08:50 AM
--- Server version: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Host: localhost
+-- Generation Time: Jul 25, 2019 at 08:30 PM
+-- Server version: 10.3.16-MariaDB-1:10.3.16+maria~stretch-log
+-- PHP Version: 5.6.40-9+0~20190710.17+debian9~1.gbp923b30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `siapamanv2`
+-- Database: `siapv2`
 --
 
 -- --------------------------------------------------------
@@ -86,8 +88,8 @@ INSERT INTO `alamat` (`id`, `id_klinik`, `alamat_1`, `alamat_2`, `kecamatan`, `k
 CREATE TABLE `authassignment` (
   `itemname` varchar(64) NOT NULL,
   `userid` int(11) NOT NULL,
-  `bizrule` text,
-  `data` text
+  `bizrule` text DEFAULT NULL,
+  `data` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -99,7 +101,6 @@ INSERT INTO `authassignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('dinkes', 24, NULL, 'N;'),
 ('klinik', 20, NULL, 'N;'),
 ('klinik', 22, NULL, 'N;'),
-('klinik', 23, NULL, 'N;'),
 ('klinik', 25, NULL, 'N;'),
 ('klinik', 26, NULL, 'N;'),
 ('klinik', 27, NULL, 'N;'),
@@ -113,10 +114,8 @@ INSERT INTO `authassignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('klinik', 38, NULL, 'N;'),
 ('klinik', 39, NULL, 'N;'),
 ('klinik', 40, NULL, 'N;'),
-('klinik', 41, NULL, 'N;'),
 ('klinik', 42, NULL, 'N;'),
 ('klinik', 43, NULL, 'N;'),
-('klinik', 45, NULL, 'N;'),
 ('klinik', 46, NULL, 'N;'),
 ('klinik', 48, NULL, 'N;'),
 ('klinik', 49, NULL, 'N;'),
@@ -154,9 +153,9 @@ CREATE TABLE `authitem` (
   `id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL,
   `type` int(11) NOT NULL,
-  `description` text,
-  `bizrule` text,
-  `data` text
+  `description` text DEFAULT NULL,
+  `bizrule` text DEFAULT NULL,
+  `data` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -195,83 +194,6 @@ CREATE TABLE `berkas_akreditasi` (
   `created_by` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `berkas_akreditasi`
---
-
-INSERT INTO `berkas_akreditasi` (`id`, `id_pengajuan`, `tipe_berkas`, `file_path`, `deskripsi`, `created_by`, `created_at`) VALUES
-(1, 1, 3, 'assets/docs/file_20190723160155_9985.xlsx', 'File Skoring Klinik.xlsx', 'purwaren', '2019-07-23 09:01:55'),
-(3, 1, 1, 'assets/docs/file_20190723160224_1993.pdf', 'junal_front_office.pdf', 'purwaren', '2019-07-23 09:02:24'),
-(4, 1, 2, 'assets/docs/file_20190723160241_3702.pdf', 'IteneraryRihlah.pdf', 'purwaren', '2019-07-23 09:02:41'),
-(7, 2, 1, 'assets/docs/file_20190724083635_1384.docx', 'surat_permohonan.docx', 'klinik.tugu', '2019-07-24 06:27:36'),
-(8, 2, 2, 'assets/docs/file_20190724082741_629.docx', 'Profil_klinik.docx', 'klinik.tugu', '2019-07-24 06:27:41'),
-(9, 2, 3, 'assets/docs/file_20190724083714_2282.xlsx', 'File Skoring Klinik.xlsx', 'klinik.tugu', '2019-07-24 06:37:14'),
-(10, 3, 2, 'assets/docs/file_20190724120834_1661.pdf', 'Himbauan_CVE_2018_14847_v_1.1.pdf', 'nafis', '2019-07-24 10:08:34'),
-(11, 3, 1, 'assets/docs/file_20190724120916_9329.pdf', 'manual_google_event_calendar.pdf', 'nafis', '2019-07-24 10:09:16'),
-(12, 3, 3, 'assets/docs/file_20190724120920_7943.xlsx', 'File Skoring Klinik.xlsx', 'nafis', '2019-07-24 10:09:20'),
-(13, 11, 2, 'assets/docs/file_20190725053305_6050.xlsx', 'template_self_assessment _1_.xlsx', 'rasyadmd', '2019-07-25 03:23:38'),
-(14, 11, 1, 'assets/docs/file_20190725053301_7973.xlsx', 'template_self_assessment _1_.xlsx', 'rasyadmd', '2019-07-25 03:23:39'),
-(15, 11, 3, 'assets/docs/file_20190725053711_1758.xlsx', 'mock.xlsx', 'rasyadmd', '2019-07-25 03:23:41'),
-(16, 22, 1, 'assets/docs/file_20190725052538_4224.docx', 'formulir_ppdb_2019.docx', 'Milles', '2019-07-25 03:25:38'),
-(17, 19, 3, 'assets/docs/file_20190725052543_3778.xlsx', 'template_self_assessment.xlsx', 'laura', '2019-07-25 03:25:43'),
-(18, 4, 3, 'assets/docs/file_20190725052621_8602.xlsx', 'template_self_assessment _1_.xlsx', 'drgrini', '2019-07-25 03:26:21'),
-(19, 17, 2, 'assets/docs/file_20190725052705_1642.doc', 'lansia.doc', 'KAHFI', '2019-07-25 03:27:05'),
-(20, 17, 1, 'assets/docs/file_20190725052708_4484.doc', '121 label.doc', 'KAHFI', '2019-07-25 03:27:08'),
-(21, 17, 3, 'assets/docs/file_20190725054049_1900.xlsx', 'template_self_assessment.xlsx', 'KAHFI', '2019-07-25 03:27:12'),
-(22, 26, 3, 'assets/docs/file_20190725053324_4440.xlsx', 'template_self_assessment.xlsx', 'kusnan', '2019-07-25 03:28:24'),
-(23, 33, 3, 'assets/docs/file_20190725052826_4209.xlsx', 'template_self_assessment.xlsx', 'klinikBHB', '2019-07-25 03:28:26'),
-(24, 15, 2, 'assets/docs/file_20190725052929_7308.docx', 'Surat Permohonan Izin SPPL.docx', 'jl_gautama', '2019-07-25 03:29:29'),
-(25, 16, 3, 'assets/docs/file_20190725052936_6101.xlsx', 'template_self_assessment.xlsx', 'Ardita Ciracas', '2019-07-25 03:29:36'),
-(26, 5, 2, 'assets/docs/file_20190725054553_5843.docx', 'Draft SPK Akreditasi _ Klinik _  Cipinang.docx', 'sigap', '2019-07-25 03:31:44'),
-(27, 12, 2, 'assets/docs/file_20190725053215_5340.pdf', 'Neo_Billing_Attachment_437915.pdf', 'yankesdinkes', '2019-07-25 03:32:15'),
-(28, 12, 1, 'assets/docs/file_20190725053216_793.pdf', 'InitiateSingleEntryPaymentSummary02_07_2019.pdf', 'yankesdinkes', '2019-07-25 03:32:16'),
-(29, 12, 3, 'assets/docs/file_20190725053218_7543.xlsx', 'template_self_assessment.xlsx', 'yankesdinkes', '2019-07-25 03:32:18'),
-(30, 9, 1, 'assets/docs/file_20190725053238_7420.docx', 'SURAT PERMOHONAN PENDAMPINGAN AKREDITASI KLINIK PRATAMA.docx', 'kliniksukmaanggrek', '2019-07-25 03:32:38'),
-(31, 9, 2, 'assets/docs/file_20190725053244_3539.pdf', 'Profil Klinik Sukma Anggrek sesuai akreditasi 2019.pdf', 'kliniksukmaanggrek', '2019-07-25 03:32:44'),
-(32, 5, 3, 'assets/docs/file_20190725053252_9825.xlsx', 'template_self_assessment.xlsx', 'sigap', '2019-07-25 03:32:52'),
-(33, 8, 2, 'assets/docs/file_20190725053254_868.jpg', '1564025690850731575011.jpg', 'Devi', '2019-07-25 03:32:54'),
-(34, 30, 3, 'assets/docs/file_20190725053306_1592.xlsx', 'template_self_assessment_11_.xlsx', 'Syifa', '2019-07-25 03:33:06'),
-(35, 8, 1, 'assets/docs/file_20190725053314_6623.jpg', '1564025703697699948248.jpg', 'Devi', '2019-07-25 03:33:15'),
-(36, 18, 3, 'assets/docs/file_20190725053317_4150.xlsx', 'template_self_assessment.xlsx', 'asarini', '2019-07-25 03:33:17'),
-(37, 23, 3, 'assets/docs/file_20190725053838_3910.xlsx', 'template_self_assessment.xlsx', 'victor', '2019-07-25 03:33:21'),
-(38, 22, 3, 'assets/docs/file_20190725053323_9159.xlsx', 'template_self_assessment.xlsx', 'Milles', '2019-07-25 03:33:23'),
-(39, 9, 3, 'assets/docs/file_20190725053325_7147.xlsx', 'template_self_assessment.xlsx', 'kliniksukmaanggrek', '2019-07-25 03:33:25'),
-(40, 22, 2, 'assets/docs/file_20190725053335_2594.jpg', 'Screenshot_20190725_062831_Word.jpg', 'Milles', '2019-07-25 03:33:35'),
-(41, 29, 2, 'assets/docs/file_20190725053353_8429.pdf', 'Compro Mayapada Clinic New rev visi misi.pdf', 'mayapada.clinicmt2', '2019-07-25 03:33:53'),
-(42, 18, 2, 'assets/docs/file_20190725053410_7473.docx', '015. Formulir Edukasi REVISI.docx', 'asarini', '2019-07-25 03:34:10'),
-(43, 31, 3, 'assets/docs/file_20190725053412_2850.xlsx', 'template_self_assessment.xlsx', 'Ardita', '2019-07-25 03:34:12'),
-(44, 23, 1, 'assets/docs/file_20190725053420_423.docx', 'Blangko Kop Surat Klinik Nurmala Medica1.docx', 'victor', '2019-07-25 03:34:20'),
-(45, 8, 3, 'assets/docs/file_20190725053442_4426.xlsx', 'template_self_assessment _1_.xlsx', 'Devi', '2019-07-25 03:34:42'),
-(46, 23, 2, 'assets/docs/file_20190725053446_5841.docx', 'NURMALA MEDIKA 1.docx', 'victor', '2019-07-25 03:34:47'),
-(47, 7, 3, 'assets/docs/file_20190725053821_6525.xlsx', 'template_self_assessment.xlsx', 'yasahusada', '2019-07-25 03:34:52'),
-(48, 25, 1, 'assets/docs/file_20190725053505_227.pdf', 'UU Nomor 36 Tahun2 009 tentang Kesehatan.pdf', 'viva', '2019-07-25 03:35:05'),
-(49, 25, 3, 'assets/docs/file_20190725053506_9373.xlsx', 'template_self_assessment.xlsx', 'viva', '2019-07-25 03:35:06'),
-(51, 18, 1, 'assets/docs/file_20190725053528_1629.xlsx', 'kekurangan berkas pra survey.xlsx', 'asarini', '2019-07-25 03:35:28'),
-(52, 7, 1, 'assets/docs/file_20190725053658_280.xlsx', 'Lampiran KBK Bupel Maret 2019 dan Triwulan I 2019.xlsx', 'yasahusada', '2019-07-25 03:36:58'),
-(53, 14, 3, 'assets/docs/file_20190725053734_6962.xlsx', 'template_self_assessment _2_.xlsx', 'Tanto', '2019-07-25 03:37:34'),
-(54, 25, 2, 'assets/docs/file_20190725053759_7370.pdf', 'SERTIFIKAT.pdf', 'viva', '2019-07-25 03:37:59'),
-(55, 15, 3, 'assets/docs/file_20190725053854_6278.xlsx', 'template_self_assessment.xlsx', 'jl_gautama', '2019-07-25 03:38:54'),
-(57, 29, 3, 'assets/docs/file_20190725054007_4508.xlsx', 'template_self_assessment.xlsx', 'mayapada.clinicmt2', '2019-07-25 03:39:28'),
-(58, 27, 3, 'assets/docs/file_20190725054157_9589.xlsx', 'template_self_assessment.xlsx', 'Pertamedika Rawamangun', '2019-07-25 03:41:57'),
-(59, 7, 2, 'assets/docs/file_20190725054234_4163.xlsx', 'Alur pendaftaran pasien.xlsx', 'yasahusada', '2019-07-25 03:42:34'),
-(60, 16, 2, 'assets/docs/file_20190725054333_2660.pdf', '19. Izin Edar OMRON NE_C28.pdf', 'Ardita Ciracas', '2019-07-25 03:43:34'),
-(61, 16, 1, 'assets/docs/file_20190725054344_4604.jpg', 'FOTO.jpg', 'Ardita Ciracas', '2019-07-25 03:43:44'),
-(62, 21, 3, 'assets/docs/file_20190725054356_3349.xlsx', 'template_self_assessment _2_.xlsx', 'paramita', '2019-07-25 03:43:57'),
-(63, 26, 1, 'assets/docs/file_20190725055827_704.docx', 'PERMOHONAN KOSONG.docx', 'kusnan', '2019-07-25 03:44:47'),
-(64, 10, 2, 'assets/docs/file_20190725054455_4144.jpg', '1562977016.jpg', 'suyanto', '2019-07-25 03:44:55'),
-(65, 10, 1, 'assets/docs/file_20190725054456_7048.jpg', '1562977016.jpg', 'suyanto', '2019-07-25 03:44:56'),
-(66, 10, 3, 'assets/docs/file_20190725054456_6144.xlsx', 'template_self_assessment AMAN DINKES 250719.xlsx', 'suyanto', '2019-07-25 03:44:56'),
-(67, 5, 1, 'assets/docs/file_20190725054553_655.docx', 'Draft SPK Akreditasi _ Klinik _  Cipinang.docx', 'sigap', '2019-07-25 03:45:53'),
-(68, 31, 2, 'assets/docs/file_20190725055029_6002.jpeg', 'WhatsApp Image 2019_07_05 at 10.12.22 PM.jpeg', 'Ardita', '2019-07-25 03:50:29'),
-(69, 31, 1, 'assets/docs/file_20190725055031_1204.docx', 'Denah lokasi.docx', 'Ardita', '2019-07-25 03:50:31'),
-(70, 4, 2, 'assets/docs/file_20190725055158_9003.docx', 'Notulen Rakor 3 okt.docx', 'drgrini', '2019-07-25 03:51:58'),
-(71, 4, 1, 'assets/docs/file_20190725055230_4665.docx', 'Notulen Rakor 3 okt.docx', 'drgrini', '2019-07-25 03:52:30'),
-(72, 19, 1, 'assets/docs/file_20190725055513_9019.jpg', 'IMG_20190722_WA0048.jpg', 'laura', '2019-07-25 03:55:13'),
-(73, 14, 2, 'assets/docs/file_20190725055516_2598.doc', 'Form_rekom_PDGI.doc', 'Tanto', '2019-07-25 03:55:16'),
-(74, 14, 1, 'assets/docs/file_20190725055526_3275.doc', 'Form_rekom_PDGI.doc', 'Tanto', '2019-07-25 03:55:26'),
-(75, 26, 2, 'assets/docs/file_20190725055652_9087.docx', 'COMPANY PROFILE KOSONG.docx', 'kusnan', '2019-07-25 03:56:53'),
-(76, 19, 2, 'assets/docs/file_20190725060017_5447.pdf', 'permenpan_26_2016_inpassing_jabatan_fungsional.pdf', 'laura', '2019-07-25 03:57:31');
 
 -- --------------------------------------------------------
 
@@ -340,92 +262,6 @@ CREATE TABLE `foto_klinik` (
   `deskripsi` varchar(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `foto_klinik`
---
-
-INSERT INTO `foto_klinik` (`id`, `id_klinik`, `path_foto`, `deskripsi`) VALUES
-(1, 1, 'assets/images/img_20190723150510_408.jpg', 'suite_2.jpg'),
-(2, 1, 'assets/images/img_20190723150510_5083.jpg', 'superior_1.jpg'),
-(3, 1, 'assets/images/img_20190723150510_6649.jpg', 'standard_1.jpg'),
-(4, 2, 'assets/images/img_20190724082913_2468.jpg', 'klinik_rawat_jalan_tugu_medical_centre_depok_1457094777_56d980799990f.jpg'),
-(6, 2, 'assets/images/img_20190724083701_6375.jpg', 'klinik_rawat_jalan_tugu_medical_centre_depok_1457094777_56d980799990f.jpg'),
-(7, 3, 'assets/images/img_20190724120715_847.jpg', 'standard_1.jpg'),
-(8, 3, 'assets/images/img_20190724120720_3781.jpg', 'superior_1.jpg'),
-(9, 19, 'assets/images/img_20190725051147_7927.jpg', 'tampak depan.jpg'),
-(10, 19, 'assets/images/img_20190725051211_1202.jpg', 'PHOTO_2019_01_02_15_00_40.jpg'),
-(11, 11, 'assets/images/img_20190725051247_1384.jpg', 'IMG_20190104_WA0046.jpg'),
-(12, 13, 'assets/images/img_20190725051314_9619.jpg', 'IMG_20190724_WA0007.jpg'),
-(13, 7, 'assets/images/img_20190725051329_2039.jpg', '20190725_093932.jpg'),
-(14, 6, 'assets/images/img_20190725051338_2599.jpg', 'IMG_20190724_WA0000.jpg'),
-(15, 8, 'assets/images/img_20190725051341_9416.jpg', 'LOGO YASA.jpg'),
-(16, 12, 'assets/images/img_20190725051343_7395.jpg', '1.jpg'),
-(17, 32, 'assets/images/img_20190725051348_3920.JPG', 'IMG_0244.JPG'),
-(18, 38, 'assets/images/img_20190725051349_3121.jpg', 'budhi pratama 2.jpg'),
-(19, 19, 'assets/images/img_20190725051349_9784.pdf', 'plan klinik.pdf'),
-(20, 38, 'assets/images/img_20190725051349_4642.jpg', 'budhi pratama.jpg'),
-(21, 17, 'assets/images/img_20190725051350_2629.jpg', 'Klinik Tampak depan.jpg'),
-(22, 5, 'assets/images/img_20190725051400_3969.jpg', '15640244755222035307788.jpg'),
-(23, 13, 'assets/images/img_20190725051406_8643.jpg', 'IMG_20190724_WA0000.jpg'),
-(24, 5, 'assets/images/img_20190725051415_9604.jpg', '1564024551375348668343.jpg'),
-(25, 11, 'assets/images/img_20190725051423_1470.jpg', 'IMG_20190201_WA0102.jpg'),
-(26, 5, 'assets/images/img_20190725051432_4744.jpg', '15640245606772080287492.jpg'),
-(27, 14, 'assets/images/img_20190725051521_7626.png', 'gambar klinik.png'),
-(28, 36, 'assets/images/img_20190725051552_9944.jpg', 'IMG_20190720_WA0034.jpg'),
-(29, 37, 'assets/images/img_20190725051604_7325.jpeg', 'WhatsApp Image 2019_01_30 at 13.18.44 _1_.jpeg'),
-(30, 37, 'assets/images/img_20190725051604_3981.jpeg', 'WhatsApp Image 2019_02_01 at 15.01.58.jpeg'),
-(31, 37, 'assets/images/img_20190725051605_6974.jpeg', 'WhatsApp Image 2019_01_30 at 13.12.42.jpeg'),
-(32, 30, 'assets/images/img_20190725051637_4854.png', 'Screenshot _3_.png'),
-(33, 33, 'assets/images/img_20190725051640_2762.jpg', 'IMG20190415152819.jpg'),
-(35, 39, 'assets/images/img_20190725051709_9778.png', 'tampak depan.png'),
-(36, 32, 'assets/images/img_20190725051746_4034.JPG', 'IMG_0244.JPG'),
-(37, 22, 'assets/images/img_20190725051816_2079.jpg', 'IMG_20190725_WA0004.jpg'),
-(38, 15, 'assets/images/img_20190725051820_6028.png', '2018_09_13 _1_.png'),
-(39, 26, 'assets/images/img_20190725051821_9048.jpg', 'Gambar dalam.jpg'),
-(40, 8, 'assets/images/img_20190725051827_8185.png', 'Peta klinik.png'),
-(41, 18, 'assets/images/img_20190725051853_9636.jpg', '2018_09_24_11.01.00.jpg'),
-(42, 19, 'assets/images/img_20190725051917_8387.jpg', 'DEPAN KLINIK.jpg'),
-(43, 19, 'assets/images/img_20190725051919_1419.jpg', 'DENAH.jpg'),
-(44, 21, 'assets/images/img_20190725051923_5030.jpg', 'IMG_20190601_WA0011.jpg'),
-(45, 6, 'assets/images/img_20190725051927_4276.jpg', '20190725_102034.jpg'),
-(46, 16, 'assets/images/img_20190725052010_2765.jpg', '1_1_.jpg'),
-(47, 19, 'assets/images/img_20190725052015_7639.pdf', 'plan klinik.pdf'),
-(48, 20, 'assets/images/img_20190725052027_3350.jpg', 'foto klinik.jpg'),
-(49, 4, 'assets/images/img_20190725052047_7305.jpg', '20190121_142958.jpg'),
-(50, 21, 'assets/images/img_20190725052048_4971.jpg', 'IMG_20190723_WA0079.jpg'),
-(51, 21, 'assets/images/img_20190725052049_7258.jpg', 'IMG_20190710_WA0064.jpg'),
-(52, 15, 'assets/images/img_20190725052058_6749.jpg', 'IMG20180408180922.jpg'),
-(53, 40, 'assets/images/img_20190725052107_9355.JPG', '_TJP8447.JPG'),
-(54, 40, 'assets/images/img_20190725052130_5343.JPG', '_TJP8451.JPG'),
-(55, 40, 'assets/images/img_20190725052134_234.JPG', '_TJP8449.JPG'),
-(56, 25, 'assets/images/img_20190725052143_7691.png', 'Screenshot_2019_07_25_10_19_08_695_com.google.android.apps.maps.png'),
-(57, 25, 'assets/images/img_20190725052147_7262.png', 'Screenshot_2019_07_25_10_16_09_286_com.google.android.apps.maps.png'),
-(58, 25, 'assets/images/img_20190725052147_1888.png', 'Screenshot_2019_07_25_10_23_28_021_com.google.android.apps.maps.png'),
-(59, 16, 'assets/images/img_20190725052207_772.jpg', '1_4_.jpg'),
-(60, 16, 'assets/images/img_20190725052207_8447.jpg', '1_5_.jpg'),
-(61, 29, 'assets/images/img_20190725052840_5783.jpg', 'IMG_20190725_WA0004.jpg'),
-(62, 29, 'assets/images/img_20190725052858_1202.jpg', 'IMG_20190725_WA0005 _3_.jpg'),
-(63, 39, 'assets/images/img_20190725053028_4075.jpeg', 'WhatsApp Image 2019_07_25 at 10.28.08.jpeg'),
-(64, 39, 'assets/images/img_20190725053059_9040.png', 'denah ruangan.png'),
-(65, 7, 'assets/images/img_20190725054104_5358.jpg', 'FB_IMG_1549611381725.jpg'),
-(66, 7, 'assets/images/img_20190725054119_7446.jpg', 'FB_IMG_1549598956803.jpg'),
-(67, 7, 'assets/images/img_20190725054211_4752.jpg', 'IMG_20171126_204853.jpg'),
-(68, 17, 'assets/images/img_20190725054311_3901.jpg', 'Ruang Dokter Gigi 1.jpg'),
-(69, 17, 'assets/images/img_20190725054321_3920.jpg', 'Ruang Kantor.jpg'),
-(70, 31, 'assets/images/img_20190725054405_3100.JPG', 'IMG_0311.JPG'),
-(71, 30, 'assets/images/img_20190725054428_7299.jpg', 'FOTO.jpg'),
-(72, 12, 'assets/images/img_20190725054702_2910.jpg', '1562977016.jpg'),
-(73, 12, 'assets/images/img_20190725054716_7314.png', '4._cuci_tangan_yang_benar.png'),
-(74, 39, 'assets/images/img_20190725054918_6021.png', 'denah lokasi.png'),
-(75, 31, 'assets/images/img_20190725054923_7874.jpeg', 'WhatsApp Image 2019_07_05 at 10.24.10 PM.jpeg'),
-(76, 31, 'assets/images/img_20190725054923_8832.jpeg', 'WhatsApp Image 2019_07_05 at 10.12.22 PM.jpeg'),
-(77, 22, 'assets/images/img_20190725054954_3972.jpg', '15640267186985104368159902323374.jpg'),
-(78, 4, 'assets/images/img_20190725055047_4573.jpg', 'IMG_20190328_WA0004.jpg'),
-(79, 4, 'assets/images/img_20190725055115_8481.jpg', 'IMG_20190328_WA0003.jpg'),
-(80, 29, 'assets/images/img_20190725055437_4047.jpg', 'IMG_20190725_WA0007.jpg'),
-(81, 14, 'assets/images/img_20190725060706_9651.jpg', 'Jellyfish.jpg'),
-(82, 14, 'assets/images/img_20190725060707_355.jpg', 'Desert.jpg');
-
 -- --------------------------------------------------------
 
 --
@@ -435,7 +271,7 @@ INSERT INTO `foto_klinik` (`id`, `id_klinik`, `path_foto`, `deskripsi`) VALUES
 CREATE TABLE `klinik` (
   `id` int(10) NOT NULL,
   `id_user` int(10) DEFAULT NULL,
-  `kode_klinik` varchar(64) CHARACTER SET ascii COLLATE ascii_bin DEFAULT NULL,
+  `kode_klinik` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `no_izin` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `kepemilikan` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -462,7 +298,6 @@ INSERT INTO `klinik` (`id`, `id_user`, `kode_klinik`, `nama`, `no_izin`, `kepemi
 (7, 28, '123', 'Klinik Pratama Cipinang', '123', 'Yayasan', 'dr. Dedi Suranda', 'pratama', 'belum', 'sigap', '2019-07-25 09:44:57', 'sigap', '2019-07-25 09:59:54'),
 (8, 29, '1111', 'Klinik Pratama Yasa Husada', '112233', 'Swasta', 'G. Jakaria', 'pratama', 'belum', 'yasahusada', '2019-07-25 09:45:06', 'yasahusada', '2019-07-25 09:59:17'),
 (9, 30, NULL, 'Satkes Denma Mabesal', NULL, NULL, 'dr', NULL, NULL, 'Satkes', '2019-07-25 09:45:17', NULL, NULL),
-(10, 31, NULL, 'KLINIK KEMENTERIAN PERDAGANGAN', NULL, NULL, 'RELINDA D SIREGAR', NULL, NULL, 'relinda', '2019-07-25 09:45:21', NULL, NULL),
 (11, 32, '0113U034', 'Klinik Nayaka Husada 03 Cakung', '0129/2.13.1/31.75.06.0000/.7.779.3/2016', 'PT. NAYAKA ERA HUSADA', 'dr. Zarliani', 'pratama', 'belum', 'asarini', '2019-07-25 09:45:25', 'asarini', '2019-07-25 10:04:25'),
 (12, 33, '0113b069', 'klinik pratama budhi pratama kalisari', '004/2.13/31.75.0000/1.779.3/2017', 'Swasta', 'dr.Nugroho jati dwi nur laksono', 'pratama', 'belum', 'suyanto', '2019-07-25 09:45:28', 'suyanto', '2019-07-25 09:56:13'),
 (13, 37, '0116u170', 'Syifa Medical Center', '1/B.6:1/31.72.03/-1.779.3/e/2018', 'Swasta', 'Dr. Zulkarnaini, MARS', 'pratama', 'belum', 'Syifa', '2019-07-25 09:45:35', 'Syifa', '2019-07-25 10:20:16'),
@@ -475,8 +310,6 @@ INSERT INTO `klinik` (`id`, `id_user`, `kode_klinik`, `nama`, `no_izin`, `kepemi
 (20, 45, '0113b001', 'Klinik Pratama Bahagia', '1/B.6/31.75.08/-1.779.3/e/2018', 'Swasta', 'dr. Andriyani Damanik', 'pratama', 'belum', 'Riza', '2019-07-25 09:47:00', 'Riza', '2019-07-25 09:57:13'),
 (21, 46, '57y665t6y', 'Satpelkes Walikota Jakarta Selatan', '3/B.6.7/31/-1.779.3/e/2019', '', 'Laura Triwindawati', 'pratama', 'belum', 'laura', '2019-07-25 09:47:04', 'laura', '2019-07-25 11:26:27'),
 (22, 48, '0123', 'Klinik satpelkes wakotimur', '234', '', 'Edwina', 'pratama', 'belum', 'Tanto', '2019-07-25 09:47:09', 'Tanto', '2019-07-25 09:57:16'),
-(23, 49, NULL, 'Mayapada Clinic Mayapada Tower 2', NULL, NULL, 'dr.Kevin Gilbert', NULL, NULL, 'kevin.gilbert', '2019-07-25 09:47:20', NULL, NULL),
-(24, 51, NULL, 'Syifa Medical Center', NULL, NULL, 'Dr. Zulkarnaini', NULL, NULL, 'Fitri0189', '2019-07-25 09:47:38', NULL, NULL),
 (25, 52, '123456', 'Klinik Pratama Annisa Ciracas', '12345678', 'Pribadi', 'Pradnya Paramita', 'pratama', 'belum', 'Paramita', '2019-07-25 09:47:40', 'paramita', '2019-07-25 10:10:50'),
 (26, 53, '0115 U 002', 'Klinik Graha Citra Husada', '009/B.6.1/31.73.06/-1.779.3/2017', 'Swasta perorangan', 'dr Lay Johan Gautama', 'pratama', 'belum', 'jl_gautama', '2019-07-25 09:47:42', 'jl_gautama', '2019-07-25 09:57:12'),
 (27, 55, '0113B82', 'klinik yadika cibubur', '1/B.61/31.75.05.1005.02.017R9/3/-1.779.3/e/2019', 'swasta', 'dr.novita djunaedi', 'pratama', 'belum', 'novita', '2019-07-25 09:47:48', 'novita', '2019-07-25 10:01:50'),
@@ -487,16 +320,13 @@ INSERT INTO `klinik` (`id`, `id_user`, `kode_klinik`, `nama`, `no_izin`, `kepemi
 (32, 65, '132450', 'ppkp', '14045', '', 're', 'pratama', 'dasar', 'yankesdinkes', '2019-07-25 09:48:58', 'yankesdinkes', '2019-07-25 09:54:27'),
 (33, 67, '12232', 'Klinik Pertamedika Rawamangun', '12333', 'PT Pertamedika', 'Dr Yoffi Gustia', 'pratama', 'belum', 'Pertamedika Rawamangun', '2019-07-25 09:49:15', 'Pertamedika Rawamangun', '2019-07-25 10:22:32'),
 (34, 74, 'Abcd', 'Klinik Pratama Satpelkes Balaikota', '11/B.6.7/31/-1.779.3/2019', 'PUSAT PELAYANAN KESEHATAN PEGAWA', 'drg. Lindawati', 'pratama', 'belum', 'drglinda', '2019-07-25 09:50:10', 'drglinda', '2019-07-25 10:11:28'),
-(35, 77, NULL, 'Sejahtera mitra afia', NULL, NULL, 'dr.Alfy ambaria', NULL, NULL, 'Afiah baladraf', '2019-07-25 09:50:31', NULL, NULL),
 (36, 82, NULL, 'Klinik Pratama bina Husada bakti', NULL, NULL, 'Dr.Afridal Castro', NULL, NULL, 'klinikBHB', '2019-07-25 09:51:03', NULL, NULL),
 (37, 84, '1234', 'Klinik Nurmala Medika 1', '1234', 'Swasta', 'dr Lusia Dewi KW BR Sirait', 'pratama', 'belum', 'victor', '2019-07-25 09:51:17', 'victor', '2019-07-25 10:04:52'),
 (38, 88, '120938109238', 'Klinik Budhi Pratama', '38549582', 'CV Restu Ibu', 'dr. Rasyad Wicaksono', 'utama', 'belum', 'rasyadmd', '2019-07-25 09:52:31', 'rasyadmd', '2019-07-25 09:56:30'),
 (39, 89, '001', 'Mayapada Clinic Mayapada Tower 2', '108 Tahun 2018', 'Jonathan Tahir', 'dr.Kevin Gilbert', 'pratama', 'belum', 'mayapada.clinicmt2', '2019-07-25 09:52:44', 'mayapada.clinicmt2', '2019-07-25 10:08:21'),
 (40, 91, '12345678', 'KLINIK KEMENTERIAN PERDAGANGAN', '12345678', '', 'RELINDA SIREGAR', 'pratama', 'belum', 'KAHFI', '2019-07-25 09:54:00', 'KAHFI', '2019-07-25 10:00:42'),
-(41, 95, NULL, 'Poliklinik Induk Cijantung', NULL, NULL, 'dr. Nurini Wulandari', NULL, NULL, 'PIC', '2019-07-25 10:03:53', NULL, NULL),
 (42, 97, '0113044', 'Sejahtera mitra afia', '12345672014p', 'Swasta', 'dr.Alfy Abaria', 'pratama', 'belum', 'Afiah - baladraf', '2019-07-25 10:05:31', 'Afiah - Baladraf', '2019-07-25 10:27:31'),
 (43, 98, NULL, 'Poliklinik Induk Cijantung', NULL, NULL, 'dr. Nurini Wulandari', NULL, NULL, 'polkescijantung', '2019-07-25 10:07:35', NULL, NULL),
-(44, 102, NULL, 'Klinik budhi pratama kalisari', NULL, NULL, 'Dr. Nugroho jati dwi nurlaksono', NULL, NULL, 'Klinikbudhipratama', '2019-07-25 10:19:55', NULL, NULL),
 (45, 106, NULL, 'Klinik budhi pratama kalisari', NULL, NULL, 'Dr. Nugroho jati dwi nurlaksono', NULL, NULL, 'Nanung91', '2019-07-25 10:21:37', NULL, NULL);
 
 -- --------------------------------------------------------
@@ -528,7 +358,6 @@ INSERT INTO `kontak` (`id`, `id_klinik`, `no_telp`, `no_fax`, `email`, `website`
 (7, 7, '0214712117', '', 'cipinangklinik@gmail.com', ''),
 (8, 8, '02154374355', '', 'yasahusada1@gmail.com', ''),
 (9, 9, NULL, NULL, 'guswidodo11@gmail.com ', NULL),
-(10, 10, NULL, NULL, 'relinda_ds@yahoo.com', NULL),
 (11, 11, '021-22468928', '021-22468928', 'rini_asarini@yahoo.com', 'www.PT. Nayaka Era Husada.com'),
 (12, 12, '02129627538', '', 'pro.bprijakarta@gmail.com', ''),
 (13, 13, '02143935260', '02143935260', 'Syifamedicalcenter.smc@gmail.com ', ''),
@@ -541,8 +370,6 @@ INSERT INTO `kontak` (`id`, `id_klinik`, `no_telp`, `no_fax`, `email`, `website`
 (20, 20, '0218093476', '0218091591', 'bahagianet@yahoo.co.id', ''),
 (21, 21, '081318499489', '', 'lauratrwndwt@gmail.com', ''),
 (22, 22, '081317601514', '', 'Wakotimursatpelkes.yahoo.com', ''),
-(23, 23, NULL, NULL, 'mayapadaclinic.mt2@mayapadahospital.com', NULL),
-(24, 24, NULL, NULL, 'fhendriany@gmail.com', NULL),
 (25, 25, '02187720807', '', 'pp.paramita161@gmail.com', ''),
 (26, 26, '+62215560167', '+62215560167', 'j.gautama61@gmail.com', ''),
 (27, 27, '0218711515', '-', 'yadika_cibubur@yahoo.com', '-'),
@@ -553,16 +380,13 @@ INSERT INTO `kontak` (`id`, `id_klinik`, `no_telp`, `no_fax`, `email`, `website`
 (32, 32, '0213456789', '', 'yankes@gmail.com', ''),
 (33, 33, '0214894150', '0214894278', 'pmc_rawamangun@yahoo.com', '-'),
 (34, 34, '0213823467', '0213453351', 'klinikpratama.balaikota@gmail.com', ' -'),
-(35, 35, NULL, NULL, 'afiahbaladraf@yahoo.com', NULL),
 (36, 36, NULL, NULL, 'klinikbinahusadabakti@yahoo.co.id', NULL),
 (37, 37, '021-4608479', '', 'kliniknurmalamedica1@gmail.com', ''),
 (38, 38, '908080', '90890880', 'rasyadmd@gmail.com', ''),
 (39, 39, '021 29859980/ 087881906546', '-', 'mayapadaclinic.mt2@mayapadahospital.com', 'mayapadaclinic.com'),
 (40, 40, '0213858216', '', 'balkes@kemendag.go.id', ''),
-(41, 41, NULL, NULL, 'polkesindukcijantung@gmail.com', NULL),
 (42, 42, '02180874049', '08161172775', 'afiahbaladraf@yahoo.com', ''),
 (43, 43, NULL, NULL, 'polkesindukcijantung@gmail.com', NULL),
-(44, 44, NULL, NULL, 'nanung91@gmail.com', NULL),
 (45, 45, NULL, NULL, 'nanung91@gmail.com', NULL);
 
 -- --------------------------------------------------------
@@ -586,7 +410,7 @@ CREATE TABLE `pendamping` (
   `no_hp` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_by` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_by` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -625,44 +449,7 @@ CREATE TABLE `pengajuan_akreditasi` (
 --
 
 INSERT INTO `pengajuan_akreditasi` (`id`, `id_klinik`, `no_urut`, `tgl_pengajuan`, `jenis_pengajuan`, `tgl_penetapan`, `status`, `status_info`, `status_alamat`, `status_kontak`, `status_fasilitas`, `status_foto`, `status_dokumen`) VALUES
-(1, 1, 1, '2019-07-23', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 2, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 3, 2, '2019-07-24', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 4, 17, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 7, 9, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 18, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 8, 6, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 5, 3, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(9, 19, 4, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 12, 12, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 38, 8, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 32, 10, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, 9, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(14, 22, 18, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, 26, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(16, 30, 13, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(17, 40, 5, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(18, 11, 15, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(19, 21, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(20, 27, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(21, 25, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(22, 6, 7, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(23, 37, 14, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(24, 16, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(25, 17, 11, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(26, 14, 19, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(27, 33, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(28, 34, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(29, 39, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(30, 13, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(31, 31, 16, '2019-07-25', 'pertama', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL),
-(32, 20, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(33, 36, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(34, 45, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(35, 15, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(36, 29, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(37, 42, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
-(38, 28, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 1, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89058,129 +88845,11 @@ CREATE TABLE `sa_resume` (
   `id_pengajuan` int(10) NOT NULL,
   `bab` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL,
   `score` int(11) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_by` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `updated_by` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `sa_resume`
---
-
-INSERT INTO `sa_resume` (`id`, `id_pengajuan`, `bab`, `score`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, 1, 'I', NULL, '2019-07-23 09:01:56', 'purwaren', NULL, NULL),
-(2, 1, 'II', NULL, '2019-07-23 09:01:56', 'purwaren', NULL, NULL),
-(3, 1, 'III', NULL, '2019-07-23 09:01:56', 'purwaren', NULL, NULL),
-(4, 1, 'IV', NULL, '2019-07-23 09:01:57', 'purwaren', NULL, NULL),
-(5, 2, 'I', 1145, '2019-07-24 06:26:37', 'klinik.tugu', '2019-07-24 06:37:15', 'klinik.tugu'),
-(6, 2, 'II', 1415, '2019-07-24 06:26:37', 'klinik.tugu', '2019-07-24 06:37:15', 'klinik.tugu'),
-(7, 2, 'III', 1720, '2019-07-24 06:26:37', 'klinik.tugu', '2019-07-24 06:37:15', 'klinik.tugu'),
-(8, 2, 'IV', 580, '2019-07-24 06:26:37', 'klinik.tugu', '2019-07-24 06:37:15', 'klinik.tugu'),
-(9, 3, 'I', NULL, '2019-07-24 10:09:21', 'nafis', NULL, NULL),
-(10, 3, 'II', NULL, '2019-07-24 10:09:21', 'nafis', NULL, NULL),
-(11, 3, 'III', NULL, '2019-07-24 10:09:21', 'nafis', NULL, NULL),
-(12, 3, 'IV', NULL, '2019-07-24 10:09:21', 'nafis', NULL, NULL),
-(13, 11, 'I', 610, '2019-07-25 03:23:42', 'rasyadmd', '2019-07-25 03:37:12', 'rasyadmd'),
-(14, 11, 'II', 35, '2019-07-25 03:23:42', 'rasyadmd', '2019-07-25 03:37:12', 'rasyadmd'),
-(15, 11, 'III', 5, '2019-07-25 03:23:42', 'rasyadmd', '2019-07-25 03:37:12', 'rasyadmd'),
-(16, 11, 'IV', 5, '2019-07-25 03:23:42', 'rasyadmd', '2019-07-25 03:37:12', 'rasyadmd'),
-(17, 19, 'I', 0, '2019-07-25 03:25:44', 'laura', NULL, NULL),
-(18, 19, 'II', 0, '2019-07-25 03:25:44', 'laura', NULL, NULL),
-(19, 19, 'III', 0, '2019-07-25 03:25:44', 'laura', NULL, NULL),
-(20, 19, 'IV', 0, '2019-07-25 03:25:44', 'laura', NULL, NULL),
-(21, 4, 'I', 0, '2019-07-25 03:26:22', 'drgrini', NULL, NULL),
-(22, 4, 'II', 0, '2019-07-25 03:26:22', 'drgrini', NULL, NULL),
-(23, 4, 'III', 0, '2019-07-25 03:26:22', 'drgrini', NULL, NULL),
-(24, 4, 'IV', 0, '2019-07-25 03:26:22', 'drgrini', NULL, NULL),
-(25, 26, 'I', 25, '2019-07-25 03:28:24', 'kusnan', '2019-07-25 03:33:25', 'kusnan'),
-(26, 26, 'II', 35, '2019-07-25 03:28:24', 'kusnan', '2019-07-25 03:33:25', 'kusnan'),
-(27, 26, 'III', 25, '2019-07-25 03:28:24', 'kusnan', '2019-07-25 03:33:25', 'kusnan'),
-(28, 26, 'IV', 20, '2019-07-25 03:28:24', 'kusnan', '2019-07-25 03:33:25', 'kusnan'),
-(29, 33, 'I', 0, '2019-07-25 03:28:27', 'klinikBHB', NULL, NULL),
-(30, 33, 'II', 0, '2019-07-25 03:28:27', 'klinikBHB', NULL, NULL),
-(31, 33, 'III', 0, '2019-07-25 03:28:27', 'klinikBHB', NULL, NULL),
-(32, 33, 'IV', 0, '2019-07-25 03:28:27', 'klinikBHB', NULL, NULL),
-(33, 16, 'I', 0, '2019-07-25 03:29:37', 'Ardita Ciracas', NULL, NULL),
-(34, 16, 'II', 0, '2019-07-25 03:29:37', 'Ardita Ciracas', NULL, NULL),
-(35, 16, 'III', 0, '2019-07-25 03:29:37', 'Ardita Ciracas', NULL, NULL),
-(36, 16, 'IV', 0, '2019-07-25 03:29:37', 'Ardita Ciracas', NULL, NULL),
-(37, 12, 'I', 0, '2019-07-25 03:32:19', 'yankesdinkes', NULL, NULL),
-(38, 12, 'II', 0, '2019-07-25 03:32:19', 'yankesdinkes', NULL, NULL),
-(39, 12, 'III', 0, '2019-07-25 03:32:19', 'yankesdinkes', NULL, NULL),
-(40, 12, 'IV', 0, '2019-07-25 03:32:19', 'yankesdinkes', NULL, NULL),
-(41, 5, 'I', 270, '2019-07-25 03:32:53', 'sigap', NULL, NULL),
-(42, 5, 'II', 0, '2019-07-25 03:32:53', 'sigap', NULL, NULL),
-(43, 5, 'III', 0, '2019-07-25 03:32:53', 'sigap', NULL, NULL),
-(44, 5, 'IV', 0, '2019-07-25 03:32:53', 'sigap', NULL, NULL),
-(45, 30, 'I', 0, '2019-07-25 03:33:07', 'Syifa', NULL, NULL),
-(46, 30, 'II', 0, '2019-07-25 03:33:07', 'Syifa', NULL, NULL),
-(47, 30, 'III', 0, '2019-07-25 03:33:07', 'Syifa', NULL, NULL),
-(48, 30, 'IV', 0, '2019-07-25 03:33:07', 'Syifa', NULL, NULL),
-(49, 18, 'I', 0, '2019-07-25 03:33:18', 'asarini', NULL, NULL),
-(50, 18, 'II', 0, '2019-07-25 03:33:18', 'asarini', NULL, NULL),
-(51, 18, 'III', 0, '2019-07-25 03:33:18', 'asarini', NULL, NULL),
-(52, 18, 'IV', 0, '2019-07-25 03:33:18', 'asarini', NULL, NULL),
-(53, 23, 'I', 25, '2019-07-25 03:33:22', 'victor', '2019-07-25 03:38:39', 'victor'),
-(54, 23, 'II', 0, '2019-07-25 03:33:22', 'victor', '2019-07-25 03:38:39', 'victor'),
-(55, 23, 'III', 0, '2019-07-25 03:33:22', 'victor', '2019-07-25 03:38:39', 'victor'),
-(56, 23, 'IV', 0, '2019-07-25 03:33:22', 'victor', '2019-07-25 03:38:39', 'victor'),
-(57, 22, 'I', 120, '2019-07-25 03:33:23', 'Milles', NULL, NULL),
-(58, 22, 'II', 0, '2019-07-25 03:33:23', 'Milles', NULL, NULL),
-(59, 22, 'III', 0, '2019-07-25 03:33:23', 'Milles', NULL, NULL),
-(60, 22, 'IV', 0, '2019-07-25 03:33:23', 'Milles', NULL, NULL),
-(61, 9, 'I', 20, '2019-07-25 03:33:26', 'kliniksukmaanggrek', NULL, NULL),
-(62, 9, 'II', 60, '2019-07-25 03:33:26', 'kliniksukmaanggrek', NULL, NULL),
-(63, 9, 'III', 150, '2019-07-25 03:33:26', 'kliniksukmaanggrek', NULL, NULL),
-(64, 9, 'IV', 0, '2019-07-25 03:33:26', 'kliniksukmaanggrek', NULL, NULL),
-(65, 31, 'I', 0, '2019-07-25 03:34:13', 'Ardita', NULL, NULL),
-(66, 31, 'II', 0, '2019-07-25 03:34:13', 'Ardita', NULL, NULL),
-(67, 31, 'III', 0, '2019-07-25 03:34:13', 'Ardita', NULL, NULL),
-(68, 31, 'IV', 0, '2019-07-25 03:34:13', 'Ardita', NULL, NULL),
-(69, 8, 'I', 0, '2019-07-25 03:34:43', 'Devi', NULL, NULL),
-(70, 8, 'II', 0, '2019-07-25 03:34:43', 'Devi', NULL, NULL),
-(71, 8, 'III', 0, '2019-07-25 03:34:43', 'Devi', NULL, NULL),
-(72, 8, 'IV', 0, '2019-07-25 03:34:43', 'Devi', NULL, NULL),
-(73, 7, 'I', 315, '2019-07-25 03:34:52', 'yasahusada', '2019-07-25 03:38:22', 'yasahusada'),
-(74, 7, 'II', 0, '2019-07-25 03:34:52', 'yasahusada', '2019-07-25 03:38:22', 'yasahusada'),
-(75, 7, 'III', 0, '2019-07-25 03:34:52', 'yasahusada', '2019-07-25 03:38:22', 'yasahusada'),
-(76, 7, 'IV', 0, '2019-07-25 03:34:52', 'yasahusada', '2019-07-25 03:38:22', 'yasahusada'),
-(77, 25, 'I', 205, '2019-07-25 03:35:07', 'viva', NULL, NULL),
-(78, 25, 'II', 80, '2019-07-25 03:35:07', 'viva', NULL, NULL),
-(79, 25, 'III', 0, '2019-07-25 03:35:07', 'viva', NULL, NULL),
-(80, 25, 'IV', 0, '2019-07-25 03:35:07', 'viva', NULL, NULL),
-(81, 14, 'I', 0, '2019-07-25 03:37:35', 'Tanto', NULL, NULL),
-(82, 14, 'II', 0, '2019-07-25 03:37:35', 'Tanto', NULL, NULL),
-(83, 14, 'III', 0, '2019-07-25 03:37:35', 'Tanto', NULL, NULL),
-(84, 14, 'IV', 0, '2019-07-25 03:37:35', 'Tanto', NULL, NULL),
-(85, 15, 'I', 0, '2019-07-25 03:38:55', 'jl_gautama', NULL, NULL),
-(86, 15, 'II', 0, '2019-07-25 03:38:55', 'jl_gautama', NULL, NULL),
-(87, 15, 'III', 0, '2019-07-25 03:38:55', 'jl_gautama', NULL, NULL),
-(88, 15, 'IV', 0, '2019-07-25 03:38:55', 'jl_gautama', NULL, NULL),
-(89, 36, 'I', 0, '2019-07-25 03:39:21', 'Hotma', NULL, NULL),
-(90, 36, 'II', 0, '2019-07-25 03:39:21', 'Hotma', NULL, NULL),
-(91, 36, 'III', 0, '2019-07-25 03:39:21', 'Hotma', NULL, NULL),
-(92, 36, 'IV', 0, '2019-07-25 03:39:21', 'Hotma', NULL, NULL),
-(93, 29, 'I', 705, '2019-07-25 03:39:29', 'mayapada.clinicmt2', '2019-07-25 03:40:08', 'mayapada.clinicmt2'),
-(94, 29, 'II', 0, '2019-07-25 03:39:29', 'mayapada.clinicmt2', '2019-07-25 03:40:08', 'mayapada.clinicmt2'),
-(95, 29, 'III', 0, '2019-07-25 03:39:29', 'mayapada.clinicmt2', '2019-07-25 03:40:08', 'mayapada.clinicmt2'),
-(96, 29, 'IV', 0, '2019-07-25 03:39:29', 'mayapada.clinicmt2', '2019-07-25 03:40:08', 'mayapada.clinicmt2'),
-(97, 17, 'I', 0, '2019-07-25 03:40:50', 'KAHFI', NULL, NULL),
-(98, 17, 'II', 0, '2019-07-25 03:40:50', 'KAHFI', NULL, NULL),
-(99, 17, 'III', 0, '2019-07-25 03:40:50', 'KAHFI', NULL, NULL),
-(100, 17, 'IV', 0, '2019-07-25 03:40:50', 'KAHFI', NULL, NULL),
-(101, 27, 'I', 0, '2019-07-25 03:41:58', 'Pertamedika Rawamangun', NULL, NULL),
-(102, 27, 'II', 0, '2019-07-25 03:41:58', 'Pertamedika Rawamangun', NULL, NULL),
-(103, 27, 'III', 0, '2019-07-25 03:41:58', 'Pertamedika Rawamangun', NULL, NULL),
-(104, 27, 'IV', 0, '2019-07-25 03:41:58', 'Pertamedika Rawamangun', NULL, NULL),
-(105, 21, 'I', 40, '2019-07-25 03:43:57', 'paramita', NULL, NULL),
-(106, 21, 'II', 0, '2019-07-25 03:43:57', 'paramita', NULL, NULL),
-(107, 21, 'III', 0, '2019-07-25 03:43:57', 'paramita', NULL, NULL),
-(108, 21, 'IV', 0, '2019-07-25 03:43:57', 'paramita', NULL, NULL),
-(109, 10, 'I', 595, '2019-07-25 03:44:57', 'suyanto', NULL, NULL),
-(110, 10, 'II', 745, '2019-07-25 03:44:57', 'suyanto', NULL, NULL),
-(111, 10, 'III', 815, '2019-07-25 03:44:57', 'suyanto', NULL, NULL),
-(112, 10, 'IV', 230, '2019-07-25 03:44:57', 'suyanto', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89212,6 +88881,7 @@ CREATE TABLE `sudin` (
   `no_fax` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `website` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `jumlah_klinik` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `created_by` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -89222,13 +88892,13 @@ CREATE TABLE `sudin` (
 -- Dumping data for table `sudin`
 --
 
-INSERT INTO `sudin` (`id`, `id_regency`, `nama`, `alamat`, `no_telp`, `no_fax`, `email`, `website`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, '3171', 'Suku Dinas Kesehatan Kota Jakarta Selatan', 'Jalan Lenteng Agung Raya No 112', '021843939430', '', '', '', '2019-07-22 09:17:15', 'admin', NULL, NULL),
-(2, '3172', 'Suku Dinas Kesehatan Kota Jakarta Timur', 'Jalanin aja dulu', '0217349993', '', '', '', '2019-07-23 07:15:27', 'admin', NULL, NULL),
-(3, '3174', 'Suku Dinas Kesehatan Kota Jakarta Barat', 'Jalanin aja', '021930000003', '', '', '', '2019-07-23 07:15:52', 'admin', NULL, NULL),
-(4, '3173', 'Suku Dinas Kesehatan Kota Jakarta Pusat', 'Jalanin aja', '021939400333', '', '', '', '2019-07-23 07:16:21', 'admin', NULL, NULL),
-(5, '3175', 'Suku Dinas Kesehatan Kota Jakarta Utara', 'Jalanin aja', '02123844994', '', '', '', '2019-07-23 07:16:55', 'admin', NULL, NULL),
-(6, '3101', 'Suku Dinas Kesehatan Kabupaten Kepulauan Seribu', 'Jalan aja', '021349930093', '', '', '', '2019-07-23 07:17:27', 'admin', NULL, NULL);
+INSERT INTO `sudin` (`id`, `id_regency`, `nama`, `alamat`, `no_telp`, `no_fax`, `email`, `website`, `jumlah_klinik`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(1, '3171', 'Suku Dinas Kesehatan Kota Jakarta Selatan', 'Jalan Lenteng Agung Raya No 112', '021843939430', '', '', '', 229, '2019-07-22 09:17:15', 'admin', NULL, NULL),
+(2, '3172', 'Suku Dinas Kesehatan Kota Jakarta Timur', 'Jalanin aja dulu', '0217349993', '', '', '', 359, '2019-07-23 07:15:27', 'admin', NULL, NULL),
+(3, '3174', 'Suku Dinas Kesehatan Kota Jakarta Barat', 'Jalanin aja', '021930000003', '', '', '', 134, '2019-07-23 07:15:52', 'admin', NULL, NULL),
+(4, '3173', 'Suku Dinas Kesehatan Kota Jakarta Pusat', 'Jalanin aja', '021939400333', '', '', '', 290, '2019-07-23 07:16:21', 'admin', NULL, NULL),
+(5, '3175', 'Suku Dinas Kesehatan Kota Jakarta Utara', 'Jalanin aja', '02123844994', '', '', '', 315, '2019-07-23 07:16:55', 'admin', NULL, NULL),
+(6, '3101', 'Suku Dinas Kesehatan Kabupaten Kepulauan Seribu', 'Jalan aja', '021349930093', '', '', '', 0, '2019-07-23 07:17:27', 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89244,8 +88914,8 @@ CREATE TABLE `users` (
   `password` varchar(128) NOT NULL,
   `salt` varchar(32) NOT NULL,
   `status` int(1) NOT NULL,
-  `flag_delete` int(1) NOT NULL DEFAULT '0',
-  `login_atemp` int(1) NOT NULL DEFAULT '0',
+  `flag_delete` int(1) NOT NULL DEFAULT 0,
+  `login_atemp` int(1) NOT NULL DEFAULT 0,
   `last_login_attempt` datetime DEFAULT NULL,
   `last_login_time` datetime DEFAULT NULL,
   `timestamp_created` datetime NOT NULL,
@@ -89311,13 +88981,32 @@ INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `salt`, `sta
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `YiiSession`
+--
+
+CREATE TABLE `YiiSession` (
+  `id` char(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expire` int(11) DEFAULT NULL,
+  `data` longblob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `YiiSession`
+--
+
+INSERT INTO `YiiSession` (`id`, `expire`, `data`) VALUES
+('m112rej69n61qct8pd55ntr0q0', 1564062307, 0x5969692e4343617074636861416374696f6e2e35386265396262322e736974652e636170746368617c733a373a22627576656e706a223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e63617074636861636f756e747c693a323b34323964363865393037363862326537623433366639343566363539663264645f5f69647c733a323a223230223b34323964363865393037363862326537623433366639343566363539663264645f5f6e616d657c733a383a22707572776172656e223b343239643638653930373638623265376234333666393435663635396632646466756c6c6e616d657c733a393a2250757277612052656e223b34323964363865393037363862326537623433366639343566363539663264645f5f7374617465737c613a313a7b733a383a2266756c6c6e616d65223b623a313b7d);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `yiisession`
 --
 
 CREATE TABLE `yiisession` (
   `id` char(32) NOT NULL,
   `expire` int(11) DEFAULT NULL,
-  `data` longblob
+  `data` longblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -89385,7 +89074,6 @@ ALTER TABLE `foto_klinik`
 --
 ALTER TABLE `klinik`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `kode_klinik` (`kode_klinik`),
   ADD KEY `fk_klinik_id_user` (`id_user`);
 
 --
@@ -89464,6 +89152,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `username` (`username`);
 
 --
+-- Indexes for table `YiiSession`
+--
+ALTER TABLE `YiiSession`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `yiisession`
 --
 ALTER TABLE `yiisession`
@@ -89478,66 +89172,79 @@ ALTER TABLE `yiisession`
 --
 ALTER TABLE `alamat`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
 --
 -- AUTO_INCREMENT for table `authitem`
 --
 ALTER TABLE `authitem`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `berkas_akreditasi`
 --
 ALTER TABLE `berkas_akreditasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `fasilitas_klinik`
 --
 ALTER TABLE `fasilitas_klinik`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
 --
 -- AUTO_INCREMENT for table `foto_klinik`
 --
 ALTER TABLE `foto_klinik`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `klinik`
 --
 ALTER TABLE `klinik`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
 --
 -- AUTO_INCREMENT for table `kontak`
 --
 ALTER TABLE `kontak`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
 --
 -- AUTO_INCREMENT for table `pendamping`
 --
 ALTER TABLE `pendamping`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `pengajuan_akreditasi`
 --
 ALTER TABLE `pengajuan_akreditasi`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `ref_tipe_berkas`
 --
 ALTER TABLE `ref_tipe_berkas`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `sa_resume`
 --
 ALTER TABLE `sa_resume`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `sudin`
 --
 ALTER TABLE `sudin`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+
 --
 -- Constraints for dumped tables
 --
@@ -89628,6 +89335,7 @@ ALTER TABLE `ref_villages`
 --
 ALTER TABLE `sudin`
   ADD CONSTRAINT `sudin_id_regency_fk` FOREIGN KEY (`id_regency`) REFERENCES `ref_regencies` (`id`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
