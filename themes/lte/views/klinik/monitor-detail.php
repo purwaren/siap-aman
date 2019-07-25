@@ -1,5 +1,5 @@
 <?php
-/* @var $this Controller */
+/* @var $this KlinikController */
 /* @var $model PengajuanAkreditasiCustom */
 /* @var $doc BerkasAkreditasiCustom */
 /* @var $images array */
@@ -8,6 +8,7 @@
 /* @var $kontak KontakCustom */
 /* @var $alamat AlamatCustom */
 /* @var $fasilitas FasilitasKlinikCustom */
+/* @var $feedback FeedbackForm */
 
 
 $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
@@ -23,6 +24,7 @@ $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
                     <li><a href="#tab_profile" data-toggle="tab">Profile Klinik</a></li>
                     <li><a href="#tab_photo" data-toggle="tab">Foto Klinik</a></li>
                     <li><a href="#tab_docs" data-toggle="tab">Dokumen Klinik</a></li>
+                    <li><a href="#tab_feedback" data-toggle="tab">Tanggapan</a></li>
                 </ul>
 
             <div class="tab-content">
@@ -196,6 +198,9 @@ $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
                             'class'=>'table table-hover table-striped detil-klinik'
                         ),
                     )); ?>
+                </div>
+                <div class="tab-pane" id="tab_feedback">
+                    <?php $this->renderPartial('_formFeedback', array('model'=>$feedback))?>
                 </div>
             </div>
             </div>

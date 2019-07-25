@@ -133,9 +133,9 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
         $criteria->compare('status_dokumen',$this->status_dokumen);
         $criteria->condition = 'no_urut IS NOT NULL';
 
-        if (!empty($this->id_regency)) {
+        if (Yii::app()->user->isSudin()) {
             $criteria->join = 'left join klinik t2 ON t.id_klinik = t2.id left join alamat t3 on t3.id_klinik = t2.id';
-            $criteria->compare('t3.kota', $this->id_regency);
+            $criteria->compare('t3.kota', Yii::app()->user->regency_id);
         }
 
         return new CActiveDataProvider($this, array(
@@ -169,9 +169,9 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
         $criteria->compare('status_foto',$this->status_foto);
         $criteria->compare('status_dokumen',$this->status_dokumen);
 
-        if (!empty($this->id_regency)) {
+        if (Yii::app()->user->isSudin()) {
             $criteria->join = 'left join klinik t2 ON t.id_klinik = t2.id left join alamat t3 on t3.id_klinik = t2.id';
-            $criteria->compare('t3.kota', $this->id_regency);
+            $criteria->compare('t3.kota', Yii::app()->user->regency_id);
         }
 
         return new CActiveDataProvider($this, array(

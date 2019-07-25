@@ -84,7 +84,7 @@ $this->breadcrumbs=array(
                 <?php echo CHtml::submitButton('Daftar',array('class'=>'btn btn-success btn-block btn-flat')); ?>
             </div><!-- /.col -->
             <div class="col-xs-6">
-                <?php echo CHtml::link('Kembali',Yii::app()->createUrl('site/login'),array('class'=>'btn btn-primary btn-block btn-flat')); ?>
+                <?php echo CHtml::link('Halaman Login',Yii::app()->createUrl('site/login'),array('class'=>'btn btn-primary btn-block btn-flat')); ?>
             </div><!-- /.col -->
         </div>
     <?php $this->endWidget(); ?>

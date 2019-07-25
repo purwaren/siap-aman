@@ -21,4 +21,13 @@ class StatusPengajuan
             self::BATAL => 'Dibatalkan'
          );
     }
+
+    public static function getStatusPengajuanForFeedback() {
+        return array(
+            self::DITOLAK => 'Ditolak',
+            self::DITERIMA => 'Diterima',
+            self::REKOMENDASI => 'Rekomendasi',
+            self::BATAL => 'Dibatalkan'
+        );
+    }
 }

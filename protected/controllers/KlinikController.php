@@ -369,6 +369,11 @@ class KlinikController extends Controller
                     }
                 }
 
+                $feedback = new FeedbackForm();
+                if (isset($_POST['FeedbackForm'])) {
+
+                }
+
                 $this->render('monitor-detail',array(
                     'model'=>$model,
                     'doc'=>$doc,
@@ -376,7 +381,8 @@ class KlinikController extends Controller
                     'klinik'=>$klinik,
                     'kontak'=>$kontak,
                     'alamat'=>$alamat,
-                    'fasilitas'=>$fasilitas
+                    'fasilitas'=>$fasilitas,
+                    'feedback'=>$feedback
                 ));
             }
         }
