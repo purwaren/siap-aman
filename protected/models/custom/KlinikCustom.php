@@ -112,4 +112,14 @@ class KlinikCustom extends Klinik
             'criteria'=>$criteria,
         ));
     }
+
+    public function getRegency() {
+        $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$this->id));
+        if (!empty($alamat)) {
+            return $alamat->getRegency();
+        }
+        else {
+            return null;
+        }
+    }
 }

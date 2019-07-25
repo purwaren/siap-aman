@@ -79,6 +79,8 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
     }
 
     public static function countAll() {
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'no_urut IS NOT NULL';
         return self::model()->count();
     }
 

@@ -26,7 +26,10 @@ $this->breadcrumbs = array(
                     ),
                     'kode_klinik',
                     'nama',
-                    'no_izin',
+                    array(
+                        'header'=>'Kota',
+                        'value'=>'$data->getRegency()'
+                    ),
                     'penanggung_jawab',
                     array(
                         'name'=>'tingkatan',
