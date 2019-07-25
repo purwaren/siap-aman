@@ -13,6 +13,7 @@ if (empty($photos)) {
             showCaption: false,
             uploadUrl: '".Yii::app()->createUrl('klinik/upload',array('type'=>'photo'))."',
             uploadAsync: true,
+            maxFileSize: 2048,
             maxFileCount: 5
         });
     ", CClientScript::POS_READY);

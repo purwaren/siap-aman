@@ -15,19 +15,38 @@ if (empty($photos)) {
             showCaption: true,
             uploadUrl: '".Yii::app()->createUrl('klinik/upload',array('type'=>'document','file_type'=>DocumentType::PROFIL_KLINIK))."',
             uploadAsync: true,
+            maxFileSize: 4096,
             maxFileCount: 1
         });
         $('#suratPermohonan').fileinput({
             showCaption: true,
             uploadUrl: '".Yii::app()->createUrl('klinik/upload',array('type'=>'document','file_type'=>DocumentType::SURAT_PERMOHONAN))."',
             uploadAsync: true,
+            maxFileSize: 4096,
             maxFileCount: 1
         });
         $('#borangSA').fileinput({
             showCaption: true,
             uploadUrl: '".Yii::app()->createUrl('klinik/upload',array('type'=>'document','file_type'=>DocumentType::SELF_ASSESSMENT))."',
             uploadAsync: true,
+            maxFileSize: 4096,
             maxFileCount: 1
+        });
+        $('#profileKlinik').on('fileuploaded', function(event, data, previewId, index) {
+            var form = data.form, files = data.files, extra = data.extra,
+                response = data.response, reader = data.reader;
+            $('#document-grid').yiiGridView('update');
+        });
+        $('#suratPermohonan').on('fileuploaded', function(event, data, previewId, index) {
+            var form = data.form, files = data.files, extra = data.extra,
+                response = data.response, reader = data.reader;
+            $('#document-grid').yiiGridView('update');
+        });
+        $('#borangSA').on('fileuploaded', function(event, data, previewId, index) {
+            var form = data.form, files = data.files, extra = data.extra,
+                response = data.response, reader = data.reader;
+            $('#document-grid').yiiGridView('update');
+            $('#sa-resume-grid').yiiGridView('update');
         });
     ", CClientScript::POS_READY);
 }
