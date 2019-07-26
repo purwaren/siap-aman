@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 25, 2019 at 08:30 PM
+-- Generation Time: Jul 26, 2019 at 08:40 AM
 -- Server version: 10.3.16-MariaDB-1:10.3.16+maria~stretch-log
 -- PHP Version: 5.6.40-9+0~20190710.17+debian9~1.gbp923b30
 
@@ -195,6 +195,15 @@ CREATE TABLE `berkas_akreditasi` (
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `berkas_akreditasi`
+--
+
+INSERT INTO `berkas_akreditasi` (`id`, `id_pengajuan`, `tipe_berkas`, `file_path`, `deskripsi`, `created_by`, `created_at`) VALUES
+(1, 1, 2, 'assets/docs/file_20190726064710_7347.pdf', 'Neo_Billing_Attachment_437915.pdf', 'purwaren', '2019-07-25 23:47:10'),
+(3, 1, 1, 'assets/docs/file_20190726064822_6786.pdf', 'UND DTS _ Purwanto Biido.pdf', 'purwaren', '2019-07-25 23:48:22'),
+(4, 1, 3, 'assets/docs/file_20190726064832_9515.xlsx', 'template_self_assessment.xlsx', 'purwaren', '2019-07-25 23:48:32');
+
 -- --------------------------------------------------------
 
 --
@@ -252,6 +261,30 @@ INSERT INTO `fasilitas_klinik` (`id`, `id_klinik`, `qty_tempat_tidur`, `penyelen
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `id` int(11) NOT NULL,
+  `from` int(11) NOT NULL,
+  `to` int(11) NOT NULL,
+  `id_pengajuan` int(11) NOT NULL,
+  `message` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `flag_read` int(1) NOT NULL DEFAULT 0,
+  `created_by` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `from`, `to`, `id_pengajuan`, `message`, `flag_read`, `created_by`, `created_at`) VALUES
+(1, 21, 20, 1, 'Foto dan dokumen masih belum sesuai ketentuan', 0, 'tatang', '2019-07-26 00:04:58');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `foto_klinik`
 --
 
@@ -261,6 +294,15 @@ CREATE TABLE `foto_klinik` (
   `path_foto` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deskripsi` varchar(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `foto_klinik`
+--
+
+INSERT INTO `foto_klinik` (`id`, `id_klinik`, `path_foto`, `deskripsi`) VALUES
+(1, 1, 'assets/images/img_20190725223440_7027.jpg', 'standard_1.jpg'),
+(2, 1, 'assets/images/img_20190725223440_3892.jpg', 'superior_1.jpg'),
+(3, 1, 'assets/images/img_20190725223440_6833.jpg', 'deluxe_2.jpg');
 
 -- --------------------------------------------------------
 
@@ -449,7 +491,7 @@ CREATE TABLE `pengajuan_akreditasi` (
 --
 
 INSERT INTO `pengajuan_akreditasi` (`id`, `id_klinik`, `no_urut`, `tgl_pengajuan`, `jenis_pengajuan`, `tgl_penetapan`, `status`, `status_info`, `status_alamat`, `status_kontak`, `status_fasilitas`, `status_foto`, `status_dokumen`) VALUES
-(1, 1, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 1, 1, '2019-07-26', 'pertama', NULL, 2, 1, 1, 1, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -88851,6 +88893,16 @@ CREATE TABLE `sa_resume` (
   `updated_by` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `sa_resume`
+--
+
+INSERT INTO `sa_resume` (`id`, `id_pengajuan`, `bab`, `score`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(1, 1, 'I', 0, '2019-07-25 23:48:33', 'purwaren', NULL, NULL),
+(2, 1, 'II', 0, '2019-07-25 23:48:33', 'purwaren', NULL, NULL),
+(3, 1, 'III', 0, '2019-07-25 23:48:33', 'purwaren', NULL, NULL),
+(4, 1, 'IV', 0, '2019-07-25 23:48:33', 'purwaren', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -88995,7 +89047,8 @@ CREATE TABLE `YiiSession` (
 --
 
 INSERT INTO `YiiSession` (`id`, `expire`, `data`) VALUES
-('m112rej69n61qct8pd55ntr0q0', 1564062307, 0x5969692e4343617074636861416374696f6e2e35386265396262322e736974652e636170746368617c733a373a22627576656e706a223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e63617074636861636f756e747c693a323b34323964363865393037363862326537623433366639343566363539663264645f5f69647c733a323a223230223b34323964363865393037363862326537623433366639343566363539663264645f5f6e616d657c733a383a22707572776172656e223b343239643638653930373638623265376234333666393435663635396632646466756c6c6e616d657c733a393a2250757277612052656e223b34323964363865393037363862326537623433366639343566363539663264645f5f7374617465737c613a313a7b733a383a2266756c6c6e616d65223b623a313b7d);
+('j417ad14to9f3nfrfc9b2hplq5', 1564105064, 0x34323964363865393037363862326537623433366639343566363539663264645f5f72657475726e55726c7c733a32393a222f736961702f696e6465782e7068702f6b6c696e696b2f7375626d6974223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e636170746368617c733a363a22797a6a656361223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e63617074636861636f756e747c693a313b),
+('vb6g9timra6rth8ti1rjeb40k2', 1564104348, 0x34323964363865393037363862326537623433366639343566363539663264645f5f72657475726e55726c7c733a33323a222f736961702f696e6465782e7068702f6b6c696e696b2f6d6f6e69746f722f31223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e636170746368617c733a373a2263696a776e787a223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e63617074636861636f756e747c693a323b34323964363865393037363862326537623433366639343566363539663264645f5f69647c733a323a223231223b34323964363865393037363862326537623433366639343566363539663264645f5f6e616d657c733a363a22746174616e67223b343239643638653930373638623265376234333666393435663635396632646466756c6c6e616d657c733a31343a22546174616e672053757461726e61223b3432396436386539303736386232653762343336663934356636353966326464726567656e63795f69647c733a343a2233313731223b3432396436386539303736386232653762343336663934356636353966326464726567656e63797c733a32303a224b4f5441204a414b415254412053454c4154414e223b34323964363865393037363862326537623433366639343566363539663264645f5f7374617465737c613a333a7b733a383a2266756c6c6e616d65223b623a313b733a31303a22726567656e63795f6964223b623a313b733a373a22726567656e6379223b623a313b7d);
 
 -- --------------------------------------------------------
 
@@ -89061,6 +89114,12 @@ ALTER TABLE `berkas_akreditasi`
 ALTER TABLE `fasilitas_klinik`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fasilitas_fk_id_klinik` (`id_klinik`);
+
+--
+-- Indexes for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `foto_klinik`
@@ -89183,7 +89242,7 @@ ALTER TABLE `authitem`
 -- AUTO_INCREMENT for table `berkas_akreditasi`
 --
 ALTER TABLE `berkas_akreditasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `fasilitas_klinik`
@@ -89192,10 +89251,16 @@ ALTER TABLE `fasilitas_klinik`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
+-- AUTO_INCREMENT for table `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `foto_klinik`
 --
 ALTER TABLE `foto_klinik`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `klinik`
@@ -89231,7 +89296,7 @@ ALTER TABLE `ref_tipe_berkas`
 -- AUTO_INCREMENT for table `sa_resume`
 --
 ALTER TABLE `sa_resume`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sudin`
