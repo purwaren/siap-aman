@@ -26,7 +26,6 @@ class StatusPengajuan
         return array(
             self::DITOLAK => 'Ditolak',
             self::DITERIMA => 'Diterima',
-            self::REKOMENDASI => 'Rekomendasi',
             self::BATAL => 'Dibatalkan'
         );
     }

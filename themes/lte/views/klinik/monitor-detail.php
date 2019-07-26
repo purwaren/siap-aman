@@ -17,14 +17,23 @@ $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
 <!-- Main content -->
 <section class="content">
     <div class="row">
+        <div class="col-lg-12">
+            <?php if($success=Yii::app()->user->getFlash('success')){ ?>
+                <div class="alert alert-success alert-dismissable">
+                    <?php echo $success ?>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-8 col-xs-12">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_usulan" data-toggle="tab">Usulan Akreditasi</a></li>
                     <li><a href="#tab_profile" data-toggle="tab">Profile Klinik</a></li>
                     <li><a href="#tab_photo" data-toggle="tab">Foto Klinik</a></li>
-                    <li><a href="#tab_docs" data-toggle="tab">Dokumen Klinik</a></li>
                     <li><a href="#tab_feedback" data-toggle="tab">Tanggapan</a></li>
+                    <li><a href="#tab_message" data-toggle="tab">Pesan</a></li>
                 </ul>
 
             <div class="tab-content">
@@ -50,6 +59,43 @@ $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
                         'htmlOptions'=>array(
                             'class'=>'table table-hover table-striped monitor-klinik'
                         ),
+                    )); ?>
+                    <h4><i>Lampiran Dokumen</i></h4>
+                    <?php $this->widget('zii.widgets.grid.CGridView', array(
+                        'id'=>'document-grid',
+                        'dataProvider'=>$doc->search(),
+                        //'filter'=>$model,
+                        'columns'=>array(
+                            array(
+                                'header'=>'No',
+                                'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize+$row+1'
+                            ),
+                            array(
+                                'name'=>'tipe_berkas',
+                                'value'=>'$data->getTipeBerkas()'
+                            ),
+                            'deskripsi',
+                            array(
+                                'class'=>'CButtonColumn',
+                                'template'=>'{download}',
+                                'buttons'=>array(
+                                    'download'=>array(
+                                        'label'=>'<i class="fa fa-download"></i>',
+                                        'imageUrl'=>false,
+                                        'url'=>'Yii::app()->request->baseUrl."/".$data->file_path',
+                                        'options'=>array('class'=>'btn btn-xs btn-primary','title'=>'Download','data-toggle'=>'tooltip','target'=>'_new')
+                                    )
+                                )
+                            ),
+                        ),
+                        'htmlOptions' => array(
+                            'class' => 'table table-striped'
+                        ),
+                        'pagerCssClass' => 'dataTables_paginate paging_bootstrap',
+                        'itemsCssClass' => 'table table-striped table-hover',
+                        'cssFile' => false,
+                        'summaryCssClass' => 'dataTables_info',
+                        'template'=>'{items}'
                     )); ?>
                 </div>
                 <div class="tab-pane" id="tab_photo">
@@ -89,43 +135,49 @@ $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
                         </a>
                     </div>
                 </div>
-                <div class="tab-pane" id="tab_docs">
-                    <?php $this->widget('zii.widgets.grid.CGridView', array(
-                        'id'=>'document-grid',
-                        'dataProvider'=>$doc->search(),
-                        //'filter'=>$model,
-                        'columns'=>array(
-                            array(
-                                'header'=>'No',
-                                'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize+$row+1'
-                            ),
-                            array(
-                                'name'=>'tipe_berkas',
-                                'value'=>'$data->getTipeBerkas()'
-                            ),
-                            'deskripsi',
-                            array(
-                                'class'=>'CButtonColumn',
-                                'template'=>'{download}',
-                                'buttons'=>array(
-                                    'download'=>array(
-                                        'label'=>'<i class="fa fa-download"></i>',
-                                        'imageUrl'=>false,
-                                        'url'=>'Yii::app()->request->baseUrl."/".$data->file_path',
-                                        'options'=>array('class'=>'btn btn-xs btn-primary','title'=>'Download','data-toggle'=>'tooltip','target'=>'_new')
-                                    )
-                                )
-                            ),
-                        ),
-                        'htmlOptions' => array(
-                            'class' => 'table table-striped'
-                        ),
-                        'pagerCssClass' => 'dataTables_paginate paging_bootstrap',
-                        'itemsCssClass' => 'table table-striped table-hover',
-                        'cssFile' => false,
-                        'summaryCssClass' => 'dataTables_info',
-                        'template'=>'{items}'
-                    )); ?>
+                <div class="tab-pane" id="tab_message">
+                    <div class="direct-chat-messages direct-chat-primary" style="height: 420px">
+                        <!-- Message. Default to the left -->
+                        <div class="direct-chat-msg">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                                <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                            </div>
+                            <!-- /.direct-chat-info -->
+                            <img class="direct-chat-img" src="/siap/themes/lte/assets/img/user1-128x128.jpg" alt="message user image">
+                            <!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                Is this template really for free? That's unbelievable!
+                            </div>
+                            <!-- /.direct-chat-text -->
+                        </div>
+                        <!-- /.direct-chat-msg -->
+
+                        <!-- Message to the right -->
+                        <div class="direct-chat-msg right">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                                <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                            </div>
+                            <!-- /.direct-chat-info -->
+                            <img class="direct-chat-img" src="/siap/themes/lte/assets/img/user3-128x128.jpg" alt="message user image">
+                            <!-- /.direct-chat-img -->
+                            <div class="direct-chat-text">
+                                You better believe it!
+                            </div>
+                            <!-- /.direct-chat-text -->
+                        </div>
+                        <!-- /.direct-chat-msg -->
+
+                    </div>
+                    <form action="#" method="post">
+                        <div class="input-group">
+                            <input type="text" name="message" placeholder="Tulis pesan..." class="form-control">
+                            <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-flat">Kirim</button>
+                          </span>
+                        </div>
+                    </form>
                 </div>
                 <div class="tab-pane" id="tab_profile">
                     <h4><i>Informasi Umum</i></h4>

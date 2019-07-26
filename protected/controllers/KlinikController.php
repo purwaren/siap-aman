@@ -337,6 +337,10 @@ class KlinikController extends Controller
         ));
     }
 
+    /**
+     * @param string $id
+     * @throws CDbException
+     */
     public function actionMonitor($id='') {
 	    if (Yii::app()->user->isKlinik()) {
 	        $pengajuan = PengajuanAkreditasiCustom::getInstance();
@@ -371,7 +375,12 @@ class KlinikController extends Controller
 
                 $feedback = new FeedbackForm();
                 if (isset($_POST['FeedbackForm'])) {
-
+                    $feedback->attributes = $_POST['FeedbackForm'];
+                    $feedback->id_pengajuan = $model->id;
+                    if ($feedback->save()) {
+                        Yii::app()->user->setFlash('success', 'Feedback telah dikirim');
+                        $feedback->unsetAttributes();
+                    }
                 }
 
                 $this->render('monitor-detail',array(
