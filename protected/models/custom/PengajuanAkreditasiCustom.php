@@ -107,7 +107,7 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
             $criteria->join = 'left join klinik t2 on t2.id = t.id_klinik left join alamat t3 on t3.id_klinik = t2.id';
             $criteria->compare('t3.kota', Yii::app()->user->regency_id);
         }
-        $criteria->compare('status', array(StatusPengajuan::DITERIMA, StatusPengajuan::REKOMENDASI));
+        $criteria->compare('status', array(StatusPengajuan::REKOMENDASI));
         return self::model()->count($criteria);
     }
 
