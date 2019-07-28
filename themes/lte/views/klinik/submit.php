@@ -35,11 +35,15 @@ $this->breadcrumbs=array(
             <?php if ($success=Yii::app()->user->getFlash('success')) {?>
                 <div class="alert alert-success"><?php echo $success ?></div>
             <?php } ?>
-            <h4><i>Kelengkapan Profile Klinik</i></h4>
             <table class="table table-striped table-hover submit-assessment">
                 <tbody>
                     <tr>
-                        <th style="width: 25%">Informasi Umum</th>
+                        <th style="width: 25%">Kriteria Pengecekan</th>
+                        <th style="width: 15%">Kelengkapan</th>
+                        <th>Verifikasi Sudin</th>
+                    </tr>
+                    <tr>
+                        <th >Informasi Umum</th>
                         <td>
                             <?php if($klinik->isComplete()) { ?>
                                 <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i></a>
@@ -47,6 +51,14 @@ $this->breadcrumbs=array(
                                 <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-warning"></i> Belum Lengkap</a>
                             <?php } ?>
                         </td>
+                        <td>
+                            <?php if(!empty($pengajuan->status_info)) { ?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                            <?php } else { ?>
+                                <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                            <?php } ?>
+                        </td>
+
                     </tr>
                     <tr>
                         <th>Alamat Klinik</th>
@@ -55,6 +67,13 @@ $this->breadcrumbs=array(
                                 <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i></a>
                             <?php } else { ?>
                                 <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-warning"></i> Belum Lengkap</a>
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php if(!empty($pengajuan->status_alamat)) { ?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                            <?php } else { ?>
+                                <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
                             <?php } ?>
                         </td>
                     </tr>
@@ -67,6 +86,13 @@ $this->breadcrumbs=array(
                                 <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-warning"></i> Belum Lengkap</a>
                             <?php } ?>
                         </td>
+                        <td>
+                            <?php if(!empty($pengajuan->status_kontak)) { ?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                            <?php } else { ?>
+                                <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                            <?php } ?>
+                        </td>
                     </tr>
                     <tr>
                         <th>Fasilitas Klinik</th>
@@ -75,6 +101,13 @@ $this->breadcrumbs=array(
                             <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"></i></a>
                             <?php } else { ?>
                                 <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-warning"></i> Belum Lengkap</a>
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php if(!empty($pengajuan->status_fasilitas)) { ?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                            <?php } else { ?>
+                                <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
                             <?php } ?>
                         </td>
                     </tr>
@@ -89,6 +122,13 @@ $this->breadcrumbs=array(
                                 <a class="btn btn-sm btn-danger" href="#"> <i class="fa fa-times-circle"></i> Tidak Ada</a>
                             <?php } ?>
                         </td>
+                        <td>
+                            <?php if(!empty($pengajuan->status_foto)) { ?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                            <?php } else { ?>
+                                <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                            <?php } ?>
+                        </td>
                     </tr>
                     <tr>
                         <th>Dokumen Pendukung</th>
@@ -99,6 +139,13 @@ $this->breadcrumbs=array(
                                 <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-warning"></i> Belum Lengkap</a>
                             <?php } else { ?>
                                 <a class="btn btn-sm btn-danger" href="#"> <i class="fa fa-times-circle"></i> Tidak Ada</a>
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php if(!empty($pengajuan->status_dokumen)) { ?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                            <?php } else { ?>
+                                <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
                             <?php } ?>
                         </td>
                     </tr>
