@@ -351,6 +351,8 @@ class KlinikController extends Controller
 	    else {
 	        if (empty($id)) {
                 $pengajuan = new PengajuanAkreditasiCustom('search');
+                $pengajuan->status = array(StatusPengajuan::DIAJUKAN, StatusPengajuan::DITERIMA, StatusPengajuan::VISIT);
+
                 $this->render('monitor', array(
                     'pengajuan' => $pengajuan
                 ));
@@ -365,6 +367,9 @@ class KlinikController extends Controller
                 $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$model->id_klinik));
                 $kontak = KontakCustom::model()->findByAttributes(array('id_klinik'=>$model->id_klinik));
                 $fasilitas = FasilitasKlinikCustom::model()->findByAttributes(array('id_klinik'=>$model->id_klinik));
+                $sa_resume = new SAResumeCustom();
+                $sa_resume->unsetAttributes();
+                $sa_resume->id_pengajuan = $model->id;
 
                 if (isset($_POST['PengajuanAkreditasiCustom'])) {
                     $model->attributes = $_POST['PengajuanAkreditasiCustom'];
@@ -391,7 +396,8 @@ class KlinikController extends Controller
                     'kontak'=>$kontak,
                     'alamat'=>$alamat,
                     'fasilitas'=>$fasilitas,
-                    'feedback'=>$feedback
+                    'feedback'=>$feedback,
+                    'sa_resume'=>$sa_resume
                 ));
             }
         }

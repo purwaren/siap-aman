@@ -9,6 +9,7 @@
 /* @var $alamat AlamatCustom */
 /* @var $fasilitas FasilitasKlinikCustom */
 /* @var $feedback FeedbackForm */
+/* @var $sa_resume SAResumeCustom */
 
 
 $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
@@ -30,6 +31,7 @@ $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_usulan" data-toggle="tab">Usulan Akreditasi</a></li>
+                    <li><a href="#tab_sa" data-toggle="tab">Self Assessment</a></li>
                     <li><a href="#tab_profile" data-toggle="tab">Profile Klinik</a></li>
                     <li><a href="#tab_photo" data-toggle="tab">Foto Klinik</a></li>
                     <li><a href="#tab_feedback" data-toggle="tab">Tanggapan</a></li>
@@ -37,6 +39,33 @@ $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
                 </ul>
 
             <div class="tab-content">
+                <div class="tab-pane" id="tab_sa">
+                    <?php $this->widget('zii.widgets.grid.CGridView', array(
+                        'id'=>'sa-resume-grid',
+                        'dataProvider'=>$sa_resume->search(),
+                        //'filter'=>$model,
+                        'columns'=>array(
+                            'bab',
+                            'score',
+                            array(
+                                'name'=>'max_score',
+                                'value'=>'$data->getMaxScore()'
+                            ),
+                            array(
+                                'header'=>'Capaian',
+                                'value'=> '$data->getProgress()'
+                            ),
+                        ),
+                        'htmlOptions' => array(
+                            'class' => 'table table-striped'
+                        ),
+                        'pagerCssClass' => 'dataTables_paginate paging_bootstrap',
+                        'itemsCssClass' => 'table table-striped table-hover',
+                        'cssFile' => false,
+                        'summaryCssClass' => 'dataTables_info',
+                        'template'=>'{items}'
+                    )); ?>
+                </div>
                 <div class="tab-pane active" id="tab_usulan">
                     <?php $this->widget('zii.widgets.CDetailView', array(
                         'data'=>$model,

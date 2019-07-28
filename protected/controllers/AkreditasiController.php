@@ -124,10 +124,16 @@ class AkreditasiController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
+	public function actionAdmin($status='')
 	{
 		$model=new PengajuanAkreditasiCustom('search');
 		$model->unsetAttributes();  // clear any default values
+        if (empty($status)) {
+            $model->status = array(StatusPengajuan::DIAJUKAN, StatusPengajuan::DITERIMA, StatusPengajuan::VISIT);
+        }
+        else {
+            $model->status = $status;
+        }
         if (Yii::app()->user->isSudin()) {
             $model->id_regency = Yii::app()->user->regency_id;
         }

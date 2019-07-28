@@ -81,6 +81,7 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
     public static function countAll() {
         $criteria = new CDbCriteria();
         $criteria->condition = 'no_urut IS NOT NULL';
+        $criteria->compare('status', array(StatusPengajuan::DIAJUKAN, StatusPengajuan::DITERIMA, StatusPengajuan::VISIT));
         if (Yii::app()->user->isSudin()) {
             $criteria->join = 'left join klinik t2 on t2.id = t.id_klinik left join alamat t3 on t3.id_klinik = t2.id';
             $criteria->compare('t3.kota', Yii::app()->user->regency_id);
@@ -119,6 +120,8 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
 
         $criteria=new CDbCriteria;
 
+        $criteria->condition = 'no_urut IS NOT NULL';
+
         $criteria->compare('id',$this->id);
         $criteria->compare('id_klinik',$this->id_klinik);
         $criteria->compare('tgl_pengajuan',$this->tgl_pengajuan,true);
@@ -131,7 +134,6 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
         $criteria->compare('status_fasilitas',$this->status_fasilitas);
         $criteria->compare('status_foto',$this->status_foto);
         $criteria->compare('status_dokumen',$this->status_dokumen);
-        $criteria->condition = 'no_urut IS NOT NULL';
 
         if (Yii::app()->user->isSudin()) {
             $criteria->join = 'left join klinik t2 ON t.id_klinik = t2.id left join alamat t3 on t3.id_klinik = t2.id';
