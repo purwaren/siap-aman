@@ -143,4 +143,21 @@ class Users extends CActiveRecord
 	{
 		return self::model()->findByAttributes(array('username'=>$username));
 	}
+
+    /**
+
+     */
+	public function getRoleTitle() {
+	    /* @var $authManager CDbAuthManager */
+	    /* @var $assignment CAuthAssignment */
+	    $authManager = Yii::app()->authManager;
+	    if ($authManager->checkAccess(UserRoles::ROLE_SUDIN, $this->id)) {
+	        $pendamping = PendampingCustom::model()->findByAttributes(array('id_user'=>$this->id));
+	        return '(SUDIN '.$pendamping->idSudin->idRegency->name.')';
+        } elseif ($authManager->checkAccess(UserRoles::ROLE_DINKES, $this->id)) {
+	        return '(DINAS KESEHATAN)';
+        } elseif ($authManager->checkAccess(UserRoles::ROLE_KLINIK, $this->id)) {
+	        return '(KLINIK)';
+        }
+    }
 }

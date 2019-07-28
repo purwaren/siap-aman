@@ -344,8 +344,10 @@ class KlinikController extends Controller
     public function actionMonitor($id='') {
 	    if (Yii::app()->user->isKlinik()) {
 	        $pengajuan = PengajuanAkreditasiCustom::getInstance();
+            $messages = FeedbackCustom::model()->findAllByAttributes(array('id_pengajuan'=>$pengajuan->id));
 	        $this->render('monitor-klinik', array(
-	            'pengajuan'=>$pengajuan
+	            'pengajuan'=>$pengajuan,
+                'messages'=>$messages
             ));
         }
 	    else {

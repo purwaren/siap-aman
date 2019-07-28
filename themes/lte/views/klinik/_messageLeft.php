@@ -1,9 +1,10 @@
 <?php
 /* @var $model FeedbackCustom */
+
 ?>
 <div class="direct-chat-msg">
     <div class="direct-chat-info clearfix">
-        <span class="direct-chat-name pull-left"><?php echo $model->from0->name?></span>
+        <span class="direct-chat-name pull-left"><?php echo $model->from0->name.' '.$model->from0->getRoleTitle() ?></span>
         <span class="direct-chat-timestamp pull-right"><?php echo $model->created_at ?></span>
     </div>
     <!-- /.direct-chat-info -->
