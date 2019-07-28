@@ -10,9 +10,29 @@
 /* @var $fasilitas FasilitasKlinikCustom */
 /* @var $feedback FeedbackForm */
 /* @var $sa_resume SAResumeCustom */
+/* @var $messages array */
+/* @var $message FeedbackCustom */
 
 
 $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
+
+Yii::app()->clientScript->registerScript("feedback","
+    $('#form-feedback').submit(function(event){
+        event.preventDefault();
+        var data = $(this).serialize();
+        var url = $(this).attr('action');
+        ".CHtml::ajax(array(
+            'type'=>'POST',
+            'url'=>'js:url',
+            'data'=>'js:data',
+            'success'=>"function(response){
+                document.location.reload();
+            }"
+        ))."
+        return false;
+    })
+", CClientScript::POS_END);
+
 ?>
 
 <!-- Main content -->
@@ -34,7 +54,9 @@ $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
                     <li><a href="#tab_sa" data-toggle="tab">Self Assessment</a></li>
                     <li><a href="#tab_profile" data-toggle="tab">Profile Klinik</a></li>
                     <li><a href="#tab_photo" data-toggle="tab">Foto Klinik</a></li>
+                    <?php if (Yii::app()->user->isSudin()) {?>
                     <li><a href="#tab_feedback" data-toggle="tab">Tanggapan</a></li>
+                    <?php } ?>
                     <li><a href="#tab_message" data-toggle="tab">Pesan</a></li>
                 </ul>
 
@@ -166,44 +188,29 @@ $this->pageTitle = 'Pemantauan & Pendampingan Klinik: '.$model->idKlinik->nama;
                 </div>
                 <div class="tab-pane" id="tab_message">
                     <div class="direct-chat-messages direct-chat-primary" style="height: 420px">
-                        <!-- Message. Default to the left -->
-                        <div class="direct-chat-msg">
-                            <div class="direct-chat-info clearfix">
-                                <span class="direct-chat-name pull-left">Alexander Pierce</span>
-                                <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-                            </div>
-                            <!-- /.direct-chat-info -->
-                            <img class="direct-chat-img" src="/siap/themes/lte/assets/img/user1-128x128.jpg" alt="message user image">
-                            <!-- /.direct-chat-img -->
-                            <div class="direct-chat-text">
-                                Is this template really for free? That's unbelievable!
-                            </div>
-                            <!-- /.direct-chat-text -->
+                    <?php
+                    if (!empty($messages)) {
+                        foreach ($messages as $message) {
+                            //right
+                            if ($message->from == Yii::app()->user->getId()) {
+                                $this->renderPartial('_messageRight', array('model'=>$message));
+                            }
+                            //left
+                            else {
+                                $this->renderPartial('_messageLeft', array('model'=>$message));
+                            }
+                        }
+                    } else { ?>
+                        <div class="alert alert-dismissable alert-warning">
+                            Tidak ada pesan untuk saat ini.
                         </div>
-                        <!-- /.direct-chat-msg -->
-
-                        <!-- Message to the right -->
-                        <div class="direct-chat-msg right">
-                            <div class="direct-chat-info clearfix">
-                                <span class="direct-chat-name pull-right">Sarah Bullock</span>
-                                <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-                            </div>
-                            <!-- /.direct-chat-info -->
-                            <img class="direct-chat-img" src="/siap/themes/lte/assets/img/user3-128x128.jpg" alt="message user image">
-                            <!-- /.direct-chat-img -->
-                            <div class="direct-chat-text">
-                                You better believe it!
-                            </div>
-                            <!-- /.direct-chat-text -->
-                        </div>
-                        <!-- /.direct-chat-msg -->
-
+                    <?php } ?>
                     </div>
-                    <form action="#" method="post">
+                    <form id="form-feedback" action="<?php echo Yii::app()->createUrl('feedback/create',array('id_pengajuan'=>$model->id))?>" method="post">
                         <div class="input-group">
-                            <input type="text" name="message" placeholder="Tulis pesan..." class="form-control">
+                            <input type="text" name="FeedbackCustom[message]" placeholder="Tulis pesan..." class="form-control">
                             <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary btn-flat">Kirim</button>
+                            <button type="submit" class="btn btn-primary btn-flat">Kirim</button>
                           </span>
                         </div>
                     </form>

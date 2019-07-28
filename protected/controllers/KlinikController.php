@@ -370,6 +370,7 @@ class KlinikController extends Controller
                 $sa_resume = new SAResumeCustom();
                 $sa_resume->unsetAttributes();
                 $sa_resume->id_pengajuan = $model->id;
+                $messages = FeedbackCustom::model()->findAllByAttributes(array('id_pengajuan'=>$model->id));
 
                 if (isset($_POST['PengajuanAkreditasiCustom'])) {
                     $model->attributes = $_POST['PengajuanAkreditasiCustom'];
@@ -397,7 +398,8 @@ class KlinikController extends Controller
                     'alamat'=>$alamat,
                     'fasilitas'=>$fasilitas,
                     'feedback'=>$feedback,
-                    'sa_resume'=>$sa_resume
+                    'sa_resume'=>$sa_resume,
+                    'messages'=>$messages
                 ));
             }
         }

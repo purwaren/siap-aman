@@ -139,7 +139,8 @@ $this->pageTitle = 'Dashboard';
                                     'view'=>array(
                                         'label'=>'<i class="fa fa-search"></i>',
                                         'imageUrl'=>false,
-                                        'options'=>array('class'=>'btn btn-xs btn-primary','title'=>'Detail','data-toggle'=>'tooltip')
+                                        'options'=>array('class'=>'btn btn-xs btn-primary','title'=>'Detail','data-toggle'=>'tooltip'),
+                                        'url'=>'Yii::app()->createUrl("klinik/monitor", array("id"=>$data->id))'
                                     )
                                 )
                             ),

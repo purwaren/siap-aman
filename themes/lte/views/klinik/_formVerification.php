@@ -18,6 +18,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">Verifikasi Profile, Foto & Dokumen</h3>
         </div>
+        <?php if (Yii::app()->user->isSudin()) {?>
         <div class="box-body">
             <table class="table table-striped">
                 <tr>
@@ -62,5 +63,8 @@
             <?php echo CHtml::submitButton('Simpan', array('class'=>'btn btn-primary'))?>
             <?php echo CHtml::resetButton('Reset', array('class'=>'btn btn-danger'))?>
         </div>
+        <?php } else { ?>
+        <div class="alert alert-warning">Proses verifikasi klinik sepenuhnya adalah kewenangan Suku Dinas</div>
+        <?php } ?>
     </div>
 <?php $this->endWidget(); ?>
