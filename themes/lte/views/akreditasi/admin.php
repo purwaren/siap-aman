@@ -1,22 +1,37 @@
 <?php
 /* @var $this Controller */
-/* @var $model Users */
+/* @var $model PengajuanAkreditasiCustom */
 
 $this->pageTitle = 'Kelola Usulan Akreditasi';
 $this->breadcrumbs = array(
     'Akreditasi'
 );
+
+Yii::app()->clientScript->registerScript('search', "
+$('#search-form').submit(function(){
+	$('#pengajuan-akreditasi-grid').yiiGridView('update', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
+
 ?>
 <!-- Main content -->
 <section class="content">
-    <!-- Default box -->
-    <div class="box">
+    <div class="box box-default collapsed-box">
+        <div class="box-header">
+            <h3 class="box-title"><a href="#" data-widget="collapse">Advance Search</a></h3>
+        </div>
+        <?php $this->renderPartial('_search',array('model'=>$model))?>
+    </div>
+    <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title"><small>Daftar usulan akreditasi yang perlu untuk diproses</small></h3>
         </div>
         <div class="box-body">
             <?php $this->widget('zii.widgets.grid.CGridView', array(
-                'id'=>'users-grid',
+                'id'=>'pengajuan-akreditasi-grid',
                 'dataProvider'=>$model->search(),
                 //'filter'=>$model,
                 'columns'=>array(
