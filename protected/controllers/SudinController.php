@@ -73,11 +73,12 @@ class SudinController extends Controller
 		));
 	}
 
-	/**
-	 * Updates a particular model.
-	 * If update is successful, the browser will be redirected to the 'view' page.
-	 * @param integer $id the ID of the model to be updated
-	 */
+    /**
+     * Updates a particular model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id the ID of the model to be updated
+     * @throws CHttpException
+     */
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
@@ -85,9 +86,11 @@ class SudinController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Sudin']))
+		if(isset($_POST['SudinCustom']))
 		{
-			$model->attributes=$_POST['Sudin'];
+			$model->attributes=$_POST['SudinCustom'];
+			$model->updated_at = new CDbExpression('NOW()');
+			$model->updated_by = Yii::app()->user->getName();
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -97,11 +100,13 @@ class SudinController extends Controller
 		));
 	}
 
-	/**
-	 * Deletes a particular model.
-	 * If deletion is successful, the browser will be redirected to the 'admin' page.
-	 * @param integer $id the ID of the model to be deleted
-	 */
+    /**
+     * Deletes a particular model.
+     * If deletion is successful, the browser will be redirected to the 'admin' page.
+     * @param integer $id the ID of the model to be deleted
+     * @throws CHttpException
+     * @throws CDbException
+     */
 	public function actionDelete($id)
 	{
 		$this->loadModel($id)->delete();
