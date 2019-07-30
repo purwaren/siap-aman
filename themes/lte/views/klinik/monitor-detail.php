@@ -205,6 +205,7 @@ Yii::app()->clientScript->registerScript("feedback","
                                 Tidak ada pesan untuk saat ini.
                             </div>
                         <?php } ?>
+                            <span id="bottom">&nbsp;</span>
                         </div>
                         <form id="form-feedback" action="<?php echo Yii::app()->createUrl('feedback/create',array('id_pengajuan'=>$model->id))?>" method="post">
                             <div class="input-group">

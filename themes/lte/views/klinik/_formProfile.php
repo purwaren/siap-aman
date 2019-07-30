@@ -22,6 +22,7 @@ Yii::app()->clientScript->registerScript('form', "
             ))."
         });
     ", CClientScript::POS_END);
+$pengajuan = PengajuanAkreditasiCustom::getInstance();
 
 ?>
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -164,7 +165,11 @@ Yii::app()->clientScript->registerScript('form', "
         </div>
 	</div><!-- /.box-body -->
 	<div class="box-footer">
+        <?php if ($pengajuan->status == StatusPengajuan::DRAFT){?>
         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
+        <?php } else { ?>
+        <button disabled="disabled" class="btn btn-success">Sedang Diajukan</button>
+        <?php } ?>
         <a href="<?php echo Yii::app()->createUrl('site/index')?>" class="btn btn-danger"><i class="fa fa-times"></i> Batal</a>
 	</div>
 </div><!-- /.box -->

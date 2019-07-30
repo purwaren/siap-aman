@@ -6,6 +6,12 @@
 /* @var $fasilitas FasilitasKlinikCustom */
 
 $this->pageTitle = 'Dashboard';
+$pengajuan = PengajuanAkreditasiCustom::getInstance();
+$disabled="";
+if ($pengajuan->status > StatusPengajuan::DRAFT) {
+    $disabled = 'disabled="disabled"';
+}
+
 ?>
 
 <!-- Main content -->
@@ -15,7 +21,7 @@ $this->pageTitle = 'Dashboard';
             <h3 class="box-title">Profile Klinik</h3>
         </div>
         <div class="box-body">
-            <a href="<?php echo Yii::app()->createUrl('klinik/profile')?>" class="btn btn-primary"><i class="fa fa-edit"></i> Update Profile</a>
+            <a href="<?php echo Yii::app()->createUrl('klinik/profile')?>" class="btn btn-primary" <?php echo $disabled?> ><i class="fa fa-edit"></i> Update Profile</a>
             <h4><i>Informasi Umum</i></h4>
             <?php $this->widget('zii.widgets.CDetailView', array(
                 'data'=>$model,
@@ -85,7 +91,7 @@ $this->pageTitle = 'Dashboard';
             )); ?>
         </div>
         <div class="box-footer">
-            <a href="<?php echo Yii::app()->createUrl('klinik/profile')?>" class="btn btn-primary"><i class="fa fa-edit"></i> Update Profile</a>
+            <a <?php echo $disabled?> href="<?php echo Yii::app()->createUrl('klinik/profile')?>" class="btn btn-primary"><i class="fa fa-edit"></i> Update Profile</a>
         </div>
     </div>
 </section>

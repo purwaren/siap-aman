@@ -7,4 +7,5 @@ class UserRoles
     const ROLE_DINKES = 'dinkes';
     const ROLE_SUDIN = 'sudin';
     const ROLE_KLINIK = 'klinik';
+    const ROLE_PENDAMPING = 'pendamping';
 }

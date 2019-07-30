@@ -54,6 +54,10 @@ if (empty($photos)) {
         });
     ",CClientScript::POS_END);
 }
+
+$pengajuan = PengajuanAkreditasiCustom::getInstance();
+$images = FotoKlinikCustom::model()->findAllByAttributes(array('id_klinik'=>$pengajuan->id_klinik));
+
 ?>
 <?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'klinik-form',
@@ -84,19 +88,57 @@ if (empty($photos)) {
             <?php echo $error ?>
         </div>
         <?php } ?>
-        <div class="col-lg-12">
-            <div class="form-group">
-                <?php echo $form->labelEx($model,'photo'); ?>
-                <div class="input-group input-group-sm">
-                    <?php echo $form->hiddenField($model,'photo',array('class'=>'form-control','placeholder'=>'Foto Klinik')); ?>
-                    <span class="input-group-btn">
-<!--						<button class="btn btn-info btn-flat" type="button" id="uploadButton">Upload</button>-->
-						<input type="file" multiple class="file-loading" id="uploadFile"/>
-					</span>
+        <?php if($pengajuan->status == StatusPengajuan::DRAFT){ ?>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <?php echo $form->labelEx($model,'photo'); ?>
+                    <div class="input-group input-group-sm">
+                        <?php echo $form->hiddenField($model,'photo',array('class'=>'form-control','placeholder'=>'Foto Klinik')); ?>
+                        <span class="input-group-btn">
+                            <input type="file" multiple class="file-loading" id="uploadFile"/>
+                        </span>
+                    </div>
+                    <?php echo $form->error($model,'photo'); ?>
                 </div>
-                <?php echo $form->error($model,'photo'); ?>
             </div>
-        </div>
+        <?php } else {?>
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <?php foreach ($images as $key=>$val) {?>
+                        <li data-target="#carousel-example-generic" data-slide-to="<?php echo $key?>" class="<?php echo ($key==0)?'active':''?>"></li>
+                    <?php } ?>
+                </ol>
+                <div class="carousel-inner text-center">
+                    <?php
+                    foreach ($images as $idx=>$image) {
+                        if ($idx == 0) {
+                            ?>
+                            <div class="item active">
+                                <img src="<?php echo Yii::app()->baseUrl.'/'.$image->path_foto ?>" alt="<?php echo $image->deskripsi ?>">
+
+                                <div class="carousel-caption">
+                                    <?php echo $image->deskripsi ?>
+                                </div>
+                            </div>
+                        <?php } else { ?>
+                            <div class="item">
+                                <img src="<?php echo Yii::app()->baseUrl.'/'.$image->path_foto ?>" alt="<?php echo $image->deskripsi ?>">
+
+                                <div class="carousel-caption">
+                                    <?php echo $image->deskripsi ?>
+                                </div>
+                            </div>
+                        <?php }} ?>
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <span class="fa fa-angle-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <span class="fa fa-angle-right"></span>
+                </a>
+            </div>
+        <?php } ?>
+
 
 	</div><!-- /.box-body -->
 </div><!-- /.box -->

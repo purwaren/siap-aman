@@ -32,4 +32,8 @@ class EWebUser extends CWebUser
 	{
 		return $this->checkAccess(UserRoles::ROLE_SUDIN);
 	}
+
+	public function isPendamping() {
+        return $this->checkAccess(UserRoles::ROLE_PENDAMPING);
+    }
 }
