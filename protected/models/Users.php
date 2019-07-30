@@ -19,6 +19,7 @@
  * @property string $timestamp_updated
  * @property string $user_create
  * @property string $user_update
+ * @property string $profile_pict
  */
 class Users extends CActiveRecord
 {
@@ -45,12 +46,12 @@ class Users extends CActiveRecord
 		return array(
 			array('name, username, email, password, salt, status, timestamp_created, user_create', 'required'),
 			array('status, flag_delete, login_atemp', 'numerical', 'integerOnly'=>true),
-			array('name, email, password', 'length', 'max'=>128),
+			array('name, email, password, profile_pict', 'length', 'max'=>128),
 			array('username, salt, user_create, user_update', 'length', 'max'=>32),
 			array('last_login_attempt, last_login_time, timestamp_updated', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, username, email, password, salt, status, flag_delete, login_atemp, last_login_attempt, last_login_time, timestamp_created, timestamp_updated, user_create, user_update', 'safe', 'on'=>'search'),
+			array('id, name, username, email, password, salt, status, flag_delete, login_atemp, last_login_attempt, last_login_time, timestamp_created, timestamp_updated, user_create, user_update, profile_pict', 'safe', 'on'=>'search'),
 		);
 	}
 

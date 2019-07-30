@@ -33,7 +33,7 @@ class UsersController extends Controller
 				'roles'=>array('admin'),
 			),
             array('allow',
-                'actions'=>array('password'),
+                'actions'=>array('password','profile'),
                 'users'=>array('@')
             ),
 			array('deny',  // deny all users
@@ -213,6 +213,48 @@ class UsersController extends Controller
         $model->userid=$user->id;
 
         $this->render('password', array(
+            'model'=>$model
+        ));
+    }
+
+    /**
+     * @param string $do
+     * @return bool
+     * @throws CHttpException
+     * @throws CDbException
+     */
+    public function actionProfile($do='') {
+
+        $model = $this->loadModel(Yii::app()->user->getId());
+        if ($do == 'upload') {
+            $file = CUploadedFile::getInstanceByName('file_data');
+            $filename = 'img_'.date('YmdHis').'_'.rand(100, 9999).'.'.$file->extensionName;
+            $path = Yii::app()->params['uploadPath']['photo'].$filename;
+            $model->profile_pict = Yii::app()->params['urlPhoto'].$filename;
+            $model->timestamp_updated = new CDbExpression('NOW()');
+            $model->user_update = Yii::app()->user->getName();
+
+            if ($file->saveAs($path)) {
+                if ($model->update(array('profile_pict', 'timestamp_updated', 'user_update'))) {
+                    echo CJSON::encode(array(
+                        'filelink' => Yii::app()->baseUrl.'/'.$model->profile_pict
+                    ));
+                }
+            }
+            Yii::app()->end();
+        }
+
+        if (isset($_POST['Users'])) {
+            $model->name = $_POST['Users']['name'];
+            $model->email = $_POST['Users']['email'];
+            $model->timestamp_updated = new CDbExpression('NOW()');
+            $model->user_update = Yii::app()->user->getName();
+            if ($model->update(array('name', 'email', 'timestamp_updated', 'user_update'))) {
+                Yii::app()->user->setFlash('success', 'Profile berhasil diupdate');
+            }
+        }
+
+        $this->render('profile', array(
             'model'=>$model
         ));
     }

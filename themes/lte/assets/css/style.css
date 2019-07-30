@@ -81,3 +81,8 @@ table.detil-klinik tbody tr th, table.monitor-klinik tbody tr th {
 div.grid-view div.dataTables_paginate ul.pagination {
     margin: 2px 0;
 }
+
+.profile-user {
+    height: 250px !important;
+    width: 250px !important;
+}
