@@ -49,7 +49,7 @@ $this->breadcrumbs=array(
                 <?php echo $form->labelEx($model,'verifyCode'); ?>
                 <div>
                     <?php $this->widget('CCaptcha'); ?>
-                    <?php echo $form->textField($model,'verifyCode', array('class'=>'form-control','placeholder'=>'Huruf besar & kecil sama saja')); ?>
+                    <?php echo $form->textField($model,'verifyCode', array('class'=>'form-control','placeholder'=>'Huruf besar & kecil sama saja','autocomplete'=>'off')); ?>
                 </div>
                 <?php echo $form->error($model,'verifyCode'); ?>
             </div>

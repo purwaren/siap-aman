@@ -169,4 +169,13 @@ class SiteController extends Controller
         // display the login form
         $this->render('register',array('model'=>$model));
     }
+
+    public function actionDocument($name) {
+	    if (!empty($name)) {
+	        $this->render('document', array(
+	            'url' => Yii::app()->baseUrl.'/docs/'.$name,
+                'name' => $name
+            ));
+        }
+    }
 }

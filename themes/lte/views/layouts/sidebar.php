@@ -101,6 +101,13 @@
                     'url'=>array('/users/password'),
                     'itemOptions'=>array('class'=>'treeview')
                 ),
+                array(
+                    'label'=>'<i class="fa fa-file-text"></i> <span>Buku Panduan</span> <i class="fa fa-angle-left pull-right"></i>',
+                    'url'=>Yii::app()->baseUrl.'/docs/user-manual-klinik.pdf',
+                    'itemOptions'=>array('class'=>'treeview'),
+                    'linkOptions'=>array('target'=>'_new'),
+                    'visible'=>Yii::app()->user->isKlinik(),
+                ),
             ),
             'encodeLabel'=>false,
             'htmlOptions'=>array('class'=>'sidebar-menu'),
