@@ -95,7 +95,7 @@ Yii::app()->clientScript->registerScript("feedback","
                             </div>
                             <form id="form-feedback" action="<?php echo Yii::app()->createUrl('feedback/create',array('id_pengajuan'=>$pengajuan->id))?>" method="post">
                                 <div class="input-group">
-                                    <input type="text" name="FeedbackCustom[message]" placeholder="Tulis pesan..." class="form-control">
+                                    <input type="text" name="FeedbackCustom[message]" placeholder="Tulis pesan..." class="form-control" autocomplete="off">
                                     <span class="input-group-btn">
                                 <button type="submit" class="btn btn-primary btn-flat">Kirim</button>
                               </span>
