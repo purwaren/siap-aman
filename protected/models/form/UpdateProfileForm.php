@@ -1,17 +1,16 @@
 <?php
 
 
-class UpdateProfileForm extends CFormModel
+class ProfilePendampingForm extends CFormModel
 {
-    public $pict;
-    public $name;
+
+    public $nama;
+    public $gelar_depan;
+    public $gelar_belakang;
+    public $tempat_lahir;
+    public $tgl_lahir;
+    public $jabatan;
+    public $alamat;
+    public $no_hp;
     public $email;
-
-    public function rules()
-    {
-        return array(
-            array('pict, name, email', 'required')
-        );
-    }
-
 }

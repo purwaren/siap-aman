@@ -176,4 +176,13 @@ class PendampingController extends Controller
 			Yii::app()->end();
 		}
 	}
+
+	public function actionProfile() {
+
+	    $model = new ProfilePendampingForm();
+
+	    $this->render('profile', array(
+	        'model'=>$model
+        ));
+    }
 }

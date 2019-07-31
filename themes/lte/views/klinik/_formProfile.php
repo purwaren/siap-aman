@@ -2,6 +2,8 @@
 /* @var $this KlinikController */
 /* @var $model KlinikUpdateForm */
 /* @var $form CActiveForm */
+/* @var $pengajuan PengajuanAkreditasiCustom */
+
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/assets/plugins/select2/select2.css');
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/assets/plugins/select2/select2.full.min.js');
 Yii::app()->clientScript->registerScript('form', "
@@ -22,7 +24,7 @@ Yii::app()->clientScript->registerScript('form', "
             ))."
         });
     ", CClientScript::POS_END);
-$pengajuan = PengajuanAkreditasiCustom::getInstance();
+
 
 ?>
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -165,7 +167,7 @@ $pengajuan = PengajuanAkreditasiCustom::getInstance();
         </div>
 	</div><!-- /.box-body -->
 	<div class="box-footer">
-        <?php if ($pengajuan->status == StatusPengajuan::DRAFT){?>
+        <?php if ($pengajuan->status == StatusPengajuan::DRAFT || !Yii::app()->user->isKlinik()){?>
         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
         <?php } else { ?>
         <button disabled="disabled" class="btn btn-success">Sedang Diajukan</button>

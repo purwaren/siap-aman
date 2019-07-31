@@ -104,6 +104,10 @@ class KlinikController extends Controller
 	{
 	    $klinik = $this->loadModel($id);
         $model = KlinikUpdateForm::getInstance($klinik->id_user);
+        $pengajuan = PengajuanAkreditasiCustom::model()->findByAttributes(array(
+            'id_klinik' => $klinik->id,
+            'status' => array(StatusPengajuan::DRAFT, StatusPengajuan::DIAJUKAN, StatusPengajuan::VISIT, StatusPengajuan::DITERIMA)
+        ));
 
         if (isset($_POST['KlinikUpdateForm'])) {
             $model->attributes = $_POST['KlinikUpdateForm'];
@@ -111,7 +115,8 @@ class KlinikController extends Controller
         }
 
         $this->render('profile',array(
-            'model'=>$model
+            'model'=>$model,
+            'pengajuan'=>$pengajuan
         ));
 	}
 
@@ -228,7 +233,8 @@ class KlinikController extends Controller
         }
 
 	    $this->render('profile',array(
-	        'model'=>$model
+	        'model'=>$model,
+            'pengajuan'=>PengajuanAkreditasiCustom::getInstance()
         ));
     }
 

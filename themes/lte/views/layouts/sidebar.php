@@ -37,6 +37,12 @@
                     'visible'=>Yii::app()->user->isKlinik()
                 ),
                 array(
+                    'label'=>'<i class="fa fa-edit"></i> <span>Update Profile</span> <i class="fa fa-angle-left pull-right"></i>',
+                    'url'=>array('pendamping/profile'),
+                    'itemOptions'=>array('class'=>'treeview'),
+                    'visible'=>Yii::app()->user->isSudin()
+                ),
+                array(
                     'label'=>'<i class="fa fa-image"></i> <span>Upload Foto</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>array('klinik/photo'),
                     'itemOptions'=>array('class'=>'treeview'),
@@ -113,7 +119,7 @@
                     'url'=>Yii::app()->baseUrl.'/docs/user-manual-sudin.pdf',
                     'itemOptions'=>array('class'=>'treeview'),
                     'linkOptions'=>array('target'=>'_new'),
-                    'visible'=>Yii::app()->user->isKlinik(),
+                    'visible'=>Yii::app()->user->isSudin(),
                 ),
             ),
             'encodeLabel'=>false,
