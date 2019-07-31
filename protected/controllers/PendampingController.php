@@ -31,6 +31,10 @@ class PendampingController extends Controller
 				'actions'=>array('index','view','create','update','admin','delete'),
 				'roles'=>array(UserRoles::ROLE_ADMIN, UserRoles::ROLE_DINKES),
 			),
+			array('allow',
+                'actions'=>array('profile'),
+                'roles'=>array(UserRoles::ROLE_SUDIN, UserRoles::ROLE_PENDAMPING)
+            ),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),

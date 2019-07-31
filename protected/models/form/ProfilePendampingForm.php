@@ -1,9 +1,10 @@
 <?php
-
+/**
+ * Class ProfilePendampingForm
+ */
 
 class ProfilePendampingForm extends CFormModel
 {
-
     public $nama;
     public $gelar_depan;
     public $gelar_belakang;
