@@ -167,7 +167,7 @@ Yii::app()->clientScript->registerScript('form', "
         </div>
 	</div><!-- /.box-body -->
 	<div class="box-footer">
-        <?php if ($pengajuan->status == StatusPengajuan::DRAFT || !Yii::app()->user->isKlinik()){?>
+        <?php if ((!empty($pengajuan) && $pengajuan->status == StatusPengajuan::DRAFT) || !Yii::app()->user->isKlinik()){?>
         <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
         <?php } else { ?>
         <button disabled="disabled" class="btn btn-success">Sedang Diajukan</button>
