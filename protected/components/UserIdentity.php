@@ -37,6 +37,13 @@ class UserIdentity extends CUserIdentity
 				$user->login_atemp = 0;
 				$this->errorCode = self::ERROR_NONE;
 
+				if (empty($user->profile_pict)) {
+				    $profile_pict = Yii::app()->theme->baseUrl.'/assets/img/user4-128x128.jpg';
+                } else {
+				    $profile_pict = Yii::app()->baseUrl.'/'.$user->profile_pict;
+                }
+				$this->setState('profile_pict', $profile_pict);
+
 				//set session variable
 				$this->setState('fullname', $user->name);
 				$pendamping = PendampingCustom::model()->findByAttributes(array('id_user'=>$user->id));
