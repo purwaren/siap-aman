@@ -52,10 +52,12 @@ $this->breadcrumbs=array(
                             <?php } ?>
                         </td>
                         <td>
-                            <?php if(!empty($pengajuan->status_info)) { ?>
-                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
-                            <?php } else { ?>
+                            <?php if(empty($pengajuan->status_info)) { ?>
                                 <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                            <?php } elseif($pengajuan->status_info == 0) { ?>
+                                <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                            <?php } else {?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
                             <?php } ?>
                         </td>
 
@@ -70,10 +72,12 @@ $this->breadcrumbs=array(
                             <?php } ?>
                         </td>
                         <td>
-                            <?php if(!empty($pengajuan->status_alamat)) { ?>
-                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
-                            <?php } else { ?>
+                            <?php if(empty($pengajuan->status_alamat)) { ?>
                                 <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                            <?php } elseif($pengajuan->status_alamat == 0) { ?>
+                                <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                            <?php } else {?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
                             <?php } ?>
                         </td>
                     </tr>
@@ -87,10 +91,12 @@ $this->breadcrumbs=array(
                             <?php } ?>
                         </td>
                         <td>
-                            <?php if(!empty($pengajuan->status_kontak)) { ?>
-                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
-                            <?php } else { ?>
+                            <?php if(empty($pengajuan->status_kontak)) { ?>
                                 <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                            <?php } elseif($pengajuan->status_kontak == 0) { ?>
+                                <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                            <?php } else {?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
                             <?php } ?>
                         </td>
                     </tr>
@@ -104,10 +110,12 @@ $this->breadcrumbs=array(
                             <?php } ?>
                         </td>
                         <td>
-                            <?php if(!empty($pengajuan->status_fasilitas)) { ?>
-                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
-                            <?php } else { ?>
+                            <?php if(empty($pengajuan->status_fasilitas)) { ?>
                                 <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                            <?php } elseif($pengajuan->status_fasilitas == 0) { ?>
+                                <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                            <?php } else {?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
                             <?php } ?>
                         </td>
                     </tr>
@@ -123,10 +131,12 @@ $this->breadcrumbs=array(
                             <?php } ?>
                         </td>
                         <td>
-                            <?php if(!empty($pengajuan->status_foto)) { ?>
-                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
-                            <?php } else { ?>
+                            <?php if(empty($pengajuan->status_foto)) { ?>
                                 <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                            <?php } elseif($pengajuan->status_foto == 0) { ?>
+                                <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                            <?php } else {?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
                             <?php } ?>
                         </td>
                     </tr>
@@ -142,10 +152,12 @@ $this->breadcrumbs=array(
                             <?php } ?>
                         </td>
                         <td>
-                            <?php if(!empty($pengajuan->status_dokumen)) { ?>
-                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
-                            <?php } else { ?>
+                            <?php if(empty($pengajuan->status_dokumen)) { ?>
                                 <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                            <?php } elseif($pengajuan->status_dokumen == 0) { ?>
+                                <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                            <?php } else {?>
+                                <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
                             <?php } ?>
                         </td>
                     </tr>

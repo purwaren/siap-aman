@@ -295,7 +295,11 @@ Yii::app()->clientScript->registerScript("feedback","
             </div>
         </div>
         <div class="col-lg-4 col-xs-12">
-            <?php $this->renderPartial('_formVerification', array('model'=>$model))?>
+            <?php $this->renderPartial('_formVerification', array(
+                'model'=>$model,
+                'pengajuan'=>$model,
+                'klinik'=>$klinik
+            ))?>
         </div>
     </div>
 </section>

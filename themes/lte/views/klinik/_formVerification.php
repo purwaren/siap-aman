@@ -2,6 +2,8 @@
 /* @var $this KlinikController */
 /* @var $form CActiveForm */
 /* @var $model PengajuanAkreditasiCustom */
+/* @var $pengajuan PengajuanAkreditasiCustom */
+/* @var $klinik KlinikCustom*/
 ?>
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -20,6 +22,9 @@
         </div>
         <?php if (Yii::app()->user->isSudin()) {?>
         <div class="box-body">
+            <div class="alert alert-info">
+                Tandai pada bagian yang sesuai kriteria
+            </div>
             <table class="table table-striped">
                 <tr>
                     <th style="width: 35%;">Profil Klinik</th>
@@ -64,7 +69,90 @@
             <?php echo CHtml::resetButton('Reset', array('class'=>'btn btn-danger'))?>
         </div>
         <?php } else { ?>
-        <div class="alert alert-warning">Proses verifikasi klinik sepenuhnya adalah kewenangan Suku Dinas</div>
+        <div class="box-body">
+            <div class="alert alert-warning">Proses verifikasi klinik sepenuhnya adalah kewenangan Suku Dinas</div>
+            <table class="table table-striped table-hover">
+                <tbody>
+                <tr>
+                    <th>Kriteria Pengecekan</th>
+                    <th>Verifikasi Sudin</th>
+                </tr>
+                <tr>
+                    <th >Informasi Umum</th>
+                    <td>
+                        <?php if(empty($pengajuan->status_info)) { ?>
+                            <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                        <?php } elseif($pengajuan->status_info == 0) { ?>
+                            <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                        <?php } else {?>
+                            <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                        <?php } ?>
+                    </td>
+
+                </tr>
+                <tr>
+                    <th>Alamat Klinik</th>
+                    <td>
+                        <?php if(empty($pengajuan->status_alamat)) { ?>
+                            <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                        <?php } elseif($pengajuan->status_alamat == 0) { ?>
+                            <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                        <?php } else {?>
+                            <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                        <?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Kontak Klinik</th>
+                    <td>
+                        <?php if(empty($pengajuan->status_kontak)) { ?>
+                            <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                        <?php } elseif($pengajuan->status_kontak == 0) { ?>
+                            <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                        <?php } else {?>
+                            <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                        <?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Fasilitas Klinik</th>
+                    <td>
+                        <?php if(empty($pengajuan->status_fasilitas)) { ?>
+                            <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                        <?php } elseif($pengajuan->status_fasilitas == 0) { ?>
+                            <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                        <?php } else {?>
+                            <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                        <?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Foto Klinik</th>
+                    <td>
+                        <?php if(empty($pengajuan->status_foto)) { ?>
+                            <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                        <?php } elseif($pengajuan->status_foto == 0) { ?>
+                            <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                        <?php } else {?>
+                            <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                        <?php } ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Dokumen Pendukung</th>
+                    <td>
+                        <?php if(empty($pengajuan->status_dokumen)) { ?>
+                            <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
+                        <?php } elseif($pengajuan->status_dokumen == 0) { ?>
+                            <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
+                        <?php } else {?>
+                            <a class="btn btn-sm btn-success" href="#"><i class="fa fa-check-square-o"> Lengkap</i></a>
+                        <?php } ?>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <?php } ?>
     </div>
 <?php $this->endWidget(); ?>
