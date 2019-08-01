@@ -32,4 +32,17 @@ class ProvinceCustom extends RefProvinces
         }
         return $options;
     }
+
+    public static function getAllDefaultOptions() {
+        $criteria = new CDbCriteria();
+        $criteria->order = 'id ASC';
+        $model = self::model()->findAll($criteria);
+        $options = array();
+        if (!empty($model)) {
+            foreach ($model as $row) {
+                $options[$row->id] = $row->name;
+            }
+        }
+        return $options;
+    }
 }

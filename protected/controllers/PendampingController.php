@@ -185,6 +185,7 @@ class PendampingController extends Controller
 
 	    $model = new ProfilePendampingForm();
 
+	    $model->provinsi = ProvinceCustom::DKI_JAKARTA;
 	    $this->render('profile', array(
 	        'model'=>$model
         ));
