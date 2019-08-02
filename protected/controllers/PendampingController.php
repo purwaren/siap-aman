@@ -67,7 +67,7 @@ class PendampingController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @throws CException
      */
-	public function actionCreate()
+	public function actionCreate($type='')
 	{
 		$model=new CreatePendampingForm();
 
@@ -77,6 +77,13 @@ class PendampingController extends Controller
 		if(isset($_POST['CreatePendampingForm']))
 		{
 			$model->attributes=$_POST['CreatePendampingForm'];
+
+			if ($type == 'nosudin') {
+			    $model->role = UserRoles::ROLE_PENDAMPING;
+            } else {
+			    $model->role = UserRoles::ROLE_SUDIN;
+            }
+
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

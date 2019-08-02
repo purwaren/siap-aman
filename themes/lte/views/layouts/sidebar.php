@@ -40,7 +40,7 @@
                     'label'=>'<i class="fa fa-edit"></i> <span>Update Profile</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>array('pendamping/profile'),
                     'itemOptions'=>array('class'=>'treeview'),
-                    'visible'=>Yii::app()->user->isSudin()
+                    'visible'=>Yii::app()->user->isSudin()||Yii::app()->user->isPendamping()
                 ),
                 array(
                     'label'=>'<i class="fa fa-image"></i> <span>Upload Foto</span> <i class="fa fa-angle-left pull-right"></i>',
@@ -64,7 +64,7 @@
                     'label'=>'<i class="fa fa-file-text"></i> <span>Pemantauan</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>array('klinik/monitor'),
                     'itemOptions'=>array('class'=>'treeview'),
-                    'visible'=>Yii::app()->user->isKlinik()
+                    'visible'=>Yii::app()->user->isKlinik() || Yii::app()->user->isPendamping()
                 ),
                 array(
                     'label'=>'<i class="fa fa-users"></i> <span>Data Suku Dinas</span> <i class="fa fa-angle-left pull-right"></i>',
@@ -78,6 +78,7 @@
                     'itemOptions'=>array('class'=>'treeview'),
                     'visible'=>Yii::app()->user->isAdmin() || Yii::app()->user->isDinkes(),
                 ),
+
                 array(
                     'label'=>'<i class="fa fa-home"></i> <span>Data Klinik</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>'#',
@@ -89,7 +90,7 @@
                         array('label'=>'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file-excel-o"></i> Nilai Akreditasi','url'=>array('/klinik/admin')),
                     ),
                     'encodeLabel'=>false,
-                    'visible'=>!Yii::app()->user->isKlinik(),
+                    'visible'=>!Yii::app()->user->isKlinik() && !Yii::app()->user->isPendamping(),
                 ),
                 array(
                     'label'=>'<i class="fa fa-wrench"></i><span>Konfigurasi Sistem</span><i class="fa fa-angle-left pull-right"></i>',

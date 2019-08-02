@@ -71,6 +71,7 @@ $this->breadcrumbs = array(
         </div><!-- /.box-body -->
         <div class="box-footer">
             <?php echo CHtml::link('Tambah Pendamping',array('pendamping/create'),array('class'=>'btn btn-primary'))?>
+            <?php echo CHtml::link('Tambah Pendamping Non Sudin',array('pendamping/create','type'=>'nosudin'),array('class'=>'btn btn-warning'))?>
         </div><!-- /.box-footer-->
     </div><!-- /.box -->
 </section><!-- /.content -->

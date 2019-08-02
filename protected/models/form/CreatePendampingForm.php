@@ -6,6 +6,7 @@
 class CreatePendampingForm extends CFormModel
 {
     //account info
+    public $role;
     public $name;
     public $username;
     public $email;
@@ -19,7 +20,7 @@ class CreatePendampingForm extends CFormModel
     public function rules()
     {
         return array(
-            array('name, username, email, password, tipe, id_sudin', 'required')
+            array('name, username, email, password, tipe, id_sudin, role', 'required')
         );
     }
 
@@ -50,7 +51,7 @@ class CreatePendampingForm extends CFormModel
             if ($user->save()) {
                 $auth = Yii::app()->authManager;
                 //assign role sudin for this user
-                $auth->assign(UserRoles::ROLE_SUDIN, $user->id);
+                $auth->assign($this->role, $user->id);
 
                 //save data pendamping
                 $pendamping = new PendampingCustom();
