@@ -182,12 +182,31 @@ class PendampingController extends Controller
 	}
 
 	public function actionProfile() {
-
+        $pendamping = PendampingCustom::getCurrentlyLogin();
 	    $model = new ProfilePendampingForm();
+	    $model->id = $pendamping->id;
+	    $education = RiwayatPendidikanCustom::model()->findByAttributes(array('id_pendamping'=>$pendamping->id));
+	    if (empty($education)) {
+	        $education = new RiwayatPendidikanCustom();
+	        $education->id_pendamping = $model->id;
+        }
+	    $certification = SertifikasiCustom::model()->findByAttributes(array('id_pendamping'=>$pendamping->id));
+	    if (empty($certification)) {
+	        $certification = new SertifikasiCustom();
+	        $certification->id_pendamping = $pendamping->id;
+        }
+	    $work = RiwayatPekerjaanCustom::model()->findByAttributes(array('id_pendamping'=>$pendamping->id));
+	    if (empty($work)) {
+	        $work = new RiwayatPekerjaanCustom();
+	        $work->id_pendamping = $pendamping->id;
+        }
 
 	    $model->provinsi = ProvinceCustom::DKI_JAKARTA;
 	    $this->render('profile', array(
-	        'model'=>$model
+	        'model'=>$model,
+            'education'=>$education,
+            'certification'=>$certification,
+            'work'=>$work
         ));
     }
 }

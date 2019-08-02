@@ -1,6 +1,10 @@
 <?php
 /* @var $this Controller */
-/* @var $model Sudin */
+/* @var $model ProfilePendampingForm */
+/* @var $education RiwayatPendidikanCustom */
+/* @var $certification SertifikasiCustom */
+/* @var $work RiwayatPekerjaanCustom */
+
 
 
 $this->pageTitle = 'Update Profile Pendamping';
@@ -28,9 +32,15 @@ $this->breadcrumbs = array(
                     <div class="tab-pane" id="tab_address">
                         <?php $this->renderPartial('_formContact', array('model'=>$model)) ?>
                     </div>
-                    <div class="tab-pane" id="tab_education"></div>
-                    <div class="tab-pane" id="tab_certification"></div>
-                    <div class="tab-pane" id="tab_work"></div>
+                    <div class="tab-pane" id="tab_education">
+                        <?php $this->renderPartial('_formEducation', array('model'=>$education)) ?>
+                    </div>
+                    <div class="tab-pane" id="tab_certification">
+                        <?php $this->renderPartial('_formCertification', array('model'=>$certification)) ?>
+                    </div>
+                    <div class="tab-pane" id="tab_work">
+                        <?php $this->renderPartial('_formWork', array('model'=>$work)) ?>
+                    </div>
                 </div>
             </div>
         </div>

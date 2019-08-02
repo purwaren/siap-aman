@@ -33,4 +33,9 @@ class PendampingCustom extends Pendamping
             return null;
         }
     }
+
+    public static function getCurrentlyLogin() {
+        $model = PendampingCustom::model()->findByAttributes(array('id_user'=>Yii::app()->user->getId()));
+        return $model;
+    }
 }

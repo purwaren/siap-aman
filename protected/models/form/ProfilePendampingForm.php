@@ -6,6 +6,7 @@
 class ProfilePendampingForm extends CFormModel
 {
     //basic info
+    public $id;
     public $nama;
     public $gelar_depan;
     public $gelar_belakang;

@@ -14,7 +14,6 @@ $form=$this->beginWidget('CActiveForm', array(
 ));
 
 ?>
-
 <?php if ($success=Yii::app()->user->getFlash('success')) {?>
     <div class="alert alert-success">
         <?php echo $success ?>
