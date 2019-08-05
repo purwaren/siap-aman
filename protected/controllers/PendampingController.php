@@ -188,10 +188,13 @@ class PendampingController extends Controller
 		}
 	}
 
-	public function actionProfile() {
+    /**
+     * @throws CDbException
+     */
+    public function actionProfile() {
         $pendamping = PendampingCustom::getCurrentlyLogin();
 	    $model = new ProfilePendampingForm();
-	    $model->id = $pendamping->id;
+        $model->id = $pendamping->id;
 	    $education = RiwayatPendidikanCustom::model()->findByAttributes(array('id_pendamping'=>$pendamping->id));
 	    if (empty($education)) {
 	        $education = new RiwayatPendidikanCustom();
@@ -208,7 +211,25 @@ class PendampingController extends Controller
 	        $work->id_pendamping = $pendamping->id;
         }
 
-	    $model->provinsi = ProvinceCustom::DKI_JAKARTA;
+	    if (isset($_POST['ProfilePendampingForm'])) {
+	        $model->attributes = $_POST['ProfilePendampingForm'];
+	        if ($model->save()) {
+	            Yii::app()->user->setFlash('success', 'Profile telah disimpan');
+	            $pendamping = PendampingCustom::getCurrentlyLogin();
+            }
+        }
+
+	    $model->attributes = $pendamping->attributes;
+        if (!empty($pendamping->alamat)) {
+            $model->alamat_1 = $pendamping->alamat0->alamat_1;
+            $model->alamat_2 = $pendamping->alamat0->alamat_2;
+            $model->provinsi = $pendamping->alamat0->provinsi;
+            $model->kota = $pendamping->alamat0->kota;
+            $model->kecamatan = $pendamping->alamat0->kecamatan;
+        } else {
+            $model->provinsi = ProvinceCustom::DKI_JAKARTA;
+        }
+
 	    $this->render('profile', array(
 	        'model'=>$model,
             'education'=>$education,

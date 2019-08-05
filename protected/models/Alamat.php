@@ -14,6 +14,7 @@
  *
  * The followings are the available model relations:
  * @property Klinik $idKlinik
+ * @property Pendamping[] $pendampings
  */
 class Alamat extends CActiveRecord
 {
@@ -33,7 +34,7 @@ class Alamat extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_klinik, alamat_1, kecamatan, kota, provinsi', 'required'),
+			array('alamat_1, kecamatan, kota, provinsi', 'required'),
 			array('id_klinik', 'numerical', 'integerOnly'=>true),
 			array('alamat_1, alamat_2, kecamatan, kota, provinsi', 'length', 'max'=>128),
 			// The following rule is used by search().
@@ -51,6 +52,7 @@ class Alamat extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'idKlinik' => array(self::BELONGS_TO, 'Klinik', 'id_klinik'),
+			'pendampings' => array(self::HAS_MANY, 'Pendamping', 'alamat'),
 		);
 	}
 

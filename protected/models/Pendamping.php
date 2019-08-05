@@ -14,7 +14,7 @@
  * @property string $tempat_lahir
  * @property string $tgl_lahir
  * @property string $jabatan
- * @property string $alamat
+ * @property integer $alamat
  * @property string $no_hp
  * @property string $email
  * @property string $created_by
@@ -25,6 +25,7 @@
  * The followings are the available model relations:
  * @property Sudin $idSudin
  * @property Users $idUser
+ * @property Alamat $alamat0
  */
 class Pendamping extends CActiveRecord
 {
@@ -45,10 +46,9 @@ class Pendamping extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_sudin, id_user, tipe, nama, created_by', 'required'),
-			array('id_sudin, id_user', 'numerical', 'integerOnly'=>true),
+			array('id_sudin, id_user, alamat', 'numerical', 'integerOnly'=>true),
 			array('tipe, gelar_depan, gelar_belakang, tempat_lahir, jabatan, no_hp, created_by, updated_by', 'length', 'max'=>32),
 			array('nama, email', 'length', 'max'=>128),
-			array('alamat', 'length', 'max'=>512),
 			array('tgl_lahir, created_at, updated_at', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -66,6 +66,7 @@ class Pendamping extends CActiveRecord
 		return array(
 			'idSudin' => array(self::BELONGS_TO, 'Sudin', 'id_sudin'),
 			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
+			'alamat0' => array(self::BELONGS_TO, 'Alamat', 'alamat'),
 		);
 	}
 
@@ -123,7 +124,7 @@ class Pendamping extends CActiveRecord
 		$criteria->compare('tempat_lahir',$this->tempat_lahir,true);
 		$criteria->compare('tgl_lahir',$this->tgl_lahir,true);
 		$criteria->compare('jabatan',$this->jabatan,true);
-		$criteria->compare('alamat',$this->alamat,true);
+		$criteria->compare('alamat',$this->alamat);
 		$criteria->compare('no_hp',$this->no_hp,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('created_by',$this->created_by,true);

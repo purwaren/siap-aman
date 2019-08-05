@@ -13,6 +13,16 @@ $form=$this->beginWidget('CActiveForm', array(
 		'htmlOptions'=>array('class'=>'form-horizontal'),
 ));
 
+Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/assets/plugins/datepicker/bootstrap-datepicker.js', CClientScript::POS_END);
+Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/assets/plugins/datepicker/datepicker3.css');
+
+Yii::app()->clientScript->registerScript('datepicker',"
+    $('.datepicker').datepicker({
+        autoclose: true,
+        format: 'yyyy-mm-dd'
+    });
+",CClientScript::POS_END);
+
 ?>
 <?php if ($success=Yii::app()->user->getFlash('success')) {?>
     <div class="alert alert-success">
@@ -42,7 +52,7 @@ $form=$this->beginWidget('CActiveForm', array(
     </div>
     <div class="form-group">
         <?php echo $form->labelEx($model,'tgl_lahir'); ?>
-        <?php echo $form->textField($model,'tgl_lahir',array('class'=>'form-control')); ?>
+        <?php echo $form->textField($model,'tgl_lahir',array('class'=>'form-control datepicker')); ?>
         <?php echo $form->error($model,'tgl_lahir'); ?>
     </div>
     <div class="form-group">
