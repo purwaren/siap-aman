@@ -4,6 +4,7 @@
  * This is the model class for table "riwayat_pekerjaan".
  *
  * The followings are the available columns in table 'riwayat_pekerjaan':
+ * @property integer $id
  * @property integer $id_pendamping
  * @property string $nama_institusi
  * @property string $jabatan
@@ -34,7 +35,7 @@ class RiwayatPekerjaan extends CActiveRecord
 			array('mulai, berakhir', 'length', 'max'=>6),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_pendamping, nama_institusi, jabatan, mulai, berakhir', 'safe', 'on'=>'search'),
+			array('id, id_pendamping, nama_institusi, jabatan, mulai, berakhir', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,6 +56,7 @@ class RiwayatPekerjaan extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'id' => 'ID',
 			'id_pendamping' => 'Id Pendamping',
 			'nama_institusi' => 'Nama Institusi',
 			'jabatan' => 'Jabatan',
@@ -81,6 +83,7 @@ class RiwayatPekerjaan extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('id',$this->id);
 		$criteria->compare('id_pendamping',$this->id_pendamping);
 		$criteria->compare('nama_institusi',$this->nama_institusi,true);
 		$criteria->compare('jabatan',$this->jabatan,true);

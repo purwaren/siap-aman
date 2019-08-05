@@ -29,7 +29,7 @@ Yii::app()->clientScript->registerScript('datepicker',"
         <?php echo $success ?>
     </div>
 <?php } ?>
-<div class="col-lg-6 col-xs-12">
+<div class="col-lg-12">
     <div class="form-group">
         <?php echo $form->labelEx($model,'gelar_depan'); ?>
         <?php echo $form->textField($model,'gelar_depan',array('class'=>'form-control')); ?>
@@ -64,4 +64,5 @@ Yii::app()->clientScript->registerScript('datepicker',"
         <?php echo CHtml::submitButton('Simpan',array('class'=>'btn btn-success')); ?>
     </div>
 </div>
+
 <?php $this->endWidget(); ?>

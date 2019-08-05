@@ -51,12 +51,12 @@ Yii::app()->clientScript->registerScript('form', "
 
 ?>
 
-<?php if ($success=Yii::app()->user->getFlash('success')) {?>
-    <div class="alert alert-success">
-        <?php echo $success ?>
-    </div>
-<?php } ?>
 <div class="col-lg-6 col-xs-12">
+    <?php if ($success=Yii::app()->user->getFlash('success')) {?>
+        <div class="alert alert-success">
+            <?php echo $success ?>
+        </div>
+    <?php } ?>
     <div class="form-group">
         <?php echo $form->labelEx($model,'alamat_1'); ?>
         <?php echo $form->textField($model,'alamat_1',array('class'=>'form-control')); ?>

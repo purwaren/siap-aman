@@ -4,6 +4,7 @@
  * This is the model class for table "sertifikasi".
  *
  * The followings are the available columns in table 'sertifikasi':
+ * @property integer $id
  * @property integer $id_pendamping
  * @property string $no_sertifikat
  * @property string $nama
@@ -36,7 +37,7 @@ class Sertifikasi extends CActiveRecord
 			array('bidang_peminatan', 'length', 'max'=>512),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_pendamping, no_sertifikat, nama, bidang_peminatan, penyelenggara, tgl_perolehan', 'safe', 'on'=>'search'),
+			array('id, id_pendamping, no_sertifikat, nama, bidang_peminatan, penyelenggara, tgl_perolehan', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,6 +58,7 @@ class Sertifikasi extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
+			'id' => 'ID',
 			'id_pendamping' => 'Id Pendamping',
 			'no_sertifikat' => 'No Sertifikat',
 			'nama' => 'Nama',
@@ -84,6 +86,7 @@ class Sertifikasi extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->compare('id',$this->id);
 		$criteria->compare('id_pendamping',$this->id_pendamping);
 		$criteria->compare('no_sertifikat',$this->no_sertifikat,true);
 		$criteria->compare('nama',$this->nama,true);

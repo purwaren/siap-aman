@@ -32,7 +32,7 @@ class PendampingController extends Controller
 				'roles'=>array(UserRoles::ROLE_ADMIN, UserRoles::ROLE_DINKES),
 			),
 			array('allow',
-                'actions'=>array('profile'),
+                'actions'=>array('profile','education','certification', 'work'),
                 'roles'=>array(UserRoles::ROLE_SUDIN, UserRoles::ROLE_PENDAMPING)
             ),
 			array('deny',  // deny all users
@@ -236,5 +236,90 @@ class PendampingController extends Controller
             'certification'=>$certification,
             'work'=>$work
         ));
+    }
+
+    /**
+     * @param string $id
+     * @param string $do
+     * @throws CDbException
+     */
+    public function actionEducation($id='', $do='create') {
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest) {
+            if ($do == 'create') {
+                $pendamping = PendampingCustom::getCurrentlyLogin();
+                $model = new RiwayatPendidikanCustom();
+                $model->attributes = $_POST['RiwayatPendidikanCustom'];
+                $model->id_pendamping = $pendamping->id;
+                if ($model->save()) {
+                    echo CJSON::encode(array(
+                        'msg'=>'Riwayat pendidikan berhasil disimpan'
+                    ));
+                }
+                else {
+                    echo CJSON::encode($model->getErrors());
+                }
+            } elseif ($do == 'delete') {
+                $model = RiwayatPendidikanCustom::model()->findByPk($id);
+                if (!empty($model)) {
+                    $model->delete();
+                }
+            }
+        }
+    }
+
+    /**
+     * @param string $id
+     * @param string $do
+     * @throws CDbException
+     */
+    public function actionCertification($id='', $do='create') {
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest) {
+            if ($do == 'create') {
+                $model = new SertifikasiCustom();
+                $pendamping = PendampingCustom::getCurrentlyLogin();
+                $model->attributes = $_POST['SertifikasiCustom'];
+                $model->id_pendamping = $pendamping->id;
+                if ($model->save()) {
+                    echo CJSON::encode(array(
+                        'msg' => 'Sertifikasi berhasil disimpan'
+                    ));
+                } else {
+                    echo CJSON::encode($model->getErrors());
+                }
+            } elseif ($do == 'delete') {
+                $model = SertifikasiCustom::model()->findByPk($id);
+                if (!empty($model)) {
+                    $model->delete();
+                }
+            }
+        }
+    }
+
+    /**
+     * @param string $id
+     * @param string $do
+     * @throws CDbException
+     */
+    public function actionWork($id='', $do='create') {
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest) {
+            if ($do == 'create') {
+                $model = new RiwayatPekerjaanCustom();
+                $model->attributes = $_POST['RiwayatPekerjaanCustom'];
+                $pendamping = PendampingCustom::getCurrentlyLogin();
+                $model->id_pendamping = $pendamping->id;
+                if ($model->save()) {
+                    echo CJSON::encode(array(
+                        'msg' => 'Riwayat pekerjaan berhasil disimpan'
+                    ));
+                } else {
+                    echo CJSON::encode($model->getErrors());
+                }
+            } elseif ($do == 'delete') {
+                $model = RiwayatPekerjaanCustom::model()->findByPk($id);
+                if (!empty($model)) {
+                    $model->delete();
+                }
+            }
+        }
     }
 }
