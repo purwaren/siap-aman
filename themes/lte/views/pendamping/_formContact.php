@@ -15,7 +15,7 @@ $form=$this->beginWidget('CActiveForm', array(
 
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/assets/plugins/select2/select2.css');
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/assets/plugins/select2/select2.full.min.js');
-Yii::app()->clientScript->registerScript('form', "
+Yii::app()->clientScript->registerScript('form-contact', "
         $('#provinsi').select2();
         $('#kota').select2();
         $('#kecamatan').select2();

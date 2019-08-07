@@ -1,7 +1,9 @@
 <?php
 /* @var $this PendampingController */
-/* @var $model ProfilePendampingForm */
+/* @var $model SertifikasiCustom */
 /* @var $form CActiveForm */
+
+
 Yii::app()->clientScript->registerScriptFile(Yii::app()->theme->baseUrl.'/assets/plugins/datepicker/bootstrap-datepicker.js', CClientScript::POS_END);
 Yii::app()->clientScript->registerCssFile(Yii::app()->theme->baseUrl.'/assets/plugins/datepicker/datepicker3.css');
 
@@ -19,6 +21,7 @@ Yii::app()->clientScript->registerScript('datepicker',"
             'data'=>'js:formData',
             'type'=>'POST',
             'success'=>"function(resp){
+                $('cert-reset-btn').click();
                 $('#certification-grid').yiiGridView('update');
             }"
         ))."
@@ -67,6 +70,7 @@ Yii::app()->clientScript->registerScript('datepicker',"
             </div>
             <div class="form-group">
                 <?php echo CHtml::submitButton('Simpan',array('class'=>'btn btn-success')); ?>
+                <?php echo CHtml::resetButton('Reset',array('class'=>'hidden','id'=>'cert-reset-btn')); ?>
             </div>
         </div>
     </div>

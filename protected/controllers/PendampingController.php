@@ -195,21 +195,18 @@ class PendampingController extends Controller
         $pendamping = PendampingCustom::getCurrentlyLogin();
 	    $model = new ProfilePendampingForm();
         $model->id = $pendamping->id;
-	    $education = RiwayatPendidikanCustom::model()->findByAttributes(array('id_pendamping'=>$pendamping->id));
-	    if (empty($education)) {
-	        $education = new RiwayatPendidikanCustom();
-	        $education->id_pendamping = $model->id;
-        }
-	    $certification = SertifikasiCustom::model()->findByAttributes(array('id_pendamping'=>$pendamping->id));
-	    if (empty($certification)) {
-	        $certification = new SertifikasiCustom();
-	        $certification->id_pendamping = $pendamping->id;
-        }
-	    $work = RiwayatPekerjaanCustom::model()->findByAttributes(array('id_pendamping'=>$pendamping->id));
-	    if (empty($work)) {
-	        $work = new RiwayatPekerjaanCustom();
-	        $work->id_pendamping = $pendamping->id;
-        }
+
+        //init education
+        $education = new RiwayatPendidikanCustom();
+        $education->id_pendamping = $model->id;
+
+        //init certificate
+        $certification = new SertifikasiCustom();
+        $certification->id_pendamping = $pendamping->id;
+
+	    //init work history
+        $work = new RiwayatPekerjaanCustom();
+        $work->id_pendamping = $pendamping->id;
 
 	    if (isset($_POST['ProfilePendampingForm'])) {
 	        $model->attributes = $_POST['ProfilePendampingForm'];

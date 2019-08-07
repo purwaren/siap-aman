@@ -3,7 +3,7 @@
 /* @var $model ProfilePendampingForm */
 /* @var $form CActiveForm */
 
-Yii::app()->clientScript->registerScript('form-post',"
+Yii::app()->clientScript->registerScript('form-education-post',"
     $('#education-form').submit(function(event){
         event.preventDefault();
         var formData = $(this).serialize();
@@ -12,6 +12,7 @@ Yii::app()->clientScript->registerScript('form-post',"
             'data'=>'js:formData',
             'type'=>'POST',
             'success'=>"function(resp){
+                $('#edu-reset-btn').click();
                 $('#education-grid').yiiGridView('update');
             }"
         ))."
@@ -47,6 +48,7 @@ Yii::app()->clientScript->registerScript('form-post',"
             </div>
             <div class="form-group">
                 <?php echo CHtml::submitButton('Simpan',array('class'=>'btn btn-success')); ?>
+                <?php echo CHtml::resetButton('Reset',array('class'=>'hidden','id'=>'edu-reset-btn')); ?>
             </div>
         </div>
     </div>
