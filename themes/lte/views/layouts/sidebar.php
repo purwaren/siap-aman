@@ -87,7 +87,7 @@
                         array('label'=>'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file-text"></i> Daftar Klinik','url'=>array('/klinik/admin')),
                         array('label'=>'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file-word-o"></i> Usulan Akreditasi','url'=>array('/akreditasi/admin')),
                         array('label'=>'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file-word-o"></i> Pemantauan','url'=>array('/klinik/monitor')),
-                        array('label'=>'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file-excel-o"></i> Nilai Akreditasi','url'=>array('/klinik/admin')),
+                        array('label'=>'&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-file-excel-o"></i> Nilai Akreditasi','url'=>array('/klinik/result')),
                     ),
                     'encodeLabel'=>false,
                     'visible'=>!Yii::app()->user->isKlinik() && !Yii::app()->user->isPendamping(),

@@ -80,7 +80,7 @@
                 <tr>
                     <th >Informasi Umum</th>
                     <td>
-                        <?php if(empty($pengajuan->status_info)) { ?>
+                        <?php if(!isset($pengajuan->status_info)) { ?>
                             <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
                         <?php } elseif($pengajuan->status_info == 0) { ?>
                             <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
@@ -93,7 +93,7 @@
                 <tr>
                     <th>Alamat Klinik</th>
                     <td>
-                        <?php if(empty($pengajuan->status_alamat)) { ?>
+                        <?php if(!isset($pengajuan->status_alamat)) { ?>
                             <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
                         <?php } elseif($pengajuan->status_alamat == 0) { ?>
                             <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
@@ -105,7 +105,7 @@
                 <tr>
                     <th>Kontak Klinik</th>
                     <td>
-                        <?php if(empty($pengajuan->status_kontak)) { ?>
+                        <?php if(!isset($pengajuan->status_kontak)) { ?>
                             <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
                         <?php } elseif($pengajuan->status_kontak == 0) { ?>
                             <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
@@ -117,7 +117,7 @@
                 <tr>
                     <th>Fasilitas Klinik</th>
                     <td>
-                        <?php if(empty($pengajuan->status_fasilitas)) { ?>
+                        <?php if(!isset($pengajuan->status_fasilitas)) { ?>
                             <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
                         <?php } elseif($pengajuan->status_fasilitas == 0) { ?>
                             <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
@@ -129,7 +129,7 @@
                 <tr>
                     <th>Foto Klinik</th>
                     <td>
-                        <?php if(empty($pengajuan->status_foto)) { ?>
+                        <?php if(!isset($pengajuan->status_foto)) { ?>
                             <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
                         <?php } elseif($pengajuan->status_foto == 0) { ?>
                             <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>
@@ -141,7 +141,7 @@
                 <tr>
                     <th>Dokumen Pendukung</th>
                     <td>
-                        <?php if(empty($pengajuan->status_dokumen)) { ?>
+                        <?php if(!isset($pengajuan->status_dokumen)) { ?>
                             <a class="btn btn-sm btn-danger" href="#"><i class="fa fa-times"></i> Belum Dicek</a>
                         <?php } elseif($pengajuan->status_dokumen == 0) { ?>
                             <a class="btn btn-sm btn-warning" href="#"><i class="fa fa-times"></i> Tidak Lengkap</a>

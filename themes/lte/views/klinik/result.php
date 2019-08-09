@@ -2,9 +2,9 @@
 /* @var $this Controller */
 /* @var $model Klinik */
 
-$this->pageTitle = 'Kelola Data Kinik';
+$this->pageTitle = 'Nilai Akreditasi';
 $this->breadcrumbs = array(
-    'Klinik'
+    'Nilai Akreditasi'
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -33,7 +33,7 @@ $('#search-form').submit(function(){
         <div class="box-body">
             <?php $this->widget('zii.widgets.grid.CGridView', array(
                 'id'=>'klinik-grid',
-                'dataProvider'=>$model->search(),
+                'dataProvider'=>$model->searchForResult(),
                 //'filter'=>$model,
                 'columns'=>array(
                     array(
@@ -53,6 +53,7 @@ $('#search-form').submit(function(){
                     ),
                     array(
                         'class'=>'CButtonColumn',
+                        'template' => '{view} {update}',
                         'buttons'=>array(
                             'view'=>array(
                                 'label'=>'<i class="fa fa-search"></i>',
@@ -62,14 +63,9 @@ $('#search-form').submit(function(){
                             'update'=>array(
                                 'label'=>'<i class="fa fa-edit"></i>',
                                 'imageUrl'=>false,
-                                'options'=>array('class'=>'btn btn-xs btn-warning','title'=>'Ubah','data-toggle'=>'tooltip')
+                                'options'=>array('class'=>'btn btn-xs btn-warning','title'=>'Ubah','data-toggle'=>'tooltip'),
+                                'url'=>''
                             ),
-                            'delete'=>array(
-                                'label'=>'<i class="fa fa-trash"></i>',
-                                'imageUrl'=>false,
-                                'options'=>array('class'=>'btn btn-xs btn-danger','title'=>'Hapus','data-toggle'=>'tooltip'),
-                                'visible'=>'Yii::app()->user->isAdmin()'
-                            )
                         )
                     ),
                 ),

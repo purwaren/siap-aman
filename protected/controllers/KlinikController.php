@@ -28,7 +28,7 @@ class KlinikController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','index','view','monitor'),
+				'actions'=>array('create','update','admin','delete','index','view','monitor','result'),
 				'users'=>array('@'),
 			),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -190,6 +190,30 @@ class KlinikController extends Controller
 			'model'=>$model,
 		));
 	}
+
+    /**
+     * Manages all models.
+     */
+    public function actionResult($id='')
+    {
+        if (empty($id)) {
+            $model=new KlinikCustom('search');
+            $model->unsetAttributes();  // clear any default values
+            if (Yii::app()->user->isSudin()) {
+                $model->id_regency = Yii::app()->user->regency_id;
+            }
+
+            if(isset($_GET['KlinikCustom']))
+                $model->attributes=$_GET['KlinikCustom'];
+
+            $this->render('result',array(
+                'model'=>$model,
+            ));
+        } else {
+
+        }
+
+    }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
