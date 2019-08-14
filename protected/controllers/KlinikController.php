@@ -341,6 +341,8 @@ class KlinikController extends Controller
     }
 
     public function actionSubmit($do='') {
+        $model = new PengajuanAkreditasiCustom('search');
+        $model->unsetAttributes();
         $klinik = KlinikCustom::getInstance();
         $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
         $kontak = KontakCustom::model()->findByAttributes(array('id_klinik'=>$klinik->id));
@@ -348,6 +350,7 @@ class KlinikController extends Controller
         $pengajuan = PengajuanAkreditasiCustom::getInstance();
         $form_pengajuan = new PengajuanAkreditasiForm();
         $form_pengajuan->jenis_pengajuan = $pengajuan->jenis_pengajuan;
+        $model->id_klinik = $klinik->id;
 
         if (isset($_POST['PengajuanAkreditasiForm'])) {
             $form_pengajuan->attributes = $_POST['PengajuanAkreditasiForm'];
@@ -364,16 +367,25 @@ class KlinikController extends Controller
             'fasilitas'=>$fasilitas,
             'pengajuan'=>$pengajuan,
             'form_pengajuan'=>$form_pengajuan,
+            'model'=>$model
         ));
     }
 
     /**
      * @param string $id
      * @throws CDbException
+     * @throws CHttpException
      */
     public function actionMonitor($id='') {
 	    if (Yii::app()->user->isKlinik()) {
-	        $pengajuan = PengajuanAkreditasiCustom::getInstance();
+	        if (empty($id)) {
+                $pengajuan = PengajuanAkreditasiCustom::getInstance();
+            } else {
+	            $pengajuan = PengajuanAkreditasiCustom::model()->findByPk($id);
+	            if ($pengajuan === null)
+                    throw new CHttpException(404,'The requested page does not exist.');
+            }
+
             $messages = FeedbackCustom::model()->findAllByAttributes(array('id_pengajuan'=>$pengajuan->id));
 	        $this->render('monitor-klinik', array(
 	            'pengajuan'=>$pengajuan,

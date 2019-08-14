@@ -1,7 +1,7 @@
 <?php
 /* @var $this UsersController */
 /* @var $form CActiveForm */
-/* @var $model Users */
+/* @var $model PengajuanAkreditasiCustom */
 /* @var $klinik KlinikCustom */
 /* @var $kontak KontakCustom */
 /* @var $alamat AlamatCustom */
@@ -204,6 +204,67 @@ $this->breadcrumbs=array(
             <?php } ?>
 		</div><!-- /.box-footer-->
 	</div><!-- /.box -->
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title"><small>Riwayat Pengajuan</small></h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+            </div>
+        </div>
+        <div class="box-body">
+            <?php $this->widget('zii.widgets.grid.CGridView', array(
+                'id'=>'pengajuan-akreditasi-grid',
+                'dataProvider'=>$model->searchForRiwayat(),
+                //'filter'=>$model,
+                'columns'=>array(
+                    array(
+                        'header'=>'No',
+                        'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize+$row+1'
+                    ),
+                    array(
+                        'name'=>'tgl_pengajuan',
+                        'value'=>'DateUtil::dateToString($data->tgl_pengajuan)'
+                    ),
+                    array(
+                        'name'=>'jenis_pengajuan',
+                        'value'=>'ucfirst($data->jenis_pengajuan)'
+                    ),
+                    array(
+                        'name'=>'status',
+                        'value'=>'ucfirst($data->getStatus())'
+                    ),
+                    array(
+                        'name'=>'tgl_penetapan',
+                        'value'=>'DateUtil::dateToString($data->tgl_penetapan)'
+                    ),
+                    array(
+                        'class'=>'CButtonColumn',
+                        'template'=>'{view}',
+                        'buttons'=>array(
+                            'view'=>array(
+                                'label'=>'<i class="fa fa-search"></i>',
+                                'imageUrl'=>false,
+                                'options'=>array('class'=>'btn btn-xs btn-primary','title'=>'Detail Usulan','data-toggle'=>'tooltip'),
+                                'url'=>'Yii::app()->createUrl("klinik/monitor",array("id"=>$data->id))'
+                            ),
+                        )
+                    ),
+                ),
+                'itemsCssClass'=>'table table-striped table-bordered table-hover dataTable',
+                'cssFile' => false,
+                'summaryCssClass' => 'dataTables_info',
+                'template'=>'{summary}{items}{pager}',
+                'pagerCssClass'=>'dataTables_paginate paging_simple_numbers text-center',
+                'pager'=>array(
+                    'htmlOptions'=>array('class'=>'pagination'),
+                    'internalPageCssClass'=>'paginate_button',
+                    'selectedPageCssClass'=>'active',
+                    'header'=>''
+                )
+            )); ?>
+        </div>
+    </div>
 </section><!-- /.content -->
 
 
