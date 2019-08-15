@@ -23,10 +23,16 @@ class KlinikCustom extends Klinik
             'created_at' => 'Waktu Entri',
             'updated_by' => 'Diperbarui Oleh',
             'updated_at' => 'Terakhir Diberbarui',
+            'id_regency' => 'Wilayah'
         );
     }
 
-
+    public function rules()
+    {
+        return array_merge(parent::rules(),array(
+            array('id_regency','safe')
+        ));
+    }
 
     public static function model($className = __CLASS__)
     {

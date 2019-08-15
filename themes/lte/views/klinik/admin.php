@@ -40,7 +40,6 @@ $('#search-form').submit(function(){
                         'header'=>'No',
                         'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize+$row+1'
                     ),
-                    'kode_klinik',
                     'nama',
                     array(
                         'header'=>'Kota',
