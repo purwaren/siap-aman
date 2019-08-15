@@ -16,6 +16,7 @@ $form=$this->beginWidget('CActiveForm', array(
             </div>
         </div>
     </div>
+    <?php if (!Yii::app()->user->isSudin() && !Yii::app()->user->isPendamping()) { ?>
     <div class="row">
         <div class="col-lg-6 col-xs-12">
             <div class="form-group">
@@ -24,6 +25,7 @@ $form=$this->beginWidget('CActiveForm', array(
             </div>
         </div>
     </div>
+    <?php } ?>
 </div>
 <div class="box-footer">
     <?php echo CHtml::submitButton('Search', array('class'=>'btn btn-primary')); ?>
