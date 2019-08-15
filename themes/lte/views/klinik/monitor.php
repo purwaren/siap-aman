@@ -19,14 +19,15 @@ $this->breadcrumbs = array(
             <?php $this->widget('zii.widgets.grid.CGridView', array(
                 'id'=>'users-grid',
                 'dataProvider'=>$pengajuan->search(),
-                //'filter'=>$model,
                 'columns'=>array(
-                    array(
-                        'header'=>'No',
-                        'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize+$row+1'
-                    ),
-                    'idKlinik.kode_klinik',
+                    'no_urut',
                     'idKlinik.nama',
+                    'idKlinik.penanggung_jawab',
+                    array(
+                        'header'=>'Kota',
+                        'value'=>'$data->idKlinik->getRegency()',
+                        'visible'=>Yii::app()->user->isAdmin() || Yii::app()->user->isDinkes(),
+                    ),
                     array(
                         'name'=>'tgl_pengajuan',
                         'value'=>'DateUtil::dateToString($data->tgl_pengajuan)'

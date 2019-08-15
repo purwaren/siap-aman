@@ -90,7 +90,7 @@ $this->pageTitle = 'Dashboard';
                 <div class="icon">
                     <i class="ion ion-android-cancel"></i>
                 </div>
-                <a href="<?php echo Yii::app()->createUrl('akreditasi/admin')?>" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo Yii::app()->createUrl('akreditasi/admin',array('status'=>'cancel'))?>" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->
@@ -105,7 +105,7 @@ $this->pageTitle = 'Dashboard';
                 <div class="icon">
                     <i class="ion ion-checkmark"></i>
                 </div>
-                <a href="<?php echo Yii::app()->createUrl('akreditasi/admin')?>" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="<?php echo Yii::app()->createUrl('akreditasi/admin',array('status'=>StatusPengajuan::REKOMENDASI))?>" class="small-box-footer">Detil <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
         <!-- ./col -->

@@ -129,7 +129,10 @@ class AkreditasiController extends Controller
 		$model=new PengajuanAkreditasiCustom('search');
 		$model->unsetAttributes();  // clear any default values
         if (empty($status)) {
-            $model->status = array(StatusPengajuan::DIAJUKAN, StatusPengajuan::DITERIMA, StatusPengajuan::VISIT);
+            //$model->status = array(StatusPengajuan::DIAJUKAN, StatusPengajuan::DITERIMA, StatusPengajuan::VISIT);
+        }
+        elseif ($status == 'cancel'){
+            $model->status = array(StatusPengajuan::BATAL, StatusPengajuan::DITOLAK);
         }
         else {
             $model->status = $status;

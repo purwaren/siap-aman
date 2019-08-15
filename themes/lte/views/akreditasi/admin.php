@@ -35,10 +35,7 @@ $('#search-form').submit(function(){
                 'dataProvider'=>$model->search(),
                 //'filter'=>$model,
                 'columns'=>array(
-                    array(
-                        'header'=>'No',
-                        'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize+$row+1'
-                    ),
+                    'no_urut',
                     'idKlinik.kode_klinik',
                     'idKlinik.nama',
                     array(
