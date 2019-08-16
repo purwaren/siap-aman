@@ -28,7 +28,7 @@ class UsersController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','admin','delete','adminAssignment'),
+				'actions'=>array('index','view','create','update','admin','delete','adminAssignment','reset'),
 				'users'=>array('@'),
 				'roles'=>array('admin'),
 			),
@@ -257,5 +257,26 @@ class UsersController extends Controller
         $this->render('profile', array(
             'model'=>$model
         ));
+    }
+
+    /**
+     * @param $id
+     * @throws CHttpException
+     * @throws CException
+     */
+    public function actionReset($id) {
+        if (Yii::app()->request->isPostRequest && Yii::app()->request->isAjaxRequest) {
+            $user = $this->loadModel($id);
+            $newpass = Users::randomPassword(6);
+            $user->password = CPasswordHelper::hashPassword($newpass);
+            $user->timestamp_updated = new CDbExpression('NOW()');
+            $user->user_update = Yii::app()->user->getName();
+            if ($user->update(array('password','timestamp_udpated','user_update'))) {
+                echo CJSON::encode(array(
+                    'msg' => 'Password setelah di-reset: '.$newpass
+                ));
+            }
+        }
+
     }
 }

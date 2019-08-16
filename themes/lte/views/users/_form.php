@@ -2,6 +2,25 @@
 /* @var $this UsersController */
 /* @var $model Users */
 /* @var $form CActiveForm */
+
+Yii::app()->clientScript->registerScript('reset-pass',"
+    $('#btn-reset').click(function(event){
+        event.preventDefault();
+        if (!confirm('Anda yakin akan me-reset password user ini?'))
+            return false;
+        var url = '".Yii::app()->createUrl('users/reset',array('id'=>$model->id))."';
+        ".CHtml::ajax(array(
+            'url'=>'js:url',
+            'type'=>'POST',
+            'dataType'=>'JSON',
+            'success'=>"function(resp){
+                $('#success-msg').html(resp.msg);
+                $('#success-msg').show();
+            }"
+        ))."
+    });
+",CClientScript::POS_END);
+
 ?>
 <?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'users-form',
@@ -23,53 +42,44 @@
 		</div>
 	</div>
 	<div class="box-body">
-		<div class="col-md-6">
+        <div class="alert alert-success" id="success-msg" style="display: none">
 
+        </div>
+		<div class="col-lg-6 col-xs-12">
 			<div class="form-group">
-				<?php echo $form->labelEx($model,'name',array('class'=>'col-sm-4 control-label')); ?>
-				<div class="col-sm-8">
-					<?php echo $form->textField($model,'name',array('class'=>'form-control','placeholder'=>'Nama lengkap')); ?>
-					<?php echo $form->error($model,'name'); ?>
-				</div>
+				<?php echo $form->labelEx($model,'name'); ?>
+                <?php echo $form->textField($model,'name',array('class'=>'form-control','placeholder'=>'Nama lengkap')); ?>
+                <?php echo $form->error($model,'name'); ?>
 			</div>
 
 			<div class="form-group">
-				<?php echo $form->labelEx($model,'username',array('class'=>'col-sm-4 control-label')); ?>
-				<div class="col-sm-8">
-					<?php echo $form->textField($model,'username',array('class'=>'form-control','placeholder'=>'Username')); ?>
-					<?php echo $form->error($model,'username'); ?>
-				</div>
+				<?php echo $form->labelEx($model,'username'); ?>
+                <?php echo $form->textField($model,'username',array('class'=>'form-control','placeholder'=>'Username')); ?>
+                <?php echo $form->error($model,'username'); ?>
 			</div>
 
 			<div class="form-group">
-				<?php echo $form->labelEx($model,'email',array('class'=>'col-sm-4 control-label')); ?>
-				<div class="col-sm-8">
-					<?php echo $form->textField($model,'email',array('class'=>'form-control','placeholder'=>'Alamat email, misal blah@test.com')); ?>
-					<?php echo $form->error($model,'email'); ?>
-				</div>
+				<?php echo $form->labelEx($model,'email'); ?>
+                <?php echo $form->textField($model,'email',array('class'=>'form-control','placeholder'=>'Alamat email, misal blah@test.com')); ?>
+                <?php echo $form->error($model,'email'); ?>
 			</div>
 			<?php if($model->isNewRecord) { ?>
 			<div class="form-group">
-				<?php echo $form->labelEx($model,'password',array('class'=>'col-sm-4 control-label')); ?>
-				<div class="col-sm-8">
-					<?php echo $form->passwordField($model,'password',array('class'=>'form-control','placeholder'=>'Password')); ?>
-					<?php echo $form->error($model,'password'); ?>
-				</div>
+				<?php echo $form->labelEx($model,'password'); ?>
+                <?php echo $form->passwordField($model,'password',array('class'=>'form-control','placeholder'=>'Password')); ?>
+                <?php echo $form->error($model,'password'); ?>
 			</div>
-
 			<div class="form-group">
-				<?php echo $form->labelEx($model,'passwordConfirm',array('class'=>'col-sm-4 control-label')); ?>
-				<div class="col-sm-8">
-					<?php echo $form->passwordField($model,'passwordConfirm',array('class'=>'form-control','placeholder'=>'Password')); ?>
-					<?php echo $form->error($model,'passwordConfirm'); ?>
-				</div>
+				<?php echo $form->labelEx($model,'passwordConfirm'); ?>
+                <?php echo $form->passwordField($model,'passwordConfirm',array('class'=>'form-control','placeholder'=>'Password')); ?>
+                <?php echo $form->error($model,'passwordConfirm'); ?>
 			</div>
 			<?php } ?>
 		</div>
 	</div><!-- /.box-body -->
 	<div class="box-footer">
-		<?php echo CHtml::submitButton('Simpan',array('class'=>'btn btn-success col-sm-offset-2')); ?>
-		&nbsp;
+		<?php echo CHtml::submitButton('Simpan',array('class'=>'btn btn-success')); ?>
+		<?php echo CHtml::submitButton('Reset Password',array('class'=>'btn btn-primary','id'=>'btn-reset')); ?>
 		<?php echo CHtml::linkButton('Kembali',array('class'=>'btn btn-danger','href'=>array('users/admin'))); ?>
 	</div>
 </div><!-- /.box -->
