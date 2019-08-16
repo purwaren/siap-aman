@@ -4,6 +4,7 @@
 /* @var $education RiwayatPendidikanCustom */
 /* @var $certification SertifikasiCustom */
 /* @var $work RiwayatPekerjaanCustom */
+/* @var $sudin SudinCustom */
 
 
 
@@ -20,6 +21,9 @@ $this->breadcrumbs = array(
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab_profile" data-toggle="tab">Profile Umum</a></li>
+                    <?php if(Yii::app()->user->isSudin()) {?>
+                    <li><a href="#tab_sudin" data-toggle="tab">Profile Sudin</a></li>
+                    <?php } ?>
                     <li><a href="#tab_address" data-toggle="tab">Kontak Pendamping</a></li>
                     <li><a href="#tab_education" data-toggle="tab">Riwayat Pendidikan</a></li>
                     <li><a href="#tab_certification" data-toggle="tab">Sertifikasi</a></li>
@@ -40,6 +44,9 @@ $this->breadcrumbs = array(
                     </div>
                     <div class="tab-pane" id="tab_work">
                         <?php $this->renderPartial('_formWork', array('model'=>$work)) ?>
+                    </div>
+                    <div class="tab-pane" id="tab_sudin">
+                        <?php $this->renderPartial('_formSudin',array('model'=>$sudin))?>
                     </div>
                 </div>
             </div>

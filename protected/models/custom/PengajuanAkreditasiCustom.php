@@ -88,7 +88,7 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
         $criteria = new CDbCriteria();
         $criteria->condition = 'no_urut IS NOT NULL';
         $criteria->compare('status', array(StatusPengajuan::DIAJUKAN, StatusPengajuan::DITERIMA, StatusPengajuan::VISIT));
-        if (Yii::app()->user->isSudin()) {
+        if (Yii::app()->user->isSudin() || Yii::app()->user->isPendamping()) {
             $criteria->join = 'left join klinik t2 on t2.id = t.id_klinik left join alamat t3 on t3.id_klinik = t2.id';
             $criteria->compare('t3.kota', Yii::app()->user->regency_id);
         }

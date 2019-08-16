@@ -38,7 +38,7 @@ class UserIdentity extends CUserIdentity
 				$this->errorCode = self::ERROR_NONE;
 
 				if (empty($user->profile_pict)) {
-				    $profile_pict = Yii::app()->theme->baseUrl.'/assets/img/user4-128x128.jpg';
+				    $profile_pict = Yii::app()->theme->baseUrl.'/assets/img/avatar5.png';
                 } else {
 				    $profile_pict = Yii::app()->baseUrl.'/'.$user->profile_pict;
                 }

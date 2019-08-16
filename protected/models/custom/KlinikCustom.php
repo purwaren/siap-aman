@@ -84,7 +84,7 @@ class KlinikCustom extends Klinik
 
     public static function countAllRegisteredKlinik() {
         $criteria = new CDbCriteria();
-        if (Yii::app()->user->isSudin()) {
+        if (Yii::app()->user->isSudin() || Yii::app()->user->isPendamping()) {
             $criteria->join = 'left join alamat t2 on t2.id_klinik = t.id';
             $criteria->compare('t2.kota', Yii::app()->user->regency_id);
         }

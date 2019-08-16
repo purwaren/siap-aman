@@ -57,7 +57,7 @@
                             <p>
                                 <?php echo Yii::app()->user->fullname?><br />
                                 <?php
-                                    if (Yii::app()->user->isSudin())  {
+                                    if (Yii::app()->user->isSudin() || Yii::app()->user->isPendamping())  {
                                         echo '<small>'.Yii::app()->user->regency.'</small>';
                                     }
                                 ?>

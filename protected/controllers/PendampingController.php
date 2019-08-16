@@ -208,6 +208,15 @@ class PendampingController extends Controller
         $work = new RiwayatPekerjaanCustom();
         $work->id_pendamping = $pendamping->id;
 
+        //init sudin
+        $sudin = SudinCustom::model()->findByPk($pendamping->id_sudin);
+        if (isset($_POST['SudinCustom'])) {
+            $sudin->attributes = $_POST['SudinCustom'];
+            if ($sudin->save()) {
+                Yii::app()->user->setFlash('success', 'Profile telah disimpan');
+            }
+        }
+
 	    if (isset($_POST['ProfilePendampingForm'])) {
 	        $model->attributes = $_POST['ProfilePendampingForm'];
 	        if ($model->save()) {
@@ -231,7 +240,8 @@ class PendampingController extends Controller
 	        'model'=>$model,
             'education'=>$education,
             'certification'=>$certification,
-            'work'=>$work
+            'work'=>$work,
+            'sudin'=>$sudin
         ));
     }
 
