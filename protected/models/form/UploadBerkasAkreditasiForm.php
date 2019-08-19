@@ -44,6 +44,31 @@ class UploadBerkasAkreditasiForm extends CFormModel
         }
     }
 
+    public function saveResult($pengajuan) {
+        $this->file = CUploadedFile::getInstanceByName('file_data');
+        $filename = 'file_'.date('YmdHis').'_'.rand(100, 9999).'.'.$this->file->extensionName;
+        $path = Yii::app()->params['uploadPath']['doc'].$filename;
+        $this->filename = Yii::app()->params['urlDoc'].$filename;
+        $original_name = $this->file->name;
+        $this->description = $original_name;
+        if ($this->file->saveAs($path)) {
+            $berkas = BerkasAkreditasiCustom::model()->findByAttributes(array(
+                'id_pengajuan' => $pengajuan->id,
+                'tipe_berkas' => $this->type
+            ));
+            if (empty($berkas)) {
+                $berkas = new BerkasAkreditasiCustom();
+                $berkas->created_by = Yii::app()->user->getName();
+                $berkas->created_at = new CDbExpression('NOW()');
+            }
+            $berkas->id_pengajuan = $pengajuan->id;
+            $berkas->file_path = $this->filename;
+            $berkas->deskripsi = $original_name;
+            $berkas->tipe_berkas = $this->type;
+            return $berkas->save();
+        }
+    }
+
     /**
      * @throws Exception
      */

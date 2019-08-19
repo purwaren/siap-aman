@@ -1,24 +1,34 @@
 <?php
 /* @var $this Controller */
-/* @var $model Klinik */
+/* @var $model KlinikCustom */
 
-$this->pageTitle = 'Nilai Akreditasi';
+$this->pageTitle = 'Nilai Akreditasi'.(!empty($model->id)?' - '.$model->nama:'');
 $this->breadcrumbs = array(
     'Nilai Akreditasi'
 );
 
 Yii::app()->clientScript->registerScript('search', "
-$('#search-form').submit(function(){
-	$('#klinik-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
-});
+    $('#search-form').submit(function(){
+        $('#klinik-grid').yiiGridView('update', {
+            data: $(this).serialize()
+        });
+        return false;
+    });
 ");
 
 ?>
 <!-- Main content -->
 <section class="content">
+    <?php if(!empty($model->id)) {?>
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title"><small>Upload Nilai Akreditasi</small></h3>
+            </div>
+            <div class="box-body">
+                <?php $this->renderPartial('_formResult',array('model'=>$model))?>
+            </div>
+        </div>
+    <?php } else { ?>
     <div class="box box-default">
         <div class="box-header">
             <h3 class="box-title"><a href="#" data-widget="collapse">Advance Search</a></h3>
@@ -63,8 +73,9 @@ $('#search-form').submit(function(){
                             'update'=>array(
                                 'label'=>'<i class="fa fa-edit"></i>',
                                 'imageUrl'=>false,
-                                'options'=>array('class'=>'btn btn-xs btn-warning','title'=>'Ubah','data-toggle'=>'tooltip'),
-                                'url'=>''
+                                'options'=>array('class'=>'btn btn-xs btn-warning','title'=>'Nilai','data-toggle'=>'tooltip'),
+                                'url'=>'Yii::app()->createUrl("klinik/result",array("id"=>$data->id))',
+                                'visible'=>'$data->isAccepted()'
                             ),
                         )
                     ),
@@ -83,4 +94,5 @@ $('#search-form').submit(function(){
             )); ?>
         </div><!-- /.box-body -->
     </div><!-- /.box -->
+    <?php } ?>
 </section><!-- /.content -->

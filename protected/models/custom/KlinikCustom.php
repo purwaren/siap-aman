@@ -133,28 +133,20 @@ class KlinikCustom extends Klinik
 
         $criteria=new CDbCriteria;
 
-        $criteria->compare('id',$this->id);
-        $criteria->compare('id_user',$this->id_user);
-        $criteria->compare('kode_klinik',$this->kode_klinik,true);
         $criteria->compare('nama',$this->nama,true);
-        $criteria->compare('no_izin',$this->no_izin,true);
-        $criteria->compare('kepemilikan',$this->kepemilikan,true);
-        $criteria->compare('penanggung_jawab',$this->penanggung_jawab,true);
-        $criteria->compare('karakteristik',$this->karakteristik,true);
-        $criteria->compare('tingkatan',$this->tingkatan,true);
-        $criteria->compare('created_by',$this->created_by,true);
-        $criteria->compare('created_at',$this->created_at,true);
-        $criteria->compare('updated_by',$this->updated_by,true);
-        $criteria->compare('updated_at',$this->updated_at,true);
 
-        $criteria->join = 'LEFT JOIN pengajuan_akreditasi t2 ON t.id = t2.id_klinik';
-
-
+        $criteria->join = 'LEFT JOIN pengajuan_akreditasi t2 ON t2.id_klinik = t.id LEFT JOIN alamat t3 on t3.id_klinik = t.id';
+        $criteria->addInCondition('t2.status',array(StatusPengajuan::DIAJUKAN, StatusPengajuan::VISIT, StatusPengajuan::DITERIMA, StatusPengajuan::DRAFT));
+        $criteria->addCondition('t2.id IS NULL', 'OR');
+        $criteria->compare('t3.kota', $this->id_regency);
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));
     }
 
+    /**
+     * @return |null
+     */
     public function getRegency() {
         $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$this->id));
         if (!empty($alamat)) {
@@ -162,6 +154,21 @@ class KlinikCustom extends Klinik
         }
         else {
             return null;
+        }
+    }
+
+    public function getLastPengajuan() {
+        $criteria = new CDbCriteria();
+        $criteria->order = 'id DESC';
+        $criteria->compare('id_klinik', $this->id);
+
+        return PengajuanAkreditasiCustom::model()->find($criteria);
+    }
+
+    public function isAccepted() {
+        $pengajuan = $this->getLastPengajuan();
+        if (!empty($pengajuan)) {
+            return $pengajuan->status == StatusPengajuan::DITERIMA;
         }
     }
 }

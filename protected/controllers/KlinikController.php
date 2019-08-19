@@ -28,7 +28,7 @@ class KlinikController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin','delete','index','view','monitor','result'),
+				'actions'=>array('create','update','admin','delete','index','view','monitor','result','uploadResult'),
 				'users'=>array('@'),
 			),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -193,6 +193,7 @@ class KlinikController extends Controller
 
     /**
      * Manages all models.
+     * @throws CException
      */
     public function actionResult($id='')
     {
@@ -206,20 +207,21 @@ class KlinikController extends Controller
             if(isset($_GET['KlinikCustom']))
                 $model->attributes=$_GET['KlinikCustom'];
 
-            $this->render('result',array(
-                'model'=>$model,
-            ));
-        } else {
 
+        } else {
+            $model = $this->loadModel($id);
         }
 
+        $this->render('result',array(
+            'model'=>$model,
+        ));
     }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Klinik the loaded model
+	 * @return KlinikCustom the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
@@ -308,6 +310,26 @@ class KlinikController extends Controller
                 echo CJSON::encode(array(
                     'filelink' => Yii::app()->baseUrl.'/'.$model->filename,
                     'filename' => $model->description
+                ));
+            }
+        }
+    }
+
+    /**
+     * @param $id_klinik
+     * @throws CHttpException
+     */
+    public function actionUploadResult($id_klinik) {
+        if (Yii::app()->request->isAjaxRequest) {
+            $klinik = $this->loadModel($id_klinik);
+            $pengajuan = $klinik->getLastPengajuan();
+            $berkas = new UploadBerkasAkreditasiForm();
+            $berkas->file = $_FILES['file_data'];
+            $berkas->type = DocumentType::REKOMENDASI;
+            if ($berkas->saveResult($pengajuan)) {
+                echo CJSON::encode(array(
+                    'filelink' => Yii::app()->baseUrl.'/'.$berkas->filename,
+                    'filename' => $berkas->description
                 ));
             }
         }
