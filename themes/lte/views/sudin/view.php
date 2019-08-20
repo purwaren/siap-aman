@@ -33,6 +33,7 @@ $this->breadcrumbs=array(
                         'no_fax',
                         'email',
                         'website',
+                        'jumlah_klinik',
                         'created_at',
                         'created_by',
                         'updated_at',

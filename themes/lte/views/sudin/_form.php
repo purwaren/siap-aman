@@ -68,6 +68,13 @@ Yii::app()->clientScript->registerScript('form', "
                 <?php echo $form->textField($model,'website',array('class'=>'form-control')); ?>
                 <?php echo $form->error($model,'website'); ?>
             </div>
+            <?php if (Yii::app()->user->isAdmin()) {?>
+            <div class="form-group">
+                <?php echo $form->labelEx($model,'jumlah_klinik'); ?>
+                <?php echo $form->numberField($model,'jumlah_klinik',array('class'=>'form-control')); ?>
+                <?php echo $form->error($model,'jumlah_klinik'); ?>
+            </div>
+            <?php } ?>
         </div>
 	</div><!-- /.box-body -->
 	<div class="box-footer">
