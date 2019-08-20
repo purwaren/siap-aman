@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 26, 2019 at 08:56 AM
+-- Generation Time: Aug 20, 2019 at 07:06 PM
 -- Server version: 10.3.16-MariaDB-1:10.3.16+maria~stretch-log
 -- PHP Version: 5.6.40-9+0~20190710.17+debian9~1.gbp923b30
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `alamat` (
   `id` int(11) NOT NULL,
-  `id_klinik` int(10) NOT NULL,
+  `id_klinik` int(10) DEFAULT NULL,
   `alamat_1` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `alamat_2` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `kecamatan` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -77,7 +77,8 @@ INSERT INTO `alamat` (`id`, `id_klinik`, `alamat_1`, `alamat_2`, `kecamatan`, `k
 (32, 25, 'Jl.Ciracas Raya Rt 04/02 no 18', 'kel.Ciracas ', '3172020', '3172', '31'),
 (33, 42, 'Jambul lama no.17-18 Rt013/0', 'Cililitan', '3172050', '3172', '31'),
 (34, 28, 'Jl. Sunter Kemayoran No.4  Rt 02/03', 'Sunter Jaya', '3175030', '3175', '31'),
-(35, 21, 'Jl Prapanca Raya', 'Kelurahan Petogogan', '3171060', '3171', '31');
+(35, 21, 'Jl Prapanca Raya', 'Kelurahan Petogogan', '3171060', '3171', '31'),
+(37, NULL, 'Jalan Doang Jadian Kagak', 'Perumahan Indah', '3171010', '3171', '31');
 
 -- --------------------------------------------------------
 
@@ -141,6 +142,7 @@ INSERT INTO `authassignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 ('klinik', 98, NULL, 'N;'),
 ('klinik', 102, NULL, 'N;'),
 ('klinik', 106, NULL, 'N;'),
+('pendamping', 108, NULL, 'N;'),
 ('sudin', 21, NULL, 'N;');
 
 -- --------------------------------------------------------
@@ -166,7 +168,8 @@ INSERT INTO `authitem` (`id`, `name`, `type`, `description`, `bizrule`, `data`) 
 (1, 'admin', 2, 'role untuk admin', '', ''),
 (2, 'dinkes', 2, 'role untuk dinas kesehatan level provinsi', '', ''),
 (3, 'sudin', 2, 'role untuk suku dinas di level kabupaten/kota', '', ''),
-(4, 'klinik', 2, 'role untuk klinik', NULL, NULL);
+(4, 'klinik', 2, 'role untuk klinik', NULL, NULL),
+(5, 'pendamping', 2, 'Role untuk pendamping klinik', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -202,7 +205,12 @@ CREATE TABLE `berkas_akreditasi` (
 INSERT INTO `berkas_akreditasi` (`id`, `id_pengajuan`, `tipe_berkas`, `file_path`, `deskripsi`, `created_by`, `created_at`) VALUES
 (1, 1, 2, 'assets/docs/file_20190726064710_7347.pdf', 'Neo_Billing_Attachment_437915.pdf', 'purwaren', '2019-07-25 23:47:10'),
 (3, 1, 1, 'assets/docs/file_20190726064822_6786.pdf', 'UND DTS _ Purwanto Biido.pdf', 'purwaren', '2019-07-25 23:48:22'),
-(4, 1, 3, 'assets/docs/file_20190726064832_9515.xlsx', 'template_self_assessment.xlsx', 'purwaren', '2019-07-25 23:48:32');
+(4, 1, 3, 'assets/docs/file_20190726064832_9515.xlsx', 'template_self_assessment.xlsx', 'purwaren', '2019-07-25 23:48:32'),
+(5, 2, 3, 'assets/docs/file_20190726191204_8908.xlsx', 'template_self_assessment.xlsx', 'purwaren', '2019-07-26 12:12:04'),
+(6, 2, 1, 'assets/docs/file_20190726191221_7798.pdf', 'UND DTS _ Purwanto Biido.pdf', 'purwaren', '2019-07-26 12:12:21'),
+(7, 2, 2, 'assets/docs/file_20190726191222_5044.pdf', 'Neo_Billing_Attachment_437915.pdf', 'purwaren', '2019-07-26 12:12:22'),
+(8, 3, 5, 'assets/docs/file_20190819230326_9607.pdf', 'Neo_Billing_Attachment_445367.pdf', 'tatang', '2019-08-19 16:03:26'),
+(9, 2, 5, 'assets/docs/file_20190820173111_9307.pdf', 'Neo_Billing_Attachment_445367.pdf', 'tatang', '2019-08-19 23:49:07');
 
 -- --------------------------------------------------------
 
@@ -280,7 +288,16 @@ CREATE TABLE `feedback` (
 --
 
 INSERT INTO `feedback` (`id`, `from`, `to`, `id_pengajuan`, `message`, `flag_read`, `created_by`, `created_at`) VALUES
-(1, 21, 20, 1, 'Foto dan dokumen masih belum sesuai ketentuan', 0, 'tatang', '2019-07-26 00:04:58');
+(1, 21, 20, 1, 'Foto dan dokumen masih belum sesuai ketentuan', 0, 'tatang', '2019-07-26 00:04:58'),
+(2, 24, 20, 2, 'Mohon segera ditindaklanjuti oleh Sudin', 0, 'dinkes', '2019-07-28 10:25:16'),
+(3, 24, 20, 2, 'Tolong sudin, kenapa ini kok belum ada tanggapan', 0, 'dinkes', '2019-07-28 10:38:05'),
+(4, 21, 20, 2, 'Baik pak kepala dinas, akan segera kami tindak lanjuti', 0, 'tatang', '2019-07-28 10:45:13'),
+(5, 21, 20, 2, 'Mohon foto klinik untuk diupload sesuai dengan petunjuk ya', 0, 'tatang', '2019-07-28 10:46:03'),
+(6, 20, 20, 2, 'Baik Pak, segera kami update', 0, 'purwaren', '2019-07-28 12:50:30'),
+(7, 21, 20, 2, 'Dokumen sudah sesuai, kami akan segera menjadwalkan visit ke klinik anda', 0, 'tatang', '2019-07-28 14:38:14'),
+(8, 20, 20, 2, 'Baik, terimakasih Pak. Mohon untuk menginfokan jadwal visitnya ya Pak', 0, 'purwaren', '2019-07-28 14:39:21'),
+(9, 108, 20, 2, 'Wah saya kurang update nih infonya', 0, 'sancaka', '2019-08-02 02:57:25'),
+(10, 108, 20, 2, 'Alhamdulillah sudah selesai diverifikasi', 0, 'sancaka', '2019-08-05 03:47:24');
 
 -- --------------------------------------------------------
 
@@ -331,7 +348,7 @@ CREATE TABLE `klinik` (
 --
 
 INSERT INTO `klinik` (`id`, `id_user`, `kode_klinik`, `nama`, `no_izin`, `kepemilikan`, `penanggung_jawab`, `karakteristik`, `tingkatan`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
-(1, 20, 'KL001', 'Medika Sentosa', '01/DINKES/2019', 'Pribadi', 'Purwa Ren', 'pratama', 'belum', 'purwaren', '2019-07-23 14:18:21', 'purwaren', '2019-07-23 15:04:52'),
+(1, 20, 'KL001', 'Medika Sentosa', '01/DINKES/2019', 'Pribadi', 'Purwa Ren', 'pratama', 'utama', 'purwaren', '2019-07-23 14:18:21', 'tatang', '2019-08-20 17:31:11'),
 (2, 22, '', 'Klinik Tugu', '1234567890', '', 'Nurul', 'pratama', 'belum', 'klinik.tugu', '2019-07-24 13:25:39', 'klinik.tugu', '2019-07-24 13:34:26'),
 (3, 23, 'KLINIK01', 'Sentra Medika', '113/DINKES/2019', 'Swasta', 'Nafis', 'pratama', 'belum', 'nafis', '2019-07-24 17:04:20', 'nafis', '2019-07-24 17:06:36'),
 (4, 25, '0114b222', 'Satpelkes Walikota Jakarta Pusat', '123456', 'Pemerintah Provinsi DKI Jakarta', 'Drg. Rini Agustina', 'pratama', 'belum', 'drgrini', '2019-07-25 09:44:03', 'drgrini', '2019-07-25 10:01:43'),
@@ -448,7 +465,7 @@ CREATE TABLE `pendamping` (
   `tempat_lahir` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tgl_lahir` date DEFAULT NULL,
   `jabatan` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `alamat` varchar(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alamat` int(11) DEFAULT NULL,
   `no_hp` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_by` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -462,7 +479,8 @@ CREATE TABLE `pendamping` (
 --
 
 INSERT INTO `pendamping` (`id`, `id_sudin`, `id_user`, `tipe`, `nama`, `gelar_depan`, `gelar_belakang`, `tempat_lahir`, `tgl_lahir`, `jabatan`, `alamat`, `no_hp`, `email`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
-(1, 1, 21, '01', 'Tatang Sutarna', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'tatang@gmail.com', 'admin', '2019-07-23 20:04:23', NULL, NULL);
+(1, 1, 21, '01', 'Tatang Sutarna Gautama', 'dr', 'M.Sc.', 'Jakarta', '1989-05-22', 'Kepala Bagian', 37, '0138299499939', 'test@web.com', 'admin', '2019-07-23 20:04:23', NULL, NULL),
+(2, 1, 108, '03', 'Sancaka Budaya', 'Prof. DR(HC)', 'M.T.I', 'Kebume', '1987-06-06', 'Guru Besar', NULL, NULL, 'sancaka@gmail.com', 'admin', '2019-08-02 09:53:23', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -491,7 +509,10 @@ CREATE TABLE `pengajuan_akreditasi` (
 --
 
 INSERT INTO `pengajuan_akreditasi` (`id`, `id_klinik`, `no_urut`, `tgl_pengajuan`, `jenis_pengajuan`, `tgl_penetapan`, `status`, `status_info`, `status_alamat`, `status_kontak`, `status_fasilitas`, `status_foto`, `status_dokumen`) VALUES
-(1, 1, 1, '2019-07-26', 'pertama', NULL, 2, 1, 1, 1, 1, 0, 0);
+(1, 1, 1, '2019-07-26', 'pertama', NULL, 2, 1, 1, 1, 1, 1, 0),
+(2, 1, 2, '2019-07-26', 'pertama', '2019-08-02', 5, 1, 1, 1, 1, 1, 1),
+(3, 2, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 1, NULL, NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -88856,6 +88877,7 @@ INSERT INTO `ref_villages` (`id`, `district_id`, `name`) VALUES
 --
 
 CREATE TABLE `riwayat_pekerjaan` (
+  `id` int(10) NOT NULL,
   `id_pendamping` int(10) NOT NULL,
   `nama_institusi` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jabatan` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -88870,11 +88892,21 @@ CREATE TABLE `riwayat_pekerjaan` (
 --
 
 CREATE TABLE `riwayat_pendidikan` (
+  `id` int(10) NOT NULL,
   `id_pendamping` int(10) NOT NULL,
   `nama_institusi` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tingkat` varchar(8) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tahun_lulus` varchar(4) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `riwayat_pendidikan`
+--
+
+INSERT INTO `riwayat_pendidikan` (`id`, `id_pendamping`, `nama_institusi`, `tingkat`, `tahun_lulus`) VALUES
+(3, 1, 'AKBID', 'DI', '2011'),
+(4, 1, 'Profesi', 'DII', '2013'),
+(5, 1, 'Spesialis', 'Sp', '2015');
 
 -- --------------------------------------------------------
 
@@ -88901,7 +88933,11 @@ INSERT INTO `sa_resume` (`id`, `id_pengajuan`, `bab`, `score`, `created_at`, `cr
 (1, 1, 'I', 0, '2019-07-25 23:48:33', 'purwaren', NULL, NULL),
 (2, 1, 'II', 0, '2019-07-25 23:48:33', 'purwaren', NULL, NULL),
 (3, 1, 'III', 0, '2019-07-25 23:48:33', 'purwaren', NULL, NULL),
-(4, 1, 'IV', 0, '2019-07-25 23:48:33', 'purwaren', NULL, NULL);
+(4, 1, 'IV', 0, '2019-07-25 23:48:33', 'purwaren', NULL, NULL),
+(5, 2, 'I', 0, '2019-07-26 12:12:05', 'purwaren', NULL, NULL),
+(6, 2, 'II', 0, '2019-07-26 12:12:05', 'purwaren', NULL, NULL),
+(7, 2, 'III', 0, '2019-07-26 12:12:05', 'purwaren', NULL, NULL),
+(8, 2, 'IV', 0, '2019-07-26 12:12:05', 'purwaren', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -88910,6 +88946,7 @@ INSERT INTO `sa_resume` (`id`, `id_pengajuan`, `bab`, `score`, `created_at`, `cr
 --
 
 CREATE TABLE `sertifikasi` (
+  `id` int(10) NOT NULL,
   `id_pendamping` int(10) NOT NULL,
   `no_sertifikat` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -88917,6 +88954,14 @@ CREATE TABLE `sertifikasi` (
   `penyelenggara` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tgl_perolehan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sertifikasi`
+--
+
+INSERT INTO `sertifikasi` (`id`, `id_pendamping`, `no_sertifikat`, `nama`, `bidang_peminatan`, `penyelenggara`, `tgl_perolehan`) VALUES
+(3, 1, '001', 'tes', 'tes', 'tes', '2019-07-31'),
+(4, 1, '002', 'tes2', 'tes2', 'tes2', '2019-08-02');
 
 -- --------------------------------------------------------
 
@@ -88945,7 +88990,7 @@ CREATE TABLE `sudin` (
 --
 
 INSERT INTO `sudin` (`id`, `id_regency`, `nama`, `alamat`, `no_telp`, `no_fax`, `email`, `website`, `jumlah_klinik`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
-(1, '3171', 'Suku Dinas Kesehatan Kota Jakarta Selatan', 'Jalan Lenteng Agung Raya No 112', '021843939430', '', '', '', 229, '2019-07-22 09:17:15', 'admin', NULL, NULL),
+(1, '3171', 'Suku Dinas Kesehatan Kota Jakarta Selatan', 'Jalan Lenteng Agung Raya No 11', '021843939430', '012312321', '', '', 229, '2019-07-22 09:17:15', 'admin', '2019-07-29 08:11:17', 'dinkes'),
 (2, '3172', 'Suku Dinas Kesehatan Kota Jakarta Timur', 'Jalanin aja dulu', '0217349993', '', '', '', 359, '2019-07-23 07:15:27', 'admin', NULL, NULL),
 (3, '3174', 'Suku Dinas Kesehatan Kota Jakarta Barat', 'Jalanin aja', '021930000003', '', '', '', 134, '2019-07-23 07:15:52', 'admin', NULL, NULL),
 (4, '3173', 'Suku Dinas Kesehatan Kota Jakarta Pusat', 'Jalanin aja', '021939400333', '', '', '', 290, '2019-07-23 07:16:21', 'admin', NULL, NULL),
@@ -88973,62 +89018,64 @@ CREATE TABLE `users` (
   `timestamp_created` datetime NOT NULL,
   `timestamp_updated` datetime DEFAULT NULL,
   `user_create` varchar(32) NOT NULL,
-  `user_update` varchar(32) DEFAULT NULL
+  `user_update` varchar(32) DEFAULT NULL,
+  `profile_pict` varchar(128) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `salt`, `status`, `flag_delete`, `login_atemp`, `last_login_attempt`, `last_login_time`, `timestamp_created`, `timestamp_updated`, `user_create`, `user_update`) VALUES
-(1, 'Administrator', 'admin', 'and.thau@gmail.com', '$2y$13$2Qd1NqjjIj5Eyt1iVzcdT.8DNBaeI4NlIhvgg5L8sk0wpENWcjtg2', '$2y$13$jv/n.WhUXe0OdfVlkIGnc2', 1, 0, 0, NULL, NULL, '2016-03-17 13:28:17', NULL, 'admin', NULL),
-(20, 'Purwa Ren', 'purwaren', 'purwaren@gmail.com', '$2y$13$oqFiLFJ8jCkjuTr8zwl5e.iv11VWJOKR8NJkh5NOSdnALf.XHuIr6', '$2y$13$R1VogKWGrMy2jKIA/A7pVN', 1, 0, 0, NULL, NULL, '2019-07-23 14:18:21', NULL, 'purwaren', NULL),
-(21, 'Tatang Sutarna', 'tatang', 'tatang@gmail.com', '$2y$13$A8qvxxtKeP0rwxGjJpvz9Ose1HTdXVfE8x41WlAhxJsH/oOrNahSG', '$2y$13$MH8u3ZNFMfn0aw6/iAaRyw', 1, 0, 0, NULL, NULL, '2019-07-23 20:04:23', NULL, 'admin', NULL),
-(22, 'Nurul', 'klinik.tugu', 'tugu@gmail.com', '$2y$13$4w69p0tNlGIsvYfeMm01leryf99meS4nOThjAjcNDI1XGiJP3tGNO', '$2y$13$oWkjP4A0vFjemm6kLnU4jm', 1, 0, 0, NULL, NULL, '2019-07-24 13:25:39', NULL, 'klinik.tugu', NULL),
-(23, 'Nafis', 'nafis', 'nafis@gmail.com', '$2y$13$UvrvqSnR/h2kOHQwl0OyTuROMPx5mDSw2WggYif3bf3UQR/5Rxyyu', '$2y$13$/8izofdJ6Fpf512pRf2ebY', 1, 0, 0, NULL, NULL, '2019-07-24 17:04:20', NULL, 'nafis', NULL),
-(24, 'Dinas Kesehatan DKI', 'dinkes', 'mutudinkesdki@gmail.com', '$2y$13$Sm/UHKrD4wdJRXENUcThzuvmvBPlWJdt.JxZK3Hq1Mq38vSVEkeNa', '$2y$13$l4vonBsp.HtCQQW0AyGfPW', 1, 0, 0, NULL, NULL, '2019-07-24 17:18:46', NULL, 'admin', NULL),
-(25, 'Drg. Rini Agustina', 'drgrini', 'rini.august@gmail.com', '$2y$13$2ZMiZ7.YGj6dpdX53gRBZuIjTQBwf762ZJaJA0akKMSE1aWjiI3RG', '$2y$13$kxh91uQ91jgAjjqBl8llJ3', 1, 0, 0, NULL, NULL, '2019-07-25 09:44:02', NULL, 'drgrini', NULL),
-(26, 'Dr. Jupriah', 'Devi ', 'Klinik_alfauzan@yahoo.com', '$2y$13$iP78oZoSClOgsrT12pYMuuKiDYhHK7isAGAa1rqyfIffwQDlppXCO', '$2y$13$IBTkC3y5C.8oDqwKG6R/bj', 1, 0, 0, NULL, NULL, '2019-07-25 09:44:25', NULL, 'Devi ', NULL),
-(27, 'Dr. Hadi Purnomo Halim', 'Milles', 'ardc.anastasiaratna@gmail.com ', '$2y$13$7YKR/p6lJnrCCQch00/AO.jDEfUK6AM8ZuV3hDfrtuG6Tp8opL6eW', '$2y$13$p.w.nWAim2Hb6vqw3lrOA6', 1, 0, 0, NULL, NULL, '2019-07-25 09:44:37', NULL, 'Milles', NULL),
-(28, 'dr. Dedi Suranda', 'sigap', 'cipinangklinik@gmail.com', '$2y$13$8CAJW6GVcS5itzSw//8jnO7arb1wUU/TXeawjHEFByS4ia4NXfG2y', '$2y$13$Oz0lHnbWENfvTn.7MBLmqv', 1, 0, 0, NULL, NULL, '2019-07-25 09:44:57', NULL, 'sigap', NULL),
-(29, 'G. Jakaria', 'yasahusada', 'yasahusada1@gmail.com', '$2y$13$3eZpimV1nNhhiPF85.LNQuW.cK1pwEn.pBqesuD7kW87O.A0FHxC2', '$2y$13$HdaBWT8Lv9j98NmPDfhvAj', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:06', NULL, 'yasahusada', NULL),
-(30, 'dr', 'Satkes', 'guswidodo11@gmail.com ', '$2y$13$ymOr6CjENx5RflP6NyHNPuSh2dQEF91xXPDTnHYjHxirxAUatCDDC', '$2y$13$lPR3p99qiZCu5KIeMrsaeI', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:17', NULL, 'Satkes', NULL),
-(31, 'RELINDA D SIREGAR', 'relinda', 'relinda_ds@yahoo.com', '$2y$13$75Hz8kpNHFfVphsOoRluO.GE/kHN7Gzh.SEjBSQOW/dup7ez/vdme', '$2y$13$uFgd5v5xlfDjIaszGSBvKV', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:21', NULL, 'relinda', NULL),
-(32, 'dr. Zarliani', 'asarini', 'rini_asarini@yahoo.com', '$2y$13$rP.FdgETL.JqVEcUCA6.6uASu94OD0KOYqK3hAtNJXNYJnLms2.gC', '$2y$13$IoUaXCVQEQnO4w1QowXILU', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:25', NULL, 'asarini', NULL),
-(33, 'dr.Nugroho jati dwi nur laksono', 'suyanto', 'pro.bprijakarta@gmail.com', '$2y$13$nLtPjLh3gkmBFNG2L5tFQu.cOM2n3jBXD3ee0YVJb.lFRXCJVpIyi', '$2y$13$62V2Ur2qTLiqSYWZU4sad9', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:28', NULL, 'suyanto', NULL),
-(37, 'Dr. Zulkarnaini', 'Syifa', 'fhendriany@gmail.com', '$2y$13$sk5UHMeWDrUs0hx9Lq9CT.QgM2rbIhgfcgvRkzSyyAnDnGd4LCoZe', '$2y$13$FIEy7vJOA7BhTd7WaSPxXR', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:35', NULL, 'Syifa', NULL),
-(38, 'DR.RASYAD', 'kusnan', 'kusnantriandono@gmail.com', '$2y$13$Xaq.iPzciVjOop6CYJZ2b.tRNzo1KCDHf4MCNTdusiRpTdRBXm0qu', '$2y$13$Ey.//GO7tAJvdU3z.EdYjP', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:38', NULL, 'kusnan', NULL),
-(39, 'dian triana mayasari', 'mayasari', 'doktermaya1@gmail.com', '$2y$13$kjxVcqzSOMWR47KRN9Kh3.ohRukBySQZX4FYUEFfb3jfKoF8EgdWy', '$2y$13$5G136zJ1E3KfcESbd/xeWV', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:53', NULL, 'mayasari', NULL),
-(40, 'liliani drg', 'liliani', 'lilianidrg@gmail.com', '$2y$13$HxfMYOedDpz7P5P7WTcL2equLj6rcZmYewvqEms/vF6nx8RM5QOaW', '$2y$13$/tslS8ZZUP0tc6Ch2a2eN8', 1, 0, 0, NULL, NULL, '2019-07-25 09:46:15', NULL, 'liliani', NULL),
-(41, 'Siang Yanty', 'viva', 'bispro.vivamedika@gmail.com', '$2y$13$FBGEOclhuCW5zY0tKPHxj.SZST4gUQvAcIhVemp4kwcWrHOM37Obu', '$2y$13$gpWZThNsDGSVXDxyobGyPk', 1, 0, 0, NULL, NULL, '2019-07-25 09:46:18', NULL, 'viva', NULL),
-(42, 'drg. Suciyanti Harahap', 'polkestimur', 'polkesjakartatimur@gmail.com', '$2y$13$hPTQOea6P50Zg4abAl.Y/uM1kCe9Rp/o7M8YrZDHzXry2HOoUkzS6', '$2y$13$ebeuQLuN0XG2g3d/Ecgomi', 1, 0, 0, NULL, NULL, '2019-07-25 09:46:27', NULL, 'polkestimur', NULL),
-(43, 'dr. Budiman Murdani L. Tobing', 'kliniksukmaanggrek', 'kliniksukmaanggrek@yahoo.com', '$2y$13$cmm04WMy/inupPjPXRpS/uyJLsMmVOyu9OAHhFaFffU55QgVa0CE6', '$2y$13$Js3XC0cpkLp6ffW1OYxsu1', 1, 0, 0, NULL, NULL, '2019-07-25 09:46:34', NULL, 'kliniksukmaanggrek', NULL),
-(45, 'dr. Andriyani Damanik', 'Riza', 'bahagianet@yahoo.co.id', '$2y$13$4/BIBuSXAwrHl9ZHdTXUO./d/nIpHSoEhJAvObJMQd0RGPBGfItgW', '$2y$13$/5qTE/xcja/X0087Ndrvkq', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:00', NULL, 'Riza', NULL),
-(46, 'Laura Triwindawati', 'laura', 'lauratrwndwt@gmail.com', '$2y$13$8jy3SLhwBPTotaLza08EouKYhsCeQVAL3Dt0yZOsN1/UWMLq1EZzO', '$2y$13$3cTOOth16IXHrb2aOhYR5R', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:04', NULL, 'laura', NULL),
-(48, 'Edwina', 'Tanto', 'Wakotimursatpelkes.yahoo.com', '$2y$13$bku0x1aBJMnOYhJXSKzRp.xZg40a0It6nQYilnGrBKK4LdFekMMXS', '$2y$13$4/Bg35Ch7.U5wWdUIxYF5T', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:09', NULL, 'Tanto', NULL),
-(49, 'dr.Kevin Gilbert', 'kevin.gilbert', 'mayapadaclinic.mt2@mayapadahospital.com', '$2y$13$J3dBoon7xHSvFa0u8mNJROHeGfIB/7TEEw/h5ZwDpNfTNJTJvQEa2', '$2y$13$LK1IjKQrJYGgk0/SsFwMqV', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:20', NULL, 'kevin.gilbert', NULL),
-(51, 'Dr. Zulkarnaini', 'Fitri0189', 'fhendriany@gmail.com', '$2y$13$6GyF9NHhUORRJ9uAD9Acd.85mnPSsy5V.9bfUjC9Mrbi5soKmqnw2', '$2y$13$E6H4Y66vbjrrNL3IzdnRs2', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:38', NULL, 'Fitri0189', NULL),
-(52, 'Pradnya Paramita', 'Paramita', 'pp.paramita161@gmail.com', '$2y$13$YeXOEGhi/anj.mJv/WJMmOVoopTqh7jyn4.NwDWVVG28A3M5TNua.', '$2y$13$qSM7fkKfGHlYqwX6EOZqGv', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:40', NULL, 'Paramita', NULL),
-(53, 'dr Lay Johan Gautama', 'jl_gautama', 'j.gautama61@gmail.com', '$2y$13$mPgvyMFSdoDECRVsKtq3lu4WpG.69NgRzc.NRZdbTmbr32KqDKaNS', '$2y$13$WtgqDOeyWZl6FZSS7iB3.C', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:42', NULL, 'jl_gautama', NULL),
-(55, 'dr.novita djunaedi', 'novita', 'yadika_cibubur@yahoo.com', '$2y$13$w4U1sNqSBJ6MFqF76QUjleHWd.G3OxjcQV8a4nbvm6h5ICm4WO4rq', '$2y$13$.o.Nkm7MSmaBVMzXY3ffP2', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:48', NULL, 'novita', NULL),
-(56, 'Dr. Yunida Marzuki', 'titin', 'titinsupartini@sismamedika.com', '$2y$13$HQiTWLi8CYUEFwOmBvqeYOsQPg5JYeFPhSLjmke4saq7AJu8zKZ6.', '$2y$13$TT64SyaVmkKZrB3jWVGasU', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:53', NULL, 'titin', NULL),
-(57, 'dr.Robdhi Alimsyah', 'Hotma', 'klinikpratamapaseban@gmail.com', '$2y$13$SJzmNzH1L0lG43HDC0xgI.6Ib8RXHb/vZt1BKINpsDspzdKhI6.gC', '$2y$13$BlnyHA2Qq4ZyE0zp/iExBo', 1, 0, 0, NULL, NULL, '2019-07-25 09:48:17', NULL, 'Hotma', NULL),
-(63, 'dr. Rita Erfita', 'Ardita Ciracas', 'ardita.ciracas@gmail.com', '$2y$13$2gVbxvNKdvSEvkI6Et/Ar../kJwTzRJN1ryKxwKrqkMWGn7F6LHJu', '$2y$13$fmpscrAmTzpnfA1PKyhm58', 1, 0, 0, NULL, NULL, '2019-07-25 09:48:46', NULL, 'Ardita Ciracas', NULL),
-(64, 'dr. Arni Mulyanti', 'Ardita', 'arditaklinik@yahoo.co.id', '$2y$13$QwDbTeqf7KYQBECYCiwiFeE2b7YtHupzV/8Q1nbdEjd62hTK5FDq.', '$2y$13$XYMu7YgZ1zK2AedgAzy0ZR', 1, 0, 0, NULL, NULL, '2019-07-25 09:48:55', NULL, 'Ardita', NULL),
-(65, 're', 'yankesdinkes', 'yankes@gmail.com', '$2y$13$kMbAkOJPL20Ax1EcjY9IZuyyHYPXCbK4mfAOaX4AU6SAOi0eoDXZK', '$2y$13$3TkO/NGn4nlctcWS5qs6EM', 1, 0, 0, NULL, NULL, '2019-07-25 09:48:58', NULL, 'yankesdinkes', NULL),
-(67, 'Dr Yoffi Gustia', 'Pertamedika Rawamangun', 'pmc_rawamangun@yahoo.com', '$2y$13$cWO..eQMpePVfIteqY0wGOW9iPJzOc7iZeyinx2.tywD674opDQWO', '$2y$13$2r6GWzO0eJIqkm1JP9v1Cs', 1, 0, 0, NULL, NULL, '2019-07-25 09:49:15', NULL, 'Pertamedika Rawamangun', NULL),
-(74, 'drg. Lindawati', 'drglinda', 'klinikpratama.balaikota@gmail.com', '$2y$13$7liDU6h6bbzQOCeBB7XCvOhCYXYl7HSb3Tle4Lb1YA4OF1T2yO9qy', '$2y$13$TP0ZzgXldaxQm9gTIkTZfs', 1, 0, 0, NULL, NULL, '2019-07-25 09:50:10', NULL, 'drglinda', NULL),
-(77, 'dr.Alfy ambaria', 'Afiah baladraf', 'afiahbaladraf@yahoo.com', '$2y$13$NPJvVFakXX.EXbsfytT7ueUQffVuoV8/hpYf7kMa80hqp.pzcUtJW', '$2y$13$kc47RlLvSa82sTxhV04Fe5', 1, 0, 0, NULL, NULL, '2019-07-25 09:50:31', NULL, 'Afiah baladraf', NULL),
-(82, 'Dr.Afridal Castro', 'klinikBHB', 'klinikbinahusadabakti@yahoo.co.id', '$2y$13$/A/VP4wpGjtnB0kO.2uzN.CwFrFWWuC8Fw6SqBPH0W2U/Xfd.v7m2', '$2y$13$xXRWsAo2Bakub2KJj7rjGQ', 1, 0, 0, NULL, NULL, '2019-07-25 09:51:03', NULL, 'klinikBHB', NULL),
-(84, 'dr Lusia Dewi KW BR Sirait', 'victor', 'kliniknurmalamedica1@gmail.com', '$2y$13$AlL1z1bTaIlwwvKWLQVZk.CeizYqpdIq4lZWla0M30MvQ2koqSV1W', '$2y$13$S/v18u2J5Ts6oIrRoHdtro', 1, 0, 0, NULL, NULL, '2019-07-25 09:51:17', NULL, 'victor', NULL),
-(88, 'dr. Rasyad Wicaksono', 'rasyadmd', 'rasyadmd@gmail.com', '$2y$13$s7Z34XzH0jKLGq9seshe9OOmhfGh6K4Ed0EC.MUxzeBLc7OtnFw6i', '$2y$13$J4R.uPAXqV/LJSXCwpW4dq', 1, 0, 0, NULL, NULL, '2019-07-25 09:52:31', NULL, 'rasyadmd', NULL),
-(89, 'dr.Kevin Gilbert', 'mayapada.clinicmt2', 'mayapadaclinic.mt2@mayapadahospital.com', '$2y$13$xZZq4rTlMsug2lHC/Jw2leh.9AuqNwFdHezGuirU51bL81zUs.Fqy', '$2y$13$4YoYQjFso.apHTuOdotTqg', 1, 0, 0, NULL, NULL, '2019-07-25 09:52:44', NULL, 'mayapada.clinicmt2', NULL),
-(91, 'RELINDA SIREGAR', 'KAHFI', 'balkes@kemendag.go.id', '$2y$13$/M92WiT/FsPeW9Ymc3CES.MRCBtYVbaSP1zLm2bvmORQCr2FAkwIC', '$2y$13$eLdukHEQIbAu8UVuT70m19', 1, 0, 0, NULL, NULL, '2019-07-25 09:54:00', NULL, 'KAHFI', NULL),
-(95, 'dr. Nurini Wulandari', 'PIC', 'polkesindukcijantung@gmail.com', '$2y$13$Gt33tP5zM7sHi4hKWvqMVeniLz0TF9uHoZiMQ7fqYOHT.Lf7dsdg.', '$2y$13$KRo/DR4tt48tiThiBxhTrg', 1, 0, 0, NULL, NULL, '2019-07-25 10:03:53', NULL, 'PIC', NULL),
-(97, 'dr.Alfy Abaria', 'Afiah - baladraf', 'afiahbaladraf@yahoo.com', '$2y$13$0GQDnPy82VuFZzi4E0uxQefA5QC9hfCg4HOsv6fZ37LvYhBaCxinG', '$2y$13$cNmRu.S/KlzSbKTV/aQXfx', 1, 0, 0, NULL, NULL, '2019-07-25 10:05:31', NULL, 'Afiah - baladraf', NULL),
-(98, 'dr. Nurini Wulandari', 'polkescijantung', 'polkesindukcijantung@gmail.com', '$2y$13$e4Ou0SESmzQmgbejRAVmrOBKa2fEmYZ/Xji96H4YZ7e1MqIK9C8e2', '$2y$13$sZREUE3Y3971yGAyAPXIgG', 1, 0, 0, NULL, NULL, '2019-07-25 10:07:35', NULL, 'polkescijantung', NULL),
-(102, 'Dr. Nugroho jati dwi nurlaksono', 'Klinikbudhipratama', 'nanung91@gmail.com', '$2y$13$Xu5xzOV32u2Puqn8vapOauEuaoTpaDGKpVbPLoNLXIP0gJ2wkOvEC', '$2y$13$YvHJ2qyh0Mn0/1GqxUEK3q', 1, 0, 0, NULL, NULL, '2019-07-25 10:19:55', NULL, 'Klinikbudhipratama', NULL),
-(106, 'Dr. Nugroho jati dwi nurlaksono', 'Nanung91', 'nanung91@gmail.com', '$2y$13$xyOF.1L4.AT84W/e/u9J4e8Vjx6ThuAM9QFrp0Zzg2C45jM46cph2', '$2y$13$TPfX6KNGdoA1ucZ73qtXBr', 1, 0, 0, NULL, NULL, '2019-07-25 10:21:37', NULL, 'Nanung91', NULL);
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `salt`, `status`, `flag_delete`, `login_atemp`, `last_login_attempt`, `last_login_time`, `timestamp_created`, `timestamp_updated`, `user_create`, `user_update`, `profile_pict`) VALUES
+(1, 'Administrator', 'admin', 'and.thau@gmail.com', '$2y$13$2Qd1NqjjIj5Eyt1iVzcdT.8DNBaeI4NlIhvgg5L8sk0wpENWcjtg2', '$2y$13$jv/n.WhUXe0OdfVlkIGnc2', 1, 0, 0, NULL, NULL, '2016-03-17 13:28:17', NULL, 'admin', NULL, NULL),
+(20, 'Purwa Ren', 'purwaren', 'purwaren@gmail.com', '$2y$13$oqFiLFJ8jCkjuTr8zwl5e.iv11VWJOKR8NJkh5NOSdnALf.XHuIr6', '$2y$13$R1VogKWGrMy2jKIA/A7pVN', 1, 0, 0, NULL, NULL, '2019-07-23 14:18:21', '2019-07-30 18:56:33', 'purwaren', 'purwaren', 'assets/images/img_20190730163515_7036.jpg'),
+(21, 'Tatang Sutarna', 'tatang', 'tatang@gmail.com', '$2y$13$A8qvxxtKeP0rwxGjJpvz9Ose1HTdXVfE8x41WlAhxJsH/oOrNahSG', '$2y$13$MH8u3ZNFMfn0aw6/iAaRyw', 1, 0, 0, NULL, NULL, '2019-07-23 20:04:23', '2019-08-08 11:03:51', 'admin', 'tatang', 'assets/images/img_20190808110348_5771.jpeg'),
+(22, 'Nurul', 'klinik.tugu', 'tugu@gmail.com', '$2y$13$11zZuuZDGvl0a/IyzG8Cn.Kmd90oOFfOz056FLM0PWVXXKplIc//G', '$2y$13$oWkjP4A0vFjemm6kLnU4jm', 1, 0, 0, NULL, NULL, '2019-07-24 13:25:39', NULL, 'klinik.tugu', 'admin', NULL),
+(23, 'Nafis', 'nafis', 'nafis@gmail.com', '$2y$13$UvrvqSnR/h2kOHQwl0OyTuROMPx5mDSw2WggYif3bf3UQR/5Rxyyu', '$2y$13$/8izofdJ6Fpf512pRf2ebY', 1, 0, 0, NULL, NULL, '2019-07-24 17:04:20', NULL, 'nafis', NULL, NULL),
+(24, 'Dinas Kesehatan DKI', 'dinkes', 'mutudinkesdki@gmail.com', '$2y$13$Sm/UHKrD4wdJRXENUcThzuvmvBPlWJdt.JxZK3Hq1Mq38vSVEkeNa', '$2y$13$l4vonBsp.HtCQQW0AyGfPW', 1, 0, 0, NULL, NULL, '2019-07-24 17:18:46', NULL, 'admin', NULL, NULL),
+(25, 'Drg. Rini Agustina', 'drgrini', 'rini.august@gmail.com', '$2y$13$2ZMiZ7.YGj6dpdX53gRBZuIjTQBwf762ZJaJA0akKMSE1aWjiI3RG', '$2y$13$kxh91uQ91jgAjjqBl8llJ3', 1, 0, 0, NULL, NULL, '2019-07-25 09:44:02', NULL, 'drgrini', NULL, NULL),
+(26, 'Dr. Jupriah', 'Devi ', 'Klinik_alfauzan@yahoo.com', '$2y$13$iP78oZoSClOgsrT12pYMuuKiDYhHK7isAGAa1rqyfIffwQDlppXCO', '$2y$13$IBTkC3y5C.8oDqwKG6R/bj', 1, 0, 0, NULL, NULL, '2019-07-25 09:44:25', NULL, 'Devi ', NULL, NULL),
+(27, 'Dr. Hadi Purnomo Halim', 'Milles', 'ardc.anastasiaratna@gmail.com ', '$2y$13$7YKR/p6lJnrCCQch00/AO.jDEfUK6AM8ZuV3hDfrtuG6Tp8opL6eW', '$2y$13$p.w.nWAim2Hb6vqw3lrOA6', 1, 0, 0, NULL, NULL, '2019-07-25 09:44:37', NULL, 'Milles', NULL, NULL),
+(28, 'dr. Dedi Suranda', 'sigap', 'cipinangklinik@gmail.com', '$2y$13$VJaTPvheYI2vzarS6lQAzOhtC2apFRN.nA0V8L9kdNZsahokeiTOG', '$2y$13$Oz0lHnbWENfvTn.7MBLmqv', 1, 0, 0, NULL, NULL, '2019-07-25 09:44:57', NULL, 'sigap', 'admin', NULL),
+(29, 'G. Jakaria', 'yasahusada', 'yasahusada1@gmail.com', '$2y$13$3eZpimV1nNhhiPF85.LNQuW.cK1pwEn.pBqesuD7kW87O.A0FHxC2', '$2y$13$HdaBWT8Lv9j98NmPDfhvAj', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:06', NULL, 'yasahusada', NULL, NULL),
+(30, 'dr', 'Satkes', 'guswidodo11@gmail.com ', '$2y$13$ymOr6CjENx5RflP6NyHNPuSh2dQEF91xXPDTnHYjHxirxAUatCDDC', '$2y$13$lPR3p99qiZCu5KIeMrsaeI', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:17', NULL, 'Satkes', NULL, NULL),
+(31, 'RELINDA D SIREGAR', 'relinda', 'relinda_ds@yahoo.com', '$2y$13$75Hz8kpNHFfVphsOoRluO.GE/kHN7Gzh.SEjBSQOW/dup7ez/vdme', '$2y$13$uFgd5v5xlfDjIaszGSBvKV', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:21', NULL, 'relinda', NULL, NULL),
+(32, 'dr. Zarliani', 'asarini', 'rini_asarini@yahoo.com', '$2y$13$rP.FdgETL.JqVEcUCA6.6uASu94OD0KOYqK3hAtNJXNYJnLms2.gC', '$2y$13$IoUaXCVQEQnO4w1QowXILU', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:25', NULL, 'asarini', NULL, NULL),
+(33, 'dr.Nugroho jati dwi nur laksono', 'suyanto', 'pro.bprijakarta@gmail.com', '$2y$13$nLtPjLh3gkmBFNG2L5tFQu.cOM2n3jBXD3ee0YVJb.lFRXCJVpIyi', '$2y$13$62V2Ur2qTLiqSYWZU4sad9', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:28', NULL, 'suyanto', NULL, NULL),
+(37, 'Dr. Zulkarnaini', 'Syifa', 'fhendriany@gmail.com', '$2y$13$sk5UHMeWDrUs0hx9Lq9CT.QgM2rbIhgfcgvRkzSyyAnDnGd4LCoZe', '$2y$13$FIEy7vJOA7BhTd7WaSPxXR', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:35', NULL, 'Syifa', NULL, NULL),
+(38, 'DR.RASYAD', 'kusnan', 'kusnantriandono@gmail.com', '$2y$13$Xaq.iPzciVjOop6CYJZ2b.tRNzo1KCDHf4MCNTdusiRpTdRBXm0qu', '$2y$13$Ey.//GO7tAJvdU3z.EdYjP', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:38', NULL, 'kusnan', NULL, NULL),
+(39, 'dian triana mayasari', 'mayasari', 'doktermaya1@gmail.com', '$2y$13$kjxVcqzSOMWR47KRN9Kh3.ohRukBySQZX4FYUEFfb3jfKoF8EgdWy', '$2y$13$5G136zJ1E3KfcESbd/xeWV', 1, 0, 0, NULL, NULL, '2019-07-25 09:45:53', NULL, 'mayasari', NULL, NULL),
+(40, 'liliani drg', 'liliani', 'lilianidrg@gmail.com', '$2y$13$HxfMYOedDpz7P5P7WTcL2equLj6rcZmYewvqEms/vF6nx8RM5QOaW', '$2y$13$/tslS8ZZUP0tc6Ch2a2eN8', 1, 0, 0, NULL, NULL, '2019-07-25 09:46:15', NULL, 'liliani', NULL, NULL),
+(41, 'Siang Yanty', 'viva', 'bispro.vivamedika@gmail.com', '$2y$13$FBGEOclhuCW5zY0tKPHxj.SZST4gUQvAcIhVemp4kwcWrHOM37Obu', '$2y$13$gpWZThNsDGSVXDxyobGyPk', 1, 0, 0, NULL, NULL, '2019-07-25 09:46:18', NULL, 'viva', NULL, NULL),
+(42, 'drg. Suciyanti Harahap', 'polkestimur', 'polkesjakartatimur@gmail.com', '$2y$13$hPTQOea6P50Zg4abAl.Y/uM1kCe9Rp/o7M8YrZDHzXry2HOoUkzS6', '$2y$13$ebeuQLuN0XG2g3d/Ecgomi', 1, 0, 0, NULL, NULL, '2019-07-25 09:46:27', NULL, 'polkestimur', NULL, NULL),
+(43, 'dr. Budiman Murdani L. Tobing', 'kliniksukmaanggrek', 'kliniksukmaanggrek@yahoo.com', '$2y$13$cmm04WMy/inupPjPXRpS/uyJLsMmVOyu9OAHhFaFffU55QgVa0CE6', '$2y$13$Js3XC0cpkLp6ffW1OYxsu1', 1, 0, 0, NULL, NULL, '2019-07-25 09:46:34', NULL, 'kliniksukmaanggrek', NULL, NULL),
+(45, 'dr. Andriyani Damanik', 'Riza', 'bahagianet@yahoo.co.id', '$2y$13$4/BIBuSXAwrHl9ZHdTXUO./d/nIpHSoEhJAvObJMQd0RGPBGfItgW', '$2y$13$/5qTE/xcja/X0087Ndrvkq', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:00', NULL, 'Riza', NULL, NULL),
+(46, 'Laura Triwindawati', 'laura', 'lauratrwndwt@gmail.com', '$2y$13$8jy3SLhwBPTotaLza08EouKYhsCeQVAL3Dt0yZOsN1/UWMLq1EZzO', '$2y$13$3cTOOth16IXHrb2aOhYR5R', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:04', NULL, 'laura', NULL, NULL),
+(48, 'Edwina', 'Tanto', 'Wakotimursatpelkes.yahoo.com', '$2y$13$bku0x1aBJMnOYhJXSKzRp.xZg40a0It6nQYilnGrBKK4LdFekMMXS', '$2y$13$4/Bg35Ch7.U5wWdUIxYF5T', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:09', NULL, 'Tanto', NULL, NULL),
+(49, 'dr.Kevin Gilbert', 'kevin.gilbert', 'mayapadaclinic.mt2@mayapadahospital.com', '$2y$13$J3dBoon7xHSvFa0u8mNJROHeGfIB/7TEEw/h5ZwDpNfTNJTJvQEa2', '$2y$13$LK1IjKQrJYGgk0/SsFwMqV', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:20', NULL, 'kevin.gilbert', NULL, NULL),
+(51, 'Dr. Zulkarnaini', 'Fitri0189', 'fhendriany@gmail.com', '$2y$13$6GyF9NHhUORRJ9uAD9Acd.85mnPSsy5V.9bfUjC9Mrbi5soKmqnw2', '$2y$13$E6H4Y66vbjrrNL3IzdnRs2', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:38', NULL, 'Fitri0189', NULL, NULL),
+(52, 'Pradnya Paramita', 'Paramita', 'pp.paramita161@gmail.com', '$2y$13$YeXOEGhi/anj.mJv/WJMmOVoopTqh7jyn4.NwDWVVG28A3M5TNua.', '$2y$13$qSM7fkKfGHlYqwX6EOZqGv', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:40', NULL, 'Paramita', NULL, NULL),
+(53, 'dr Lay Johan Gautama', 'jl_gautama', 'j.gautama61@gmail.com', '$2y$13$mPgvyMFSdoDECRVsKtq3lu4WpG.69NgRzc.NRZdbTmbr32KqDKaNS', '$2y$13$WtgqDOeyWZl6FZSS7iB3.C', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:42', NULL, 'jl_gautama', NULL, NULL),
+(55, 'dr.novita djunaedi', 'novita', 'yadika_cibubur@yahoo.com', '$2y$13$w4U1sNqSBJ6MFqF76QUjleHWd.G3OxjcQV8a4nbvm6h5ICm4WO4rq', '$2y$13$.o.Nkm7MSmaBVMzXY3ffP2', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:48', NULL, 'novita', NULL, NULL),
+(56, 'Dr. Yunida Marzuki', 'titin', 'titinsupartini@sismamedika.com', '$2y$13$HQiTWLi8CYUEFwOmBvqeYOsQPg5JYeFPhSLjmke4saq7AJu8zKZ6.', '$2y$13$TT64SyaVmkKZrB3jWVGasU', 1, 0, 0, NULL, NULL, '2019-07-25 09:47:53', NULL, 'titin', NULL, NULL),
+(57, 'dr.Robdhi Alimsyah', 'Hotma', 'klinikpratamapaseban@gmail.com', '$2y$13$SJzmNzH1L0lG43HDC0xgI.6Ib8RXHb/vZt1BKINpsDspzdKhI6.gC', '$2y$13$BlnyHA2Qq4ZyE0zp/iExBo', 1, 0, 0, NULL, NULL, '2019-07-25 09:48:17', NULL, 'Hotma', NULL, NULL),
+(63, 'dr. Rita Erfita', 'Ardita Ciracas', 'ardita.ciracas@gmail.com', '$2y$13$2gVbxvNKdvSEvkI6Et/Ar../kJwTzRJN1ryKxwKrqkMWGn7F6LHJu', '$2y$13$fmpscrAmTzpnfA1PKyhm58', 1, 0, 0, NULL, NULL, '2019-07-25 09:48:46', NULL, 'Ardita Ciracas', NULL, NULL),
+(64, 'dr. Arni Mulyanti', 'Ardita', 'arditaklinik@yahoo.co.id', '$2y$13$QwDbTeqf7KYQBECYCiwiFeE2b7YtHupzV/8Q1nbdEjd62hTK5FDq.', '$2y$13$XYMu7YgZ1zK2AedgAzy0ZR', 1, 0, 0, NULL, NULL, '2019-07-25 09:48:55', NULL, 'Ardita', NULL, NULL),
+(65, 're', 'yankesdinkes', 'yankes@gmail.com', '$2y$13$kMbAkOJPL20Ax1EcjY9IZuyyHYPXCbK4mfAOaX4AU6SAOi0eoDXZK', '$2y$13$3TkO/NGn4nlctcWS5qs6EM', 1, 0, 0, NULL, NULL, '2019-07-25 09:48:58', NULL, 'yankesdinkes', NULL, NULL),
+(67, 'Dr Yoffi Gustia', 'Pertamedika Rawamangun', 'pmc_rawamangun@yahoo.com', '$2y$13$cWO..eQMpePVfIteqY0wGOW9iPJzOc7iZeyinx2.tywD674opDQWO', '$2y$13$2r6GWzO0eJIqkm1JP9v1Cs', 1, 0, 0, NULL, NULL, '2019-07-25 09:49:15', NULL, 'Pertamedika Rawamangun', NULL, NULL),
+(74, 'drg. Lindawati', 'drglinda', 'klinikpratama.balaikota@gmail.com', '$2y$13$7liDU6h6bbzQOCeBB7XCvOhCYXYl7HSb3Tle4Lb1YA4OF1T2yO9qy', '$2y$13$TP0ZzgXldaxQm9gTIkTZfs', 1, 0, 0, NULL, NULL, '2019-07-25 09:50:10', NULL, 'drglinda', NULL, NULL),
+(77, 'dr.Alfy ambaria', 'Afiah baladraf', 'afiahbaladraf@yahoo.com', '$2y$13$NPJvVFakXX.EXbsfytT7ueUQffVuoV8/hpYf7kMa80hqp.pzcUtJW', '$2y$13$kc47RlLvSa82sTxhV04Fe5', 1, 0, 0, NULL, NULL, '2019-07-25 09:50:31', NULL, 'Afiah baladraf', NULL, NULL),
+(82, 'Dr.Afridal Castro', 'klinikBHB', 'klinikbinahusadabakti@yahoo.co.id', '$2y$13$/A/VP4wpGjtnB0kO.2uzN.CwFrFWWuC8Fw6SqBPH0W2U/Xfd.v7m2', '$2y$13$xXRWsAo2Bakub2KJj7rjGQ', 1, 0, 0, NULL, NULL, '2019-07-25 09:51:03', NULL, 'klinikBHB', NULL, NULL),
+(84, 'dr Lusia Dewi KW BR Sirait', 'victor', 'kliniknurmalamedica1@gmail.com', '$2y$13$AlL1z1bTaIlwwvKWLQVZk.CeizYqpdIq4lZWla0M30MvQ2koqSV1W', '$2y$13$S/v18u2J5Ts6oIrRoHdtro', 1, 0, 0, NULL, NULL, '2019-07-25 09:51:17', NULL, 'victor', NULL, NULL),
+(88, 'dr. Rasyad Wicaksono', 'rasyadmd', 'rasyadmd@gmail.com', '$2y$13$s7Z34XzH0jKLGq9seshe9OOmhfGh6K4Ed0EC.MUxzeBLc7OtnFw6i', '$2y$13$J4R.uPAXqV/LJSXCwpW4dq', 1, 0, 0, NULL, NULL, '2019-07-25 09:52:31', NULL, 'rasyadmd', NULL, NULL),
+(89, 'dr.Kevin Gilbert', 'mayapada.clinicmt2', 'mayapadaclinic.mt2@mayapadahospital.com', '$2y$13$xZZq4rTlMsug2lHC/Jw2leh.9AuqNwFdHezGuirU51bL81zUs.Fqy', '$2y$13$4YoYQjFso.apHTuOdotTqg', 1, 0, 0, NULL, NULL, '2019-07-25 09:52:44', NULL, 'mayapada.clinicmt2', NULL, NULL),
+(91, 'RELINDA SIREGAR', 'KAHFI', 'balkes@kemendag.go.id', '$2y$13$/M92WiT/FsPeW9Ymc3CES.MRCBtYVbaSP1zLm2bvmORQCr2FAkwIC', '$2y$13$eLdukHEQIbAu8UVuT70m19', 1, 0, 0, NULL, NULL, '2019-07-25 09:54:00', NULL, 'KAHFI', NULL, NULL),
+(95, 'dr. Nurini Wulandari', 'PIC', 'polkesindukcijantung@gmail.com', '$2y$13$Gt33tP5zM7sHi4hKWvqMVeniLz0TF9uHoZiMQ7fqYOHT.Lf7dsdg.', '$2y$13$KRo/DR4tt48tiThiBxhTrg', 1, 0, 0, NULL, NULL, '2019-07-25 10:03:53', NULL, 'PIC', NULL, NULL),
+(97, 'dr.Alfy Abaria', 'Afiah - baladraf', 'afiahbaladraf@yahoo.com', '$2y$13$0GQDnPy82VuFZzi4E0uxQefA5QC9hfCg4HOsv6fZ37LvYhBaCxinG', '$2y$13$cNmRu.S/KlzSbKTV/aQXfx', 1, 0, 0, NULL, NULL, '2019-07-25 10:05:31', NULL, 'Afiah - baladraf', NULL, NULL),
+(98, 'dr. Nurini Wulandari', 'polkescijantung', 'polkesindukcijantung@gmail.com', '$2y$13$e4Ou0SESmzQmgbejRAVmrOBKa2fEmYZ/Xji96H4YZ7e1MqIK9C8e2', '$2y$13$sZREUE3Y3971yGAyAPXIgG', 1, 0, 0, NULL, NULL, '2019-07-25 10:07:35', NULL, 'polkescijantung', NULL, NULL),
+(102, 'Dr. Nugroho jati dwi nurlaksono', 'Klinikbudhipratama', 'nanung91@gmail.com', '$2y$13$Xu5xzOV32u2Puqn8vapOauEuaoTpaDGKpVbPLoNLXIP0gJ2wkOvEC', '$2y$13$YvHJ2qyh0Mn0/1GqxUEK3q', 1, 0, 0, NULL, NULL, '2019-07-25 10:19:55', NULL, 'Klinikbudhipratama', NULL, NULL),
+(106, 'Dr. Nugroho jati dwi nurlaksono', 'Nanung91', 'nanung91@gmail.com', '$2y$13$xyOF.1L4.AT84W/e/u9J4e8Vjx6ThuAM9QFrp0Zzg2C45jM46cph2', '$2y$13$TPfX6KNGdoA1ucZ73qtXBr', 1, 0, 0, NULL, NULL, '2019-07-25 10:21:37', NULL, 'Nanung91', NULL, NULL),
+(108, 'Sancaka Budaya', 'sancaka', 'sancaka@gmail.com', '$2y$13$wPf50ycebB/jOx9gu0dGo.g08up41.0AkuHEdeBWnCOgXMCExUvAe', '$2y$13$JE70QpCBBtCf/oSP0wifjG', 1, 0, 0, NULL, NULL, '2019-08-02 09:53:23', NULL, 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -89047,8 +89094,7 @@ CREATE TABLE `YiiSession` (
 --
 
 INSERT INTO `YiiSession` (`id`, `expire`, `data`) VALUES
-('j417ad14to9f3nfrfc9b2hplq5', 1564105064, 0x34323964363865393037363862326537623433366639343566363539663264645f5f72657475726e55726c7c733a32393a222f736961702f696e6465782e7068702f6b6c696e696b2f7375626d6974223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e636170746368617c733a363a22797a6a656361223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e63617074636861636f756e747c693a313b),
-('vb6g9timra6rth8ti1rjeb40k2', 1564104348, 0x34323964363865393037363862326537623433366639343566363539663264645f5f72657475726e55726c7c733a33323a222f736961702f696e6465782e7068702f6b6c696e696b2f6d6f6e69746f722f31223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e636170746368617c733a373a2263696a776e787a223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e63617074636861636f756e747c693a323b34323964363865393037363862326537623433366639343566363539663264645f5f69647c733a323a223231223b34323964363865393037363862326537623433366639343566363539663264645f5f6e616d657c733a363a22746174616e67223b343239643638653930373638623265376234333666393435663635396632646466756c6c6e616d657c733a31343a22546174616e672053757461726e61223b3432396436386539303736386232653762343336663934356636353966326464726567656e63795f69647c733a343a2233313731223b3432396436386539303736386232653762343336663934356636353966326464726567656e63797c733a32303a224b4f5441204a414b415254412053454c4154414e223b34323964363865393037363862326537623433366639343566363539663264645f5f7374617465737c613a333a7b733a383a2266756c6c6e616d65223b623a313b733a31303a22726567656e63795f6964223b623a313b733a373a22726567656e6379223b623a313b7d);
+('ttr82lomtjlmd1d66m69f07bh4', 1566303583, 0x5969692e4343617074636861416374696f6e2e35386265396262322e736974652e636170746368617c733a373a226d65636f726168223b5969692e4343617074636861416374696f6e2e35386265396262322e736974652e63617074636861636f756e747c693a323b34323964363865393037363862326537623433366639343566363539663264645f5f69647c733a323a223234223b34323964363865393037363862326537623433366639343566363539663264645f5f6e616d657c733a363a2264696e6b6573223b343239643638653930373638623265376234333666393435663635396632646470726f66696c655f706963747c733a33393a222f736961702f7468656d65732f6c74652f6173736574732f696d672f617661746172352e706e67223b343239643638653930373638623265376234333666393435663635396632646466756c6c6e616d657c733a31393a2244696e6173204b657365686174616e20444b49223b34323964363865393037363862326537623433366639343566363539663264645f5f7374617465737c613a323a7b733a31323a2270726f66696c655f70696374223b623a313b733a383a2266756c6c6e616d65223b623a313b7d);
 
 --
 -- Indexes for dumped tables
@@ -89129,7 +89175,8 @@ ALTER TABLE `kontak`
 ALTER TABLE `pendamping`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_pendamping_id_sudin` (`id_sudin`),
-  ADD KEY `fk_pendamping_id_user` (`id_user`);
+  ADD KEY `fk_pendamping_id_user` (`id_user`),
+  ADD KEY `alamat` (`alamat`);
 
 --
 -- Indexes for table `pengajuan_akreditasi`
@@ -89172,9 +89219,27 @@ ALTER TABLE `ref_villages`
   ADD KEY `villages_district_id_index` (`district_id`);
 
 --
+-- Indexes for table `riwayat_pekerjaan`
+--
+ALTER TABLE `riwayat_pekerjaan`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `riwayat_pendidikan`
+--
+ALTER TABLE `riwayat_pendidikan`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sa_resume`
 --
 ALTER TABLE `sa_resume`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sertifikasi`
+--
+ALTER TABLE `sertifikasi`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -89205,19 +89270,19 @@ ALTER TABLE `YiiSession`
 -- AUTO_INCREMENT for table `alamat`
 --
 ALTER TABLE `alamat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `authitem`
 --
 ALTER TABLE `authitem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `berkas_akreditasi`
 --
 ALTER TABLE `berkas_akreditasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `fasilitas_klinik`
@@ -89229,7 +89294,7 @@ ALTER TABLE `fasilitas_klinik`
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `foto_klinik`
@@ -89253,13 +89318,13 @@ ALTER TABLE `kontak`
 -- AUTO_INCREMENT for table `pendamping`
 --
 ALTER TABLE `pendamping`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pengajuan_akreditasi`
 --
 ALTER TABLE `pengajuan_akreditasi`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `ref_tipe_berkas`
@@ -89268,10 +89333,28 @@ ALTER TABLE `ref_tipe_berkas`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `riwayat_pekerjaan`
+--
+ALTER TABLE `riwayat_pekerjaan`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `riwayat_pendidikan`
+--
+ALTER TABLE `riwayat_pendidikan`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `sa_resume`
 --
 ALTER TABLE `sa_resume`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `sertifikasi`
+--
+ALTER TABLE `sertifikasi`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sudin`
@@ -89283,7 +89366,7 @@ ALTER TABLE `sudin`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- Constraints for dumped tables
@@ -89344,7 +89427,8 @@ ALTER TABLE `kontak`
 --
 ALTER TABLE `pendamping`
   ADD CONSTRAINT `fk_pendamping_id_sudin` FOREIGN KEY (`id_sudin`) REFERENCES `sudin` (`id`),
-  ADD CONSTRAINT `fk_pendamping_id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `fk_pendamping_id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `pendamping_ibfk_1` FOREIGN KEY (`alamat`) REFERENCES `alamat` (`id`);
 
 --
 -- Constraints for table `pengajuan_akreditasi`
