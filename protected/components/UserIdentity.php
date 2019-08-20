@@ -50,6 +50,9 @@ class UserIdentity extends CUserIdentity
 				if (!empty($pendamping)) {
 				    $this->setState('regency_id', $pendamping->idSudin->id_regency);
 				    $this->setState('regency', $pendamping->idSudin->idRegency->name);
+                } else {
+                    $this->setState('regency_id', '');
+                    $this->setState('regency', '');
                 }
 			}
 			$user->last_login_attempt = new CDbExpression('NOW()');
