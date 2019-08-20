@@ -2,7 +2,7 @@
 /* @var $this Controller */
 /* @var $model KlinikCustom */
 
-$this->pageTitle = 'Nilai Akreditasi'.(!empty($model->id)?' - '.$model->nama:'');
+$this->pageTitle = 'Nilai Akreditasi';
 $this->breadcrumbs = array(
     'Nilai Akreditasi'
 );
@@ -15,20 +15,9 @@ Yii::app()->clientScript->registerScript('search', "
         return false;
     });
 ");
-
 ?>
 <!-- Main content -->
 <section class="content">
-    <?php if(!empty($model->id)) {?>
-        <div class="box box-default">
-            <div class="box-header with-border">
-                <h3 class="box-title"><small>Upload Nilai Akreditasi</small></h3>
-            </div>
-            <div class="box-body">
-                <?php $this->renderPartial('_formResult',array('model'=>$model))?>
-            </div>
-        </div>
-    <?php } else { ?>
     <div class="box box-default">
         <div class="box-header">
             <h3 class="box-title"><a href="#" data-widget="collapse">Advance Search</a></h3>
@@ -94,5 +83,4 @@ Yii::app()->clientScript->registerScript('search', "
             )); ?>
         </div><!-- /.box-body -->
     </div><!-- /.box -->
-    <?php } ?>
 </section><!-- /.content -->

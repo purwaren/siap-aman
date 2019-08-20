@@ -46,6 +46,10 @@ $this->breadcrumbs=array(
                                 'name'=>'status',
                                 'value'=>$model->getStatus()
                             ),
+                            array(
+                                'name'=>'tgl_penetapan',
+                                'value'=>DateUtil::dateToString($model->tgl_penetapan)
+                            ),
                         ),
                         'htmlOptions'=>array(
                             'class'=>'table table-hover table-striped monitor-klinik'

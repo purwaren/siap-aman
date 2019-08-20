@@ -207,24 +207,27 @@ class KlinikController extends Controller
             if(isset($_GET['KlinikCustom']))
                 $model->attributes=$_GET['KlinikCustom'];
 
+            $this->render('result',array(
+                'model'=>$model,
+            ));
 
         } else {
-            $model = $this->loadModel($id);
+            $model = new KlinikResultForm();
+            $model->klinik = $this->loadModel($id);
             if (Yii::app()->request->isAjaxRequest && Yii::app()->request->isPostRequest) {
-                $model->tingkatan = $_POST['KlinikCustom']['tingkatan'];
-                $model->updated_at = new CDbExpression('NOW()');
-                $model->updated_by = Yii::app()->user->getName();
-                if ($model->update(array('tingkatan','updated_at','updated_by'))) {
+               $model->attributes = $_POST['KlinikResultForm'];
+               $model->klinik = $this->loadModel($id);
+                if ($model->save()) {
                     echo CJSON::encode(array(
                         'msg'=>'Nilai sudah disubmit'
                     ));
                 }
+                Yii::app()->end();
             }
+            $this->render('resultForm',array(
+                'model'=>$model,
+            ));
         }
-
-        $this->render('result',array(
-            'model'=>$model,
-        ));
     }
 
 	/**
