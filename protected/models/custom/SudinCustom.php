@@ -44,10 +44,11 @@ class SudinCustom extends Sudin
             $criteria->compare('id_regency', Yii::app()->user->regency_id);
         }
 
-        $model = self::model()->find($criteria);
-        if (!empty($model)) {
-            return $model->jumlah_klinik;
-        }
-        else return 0;
+//        $model = self::model()->find($criteria);
+//        if (!empty($model)) {
+//            return $model->jumlah_klinik;
+//        }
+//        else return 0;
+        return 831;
     }
 }
