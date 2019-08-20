@@ -210,6 +210,16 @@ class KlinikController extends Controller
 
         } else {
             $model = $this->loadModel($id);
+            if (Yii::app()->request->isAjaxRequest && Yii::app()->request->isPostRequest) {
+                $model->tingkatan = $_POST['KlinikCustom']['tingkatan'];
+                $model->updated_at = new CDbExpression('NOW()');
+                $model->updated_by = Yii::app()->user->getName();
+                if ($model->update(array('tingkatan','updated_at','updated_by'))) {
+                    echo CJSON::encode(array(
+                        'msg'=>'Nilai sudah disubmit'
+                    ));
+                }
+            }
         }
 
         $this->render('result',array(
@@ -318,6 +328,7 @@ class KlinikController extends Controller
     /**
      * @param $id_klinik
      * @throws CHttpException
+     * @throws CDbException
      */
     public function actionUploadResult($id_klinik) {
         if (Yii::app()->request->isAjaxRequest) {
@@ -327,10 +338,14 @@ class KlinikController extends Controller
             $berkas->file = $_FILES['file_data'];
             $berkas->type = DocumentType::REKOMENDASI;
             if ($berkas->saveResult($pengajuan)) {
+                $pengajuan->status = StatusPengajuan::REKOMENDASI;
+                $pengajuan->update(array('status'));
+                $pengajuan->tgl_penetapan = new CDbExpression('NOW()');
                 echo CJSON::encode(array(
                     'filelink' => Yii::app()->baseUrl.'/'.$berkas->filename,
                     'filename' => $berkas->description
                 ));
+                Yii::app()->end();
             }
         }
     }
@@ -400,10 +415,13 @@ class KlinikController extends Controller
      */
     public function actionMonitor($id='') {
 	    if (Yii::app()->user->isKlinik()) {
+	        $doc = new BerkasAkreditasiCustom();
 	        if (empty($id)) {
                 $pengajuan = PengajuanAkreditasiCustom::getInstance();
+                $doc->id_pengajuan = $pengajuan->id;
             } else {
 	            $pengajuan = PengajuanAkreditasiCustom::model()->findByPk($id);
+	            $doc->id_pengajuan = $pengajuan->id;
 	            if ($pengajuan === null)
                     throw new CHttpException(404,'The requested page does not exist.');
             }
@@ -411,7 +429,8 @@ class KlinikController extends Controller
             $messages = FeedbackCustom::model()->findAllByAttributes(array('id_pengajuan'=>$pengajuan->id));
 	        $this->render('monitor-klinik', array(
 	            'pengajuan'=>$pengajuan,
-                'messages'=>$messages
+                'messages'=>$messages,
+                'doc'=>$doc
             ));
         }
 	    else {

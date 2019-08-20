@@ -75,7 +75,7 @@ Yii::app()->clientScript->registerScript('search', "
                                 'imageUrl'=>false,
                                 'options'=>array('class'=>'btn btn-xs btn-warning','title'=>'Nilai','data-toggle'=>'tooltip'),
                                 'url'=>'Yii::app()->createUrl("klinik/result",array("id"=>$data->id))',
-                                'visible'=>'$data->isAccepted()'
+                                'visible'=>'$data->isAccepted() && (Yii::app()->user->isSudin() || Yii::app()->user->isDinkes())'
                             ),
                         )
                     ),

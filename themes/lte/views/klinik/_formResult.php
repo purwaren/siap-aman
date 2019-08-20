@@ -14,6 +14,21 @@ Yii::app()->clientScript->registerScript('upload',"
         maxFileSize: 4096,
         maxFileCount: 1
     });
+    $('#feedback-form').submit(function(event){
+        $('.fileinput-upload-button').click();
+        event.preventDefault();
+        var url = $(this).attr('action');
+        var data = $(this).serialize();
+        ".CHtml::ajax(array(
+            'url'=>'js:url',
+            'type'=>'POST',
+            'dataType'=>'JSON',
+            'data'=>'js:data',
+            'success'=>"function(resp){
+                
+            }"
+        ))."
+    });
 ",CClientScript::POS_END);
 
 ?>

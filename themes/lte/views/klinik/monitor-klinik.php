@@ -3,6 +3,7 @@
 /* @var $form CActiveForm */
 /* @var $pengajuan PengajuanAkreditasiCustom */
 /* @var $messages array */
+/* @var $doc BerkasAkreditasiCustom */
 
 
 $this->pageTitle = 'Pemantauan Pendampingan - No. Urut '.$pengajuan->no_urut;
@@ -71,6 +72,43 @@ Yii::app()->clientScript->registerScript("feedback","
                                 'htmlOptions'=>array(
                                     'class'=>'table table-hover table-striped monitor-klinik'
                                 ),
+                            )); ?>
+                            <h4><i>Lampiran Dokumen</i></h4>
+                            <?php $this->widget('zii.widgets.grid.CGridView', array(
+                                'id'=>'document-grid',
+                                'dataProvider'=>$doc->search(),
+                                //'filter'=>$model,
+                                'columns'=>array(
+                                    array(
+                                        'header'=>'No',
+                                        'value'=>'$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize+$row+1'
+                                    ),
+                                    array(
+                                        'name'=>'tipe_berkas',
+                                        'value'=>'$data->getTipeBerkas()'
+                                    ),
+                                    'deskripsi',
+                                    array(
+                                        'class'=>'CButtonColumn',
+                                        'template'=>'{download}',
+                                        'buttons'=>array(
+                                            'download'=>array(
+                                                'label'=>'<i class="fa fa-download"></i>',
+                                                'imageUrl'=>false,
+                                                'url'=>'Yii::app()->request->baseUrl."/".$data->file_path',
+                                                'options'=>array('class'=>'btn btn-xs btn-primary','title'=>'Download','data-toggle'=>'tooltip','target'=>'_new')
+                                            )
+                                        )
+                                    ),
+                                ),
+                                'htmlOptions' => array(
+                                    'class' => 'table table-striped'
+                                ),
+                                'pagerCssClass' => 'dataTables_paginate paging_bootstrap',
+                                'itemsCssClass' => 'table table-striped table-hover',
+                                'cssFile' => false,
+                                'summaryCssClass' => 'dataTables_info',
+                                'template'=>'{items}'
                             )); ?>
                         </div>
                         <div class="tab-pane" id="tab_message">

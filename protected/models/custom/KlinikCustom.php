@@ -136,7 +136,7 @@ class KlinikCustom extends Klinik
         $criteria->compare('nama',$this->nama,true);
 
         $criteria->join = 'LEFT JOIN pengajuan_akreditasi t2 ON t2.id_klinik = t.id LEFT JOIN alamat t3 on t3.id_klinik = t.id';
-        $criteria->addInCondition('t2.status',array(StatusPengajuan::DIAJUKAN, StatusPengajuan::VISIT, StatusPengajuan::DITERIMA, StatusPengajuan::DRAFT));
+        $criteria->addInCondition('t2.status',array(StatusPengajuan::DIAJUKAN, StatusPengajuan::VISIT, StatusPengajuan::DITERIMA, StatusPengajuan::DRAFT, StatusPengajuan::REKOMENDASI));
         $criteria->addCondition('t2.id IS NULL', 'OR');
         $criteria->compare('t3.kota', $this->id_regency);
         return new CActiveDataProvider($this, array(
@@ -157,6 +157,9 @@ class KlinikCustom extends Klinik
         }
     }
 
+    /**
+     * @return PengajuanAkreditasiCustom
+     */
     public function getLastPengajuan() {
         $criteria = new CDbCriteria();
         $criteria->order = 'id DESC';
@@ -165,10 +168,13 @@ class KlinikCustom extends Klinik
         return PengajuanAkreditasiCustom::model()->find($criteria);
     }
 
+    /**
+     * @return bool
+     */
     public function isAccepted() {
         $pengajuan = $this->getLastPengajuan();
         if (!empty($pengajuan)) {
-            return $pengajuan->status == StatusPengajuan::DITERIMA;
+            return $pengajuan->status >= StatusPengajuan::DITERIMA;
         }
     }
 }
