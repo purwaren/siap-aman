@@ -85,7 +85,7 @@ if (empty($photos)) {
                 <?php echo CHtml::label('Profil Klinik','profile') ?>
                 <div class="input-group input-group-sm">
                     <span class="input-group-btn">
-                        <?php if ($pengajuan->status == StatusPengajuan::DRAFT) {?>
+                        <?php if ($pengajuan->status == StatusPengajuan::DRAFT || $pengajuan->status_dokumen == 0) {?>
  						    <input type="file" multiple class="file-loading" id="profileKlinik" data-show-preview="false"/>
  						<?php } else {?>
                             <input type="file" multiple class="file-loading" id="profileKlinik" data-show-preview="false" disabled/>
@@ -97,7 +97,7 @@ if (empty($photos)) {
                 <?php echo CHtml::label('Surat Permohonan','permohonan') ?>
                 <div class="input-group input-group-sm">
                     <span class="input-group-btn">
-						<?php if ($pengajuan->status == StatusPengajuan::DRAFT) {?>
+						<?php if ($pengajuan->status == StatusPengajuan::DRAFT || $pengajuan->status_dokumen == 0) {?>
                             <input type="file" multiple class="file-loading" id="suratPermohonan" data-show-preview="false"/>
                         <?php } else {?>
                             <input type="file" multiple class="file-loading" id="suratPermohonan" data-show-preview="false" disabled/>
@@ -109,7 +109,7 @@ if (empty($photos)) {
                 <?php echo CHtml::label('Borang Self Assessment (<a href="'.Yii::app()->request->baseUrl.'/assets/docs/template-self-assessment.xlsx'.'">Unduh Borang Di Sini</a>)','borang') ?>
                 <div class="input-group input-group-sm">
                     <span class="input-group-btn">
-						<?php if ($pengajuan->status == StatusPengajuan::DRAFT) {?>
+						<?php if ($pengajuan->status == StatusPengajuan::DRAFT || $pengajuan->status_dokumen == 0) {?>
                             <input type="file" multiple class="file-loading" id="borangSA" data-show-preview="false"/>
                         <?php } else {?>
                             <input type="file" multiple class="file-loading" id="borangSA" data-show-preview="false" disabled/>
