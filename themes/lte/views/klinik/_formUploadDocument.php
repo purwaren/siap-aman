@@ -32,6 +32,15 @@ if (empty($photos)) {
             maxFileSize: 4096,
             maxFileCount: 1
         });
+        $('#dokumenAssessment').fileinput({
+            showCaption: true,
+            uploadUrl: '".Yii::app()->createUrl('klinik/upload',array('type'=>'document','file_type'=>DocumentType::ASSESSMENT))."',
+            uploadAsync: true,
+            maxFileSize: 4096,
+            maxFileCount: 1,
+            allowedFileTypes: ['object'],
+            allowedFileExtensions: ['zip', 'rar', '7z', 'tar.gz', '.bz2']
+        });
         $('#profileKlinik').on('fileuploaded', function(event, data, previewId, index) {
             var form = data.form, files = data.files, extra = data.extra,
                 response = data.response, reader = data.reader;
@@ -43,6 +52,12 @@ if (empty($photos)) {
             $('#document-grid').yiiGridView('update');
         });
         $('#borangSA').on('fileuploaded', function(event, data, previewId, index) {
+            var form = data.form, files = data.files, extra = data.extra,
+                response = data.response, reader = data.reader;
+            $('#document-grid').yiiGridView('update');
+            $('#sa-resume-grid').yiiGridView('update');
+        });
+        $('#dokumenAssessment').on('fileuploaded', function(event, data, previewId, index) {
             var form = data.form, files = data.files, extra = data.extra,
                 response = data.response, reader = data.reader;
             $('#document-grid').yiiGridView('update');
@@ -113,6 +128,18 @@ if (empty($photos)) {
                             <input type="file" multiple class="file-loading" id="borangSA" data-show-preview="false"/>
                         <?php } else {?>
                             <input type="file" multiple class="file-loading" id="borangSA" data-show-preview="false" disabled/>
+                        <?php } ?>
+					</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <?php echo CHtml::label('Dokumen Assessment (.zip / .rar)','assessment') ?>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-btn">
+						<?php if ($pengajuan->status == StatusPengajuan::DRAFT || $pengajuan->status_dokumen == 0) {?>
+                            <input type="file" multiple class="file-loading" id="dokumenAssessment" data-show-preview="false"/>
+                        <?php } else {?>
+                            <input type="file" multiple class="file-loading" id="dokumenAssessment" data-show-preview="false" disabled/>
                         <?php } ?>
 					</span>
                 </div>

@@ -32,7 +32,8 @@ class KlinikResultForm extends CFormModel
             if ($this->klinik->update(array('tingkatan','updated_by','updated_at'))) {
                 $pengajuan = $this->klinik->getLastPengajuan();
                 $pengajuan->tgl_penetapan = $this->tgl_penetapan;
-                return $pengajuan->update('tgl_penetapan');
+                $pengajuan->hasil = $this->tingkatan;
+                return $pengajuan->update('tgl_penetapan','hasil');
             }
         }
     }

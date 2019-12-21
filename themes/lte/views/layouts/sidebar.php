@@ -76,7 +76,7 @@
                     'label'=>'<i class="fa fa-users"></i> <span>Data Pendamping</span> <i class="fa fa-angle-left pull-right"></i>',
                     'url'=>array('/pendamping/admin'),
                     'itemOptions'=>array('class'=>'treeview'),
-                    'visible'=>Yii::app()->user->isAdmin() || Yii::app()->user->isDinkes(),
+                    'visible'=>!Yii::app()->user->isAdmin() || Yii::app()->user->isDinkes() || Yii::app()->user->isSudin(),
                 ),
 
                 array(

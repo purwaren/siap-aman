@@ -50,6 +50,7 @@ class UserIdentity extends CUserIdentity
 				if (!empty($pendamping)) {
 				    $this->setState('regency_id', $pendamping->idSudin->id_regency);
 				    $this->setState('regency', $pendamping->idSudin->idRegency->name);
+				    $this->setState('id_sudin', $pendamping->id_sudin);
                 } else {
                     $this->setState('regency_id', '');
                     $this->setState('regency', '');

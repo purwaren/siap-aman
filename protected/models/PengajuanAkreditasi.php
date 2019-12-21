@@ -10,6 +10,7 @@
  * @property string $tgl_pengajuan
  * @property string $jenis_pengajuan
  * @property string $tgl_penetapan
+ * @property string $hasil
  * @property integer $status
  * @property integer $status_info
  * @property integer $status_alamat
@@ -43,10 +44,11 @@ class PengajuanAkreditasi extends CActiveRecord
 			array('id_klinik', 'required'),
 			array('id_klinik, no_urut, status, status_info, status_alamat, status_kontak, status_fasilitas, status_foto, status_dokumen', 'numerical', 'integerOnly'=>true),
 			array('jenis_pengajuan', 'length', 'max'=>32),
+			array('hasil', 'length', 'max'=>64),
 			array('tgl_pengajuan, tgl_penetapan', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, id_klinik, no_urut, tgl_pengajuan, jenis_pengajuan, tgl_penetapan, status, status_info, status_alamat, status_kontak, status_fasilitas, status_foto, status_dokumen', 'safe', 'on'=>'search'),
+			array('id, id_klinik, no_urut, tgl_pengajuan, jenis_pengajuan, tgl_penetapan, hasil, status, status_info, status_alamat, status_kontak, status_fasilitas, status_foto, status_dokumen', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,6 +77,7 @@ class PengajuanAkreditasi extends CActiveRecord
 			'tgl_pengajuan' => 'Tgl Pengajuan',
 			'jenis_pengajuan' => 'Jenis Pengajuan',
 			'tgl_penetapan' => 'Tgl Penetapan',
+			'hasil' => 'Hasil',
 			'status' => 'Status',
 			'status_info' => 'Status Info',
 			'status_alamat' => 'Status Alamat',
@@ -109,6 +112,7 @@ class PengajuanAkreditasi extends CActiveRecord
 		$criteria->compare('tgl_pengajuan',$this->tgl_pengajuan,true);
 		$criteria->compare('jenis_pengajuan',$this->jenis_pengajuan,true);
 		$criteria->compare('tgl_penetapan',$this->tgl_penetapan,true);
+		$criteria->compare('hasil',$this->hasil,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('status_info',$this->status_info);
 		$criteria->compare('status_alamat',$this->status_alamat);

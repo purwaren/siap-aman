@@ -8,6 +8,7 @@ class DocumentType
     const SELF_ASSESSMENT = 3;
     const SURAT_PENGANTAR = 4;
     const REKOMENDASI = 5;
+    const ASSESSMENT = 5;
 
     public static function getAllDocumentTypeOptions() {
         return array(
@@ -15,7 +16,8 @@ class DocumentType
             self::PROFIL_KLINIK => 'Profil Klinik',
             self::SELF_ASSESSMENT => 'Self Assessment',
             self::SURAT_PENGANTAR => 'Surat Pengantar',
-            self::REKOMENDASI => 'Rekomendasi'
+            self::REKOMENDASI => 'Rekomendasi',
+            self::ASSESSMENT => 'Dokumen Assessment'
         );
     }
 }

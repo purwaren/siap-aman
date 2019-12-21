@@ -15,6 +15,14 @@ $form=$this->beginWidget('CActiveForm', array(
                 <?php echo $form->textField($model,'nama_klinik',array('class'=>'form-control','placeholder'=>'Nama Klinik')); ?>
             </div>
             <div class="form-group">
+                <?php echo $form->label($model,'tgl_penetapan'); ?>
+                <?php echo $form->textField($model,'tgl_penetapan',array('class'=>'form-control','placeholder'=>'Tanggal')); ?>
+            </div>
+            <div class="form-group">
+                <?php echo $form->label($model,'hasil'); ?>
+                <?php echo $form->dropDownList($model,'hasil', KlinikCustom::getAllTingkatanOptions(),array('class'=>'form-control','prompt'=>'Pilih Tingkatan')); ?>
+            </div>
+            <div class="form-group">
                 <?php echo CHtml::submitButton('Search', array('class'=>'btn btn-default')); ?>
             </div>
         </div>

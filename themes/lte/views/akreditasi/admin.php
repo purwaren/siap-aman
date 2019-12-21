@@ -2,7 +2,11 @@
 /* @var $this Controller */
 /* @var $model PengajuanAkreditasiCustom */
 
-$this->pageTitle = 'Kelola Usulan Akreditasi';
+if ($model->status < StatusPengajuan::REKOMENDASI) {
+    $this->pageTitle = 'Kelola Usulan Akreditasi';
+} else {
+    $this->pageTitle = 'Kelola Hasil Akreditasi';
+}
 $this->breadcrumbs = array(
     'Akreditasi'
 );
@@ -40,11 +44,23 @@ $('#search-form').submit(function(){
                     'idKlinik.nama',
                     array(
                         'name'=>'tgl_pengajuan',
-                        'value'=>'DateUtil::dateToString($data->tgl_pengajuan)'
+                        'value'=>'DateUtil::dateToString($data->tgl_pengajuan)',
+                        'visible'=>$model->status < StatusPengajuan::REKOMENDASI
+                    ),
+                    array(
+                        'name'=>'tgl_penetapan',
+                        'value'=>'DateUtil::dateToString($data->tgl_penetapan)',
+                        'visible'=>$model->status >= StatusPengajuan::REKOMENDASI
                     ),
                     array(
                         'name'=>'jenis_pengajuan',
-                        'value'=>'ucfirst($data->jenis_pengajuan)'
+                        'value'=>'ucfirst($data->jenis_pengajuan)',
+                        'visible'=>$model->status < StatusPengajuan::REKOMENDASI
+                    ),
+                    array(
+                        'name'=>'hasil',
+                        'value'=>'ucfirst($data->idKlinik->tingkatan)',
+                        'visible'=>$model->status >= StatusPengajuan::REKOMENDASI
                     ),
                     array(
                         'class'=>'CButtonColumn',

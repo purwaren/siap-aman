@@ -29,7 +29,7 @@ class PendampingController extends Controller
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('index','view','create','update','admin','delete'),
-				'roles'=>array(UserRoles::ROLE_ADMIN, UserRoles::ROLE_DINKES),
+				'roles'=>array(UserRoles::ROLE_ADMIN, UserRoles::ROLE_DINKES,UserRoles::ROLE_SUDIN),
 			),
 			array('allow',
                 'actions'=>array('profile','education','certification', 'work'),
@@ -73,11 +73,13 @@ class PendampingController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
+        if (Yii::app()->user->isSudin()) {
+            $model->id_sudin = Yii::app()->user->id_sudin;
+        }
 		if(isset($_POST['CreatePendampingForm']))
 		{
 			$model->attributes=$_POST['CreatePendampingForm'];
-
+            $model->id_sudin = Yii::app()->user->id_sudin;
 			if ($type == 'nosudin') {
 			    $model->role = UserRoles::ROLE_PENDAMPING;
             } else {

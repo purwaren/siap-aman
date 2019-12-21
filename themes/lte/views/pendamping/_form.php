@@ -60,8 +60,16 @@ Yii::app()->clientScript->registerScript('form', "
             </div>
             <div class="form-group">
                 <?php echo $form->labelEx($model,'id_sudin'); ?>
-                <?php echo $form->dropDownList($model,'id_sudin', SudinCustom::getAllSudinOptions(),
-                    array('class'=>'form-control','prompt'=>'Pilih Suku Dinas')); ?>
+
+                <?php
+                if (Yii::app()->user->isSudin()) {
+                    echo $form->dropDownList($model,'id_sudin', SudinCustom::getAllSudinOptions(),
+                        array('class'=>'form-control','disabled'=>'disabled','prompt'=>'Pilih Suku Dinas'));
+                } else {
+                    echo $form->dropDownList($model,'id_sudin', SudinCustom::getAllSudinOptions(),
+                        array('class'=>'form-control','prompt'=>'Pilih Suku Dinas'));
+                }
+                ?>
                 <?php echo $form->error($model,'id_sudin'); ?>
             </div>
         </div>
