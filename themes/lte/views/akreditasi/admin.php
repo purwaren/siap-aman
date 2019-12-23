@@ -97,5 +97,9 @@ $('#search-form').submit(function(){
                 )
             )); ?>
         </div><!-- /.box-body -->
+        <div class="box-footer">
+            <?php echo CHtml::linkButton('Print', array('class'=>'btn btn-primary','href'=>Yii::app()->createUrl('akreditasi/print'),'target'=>'_blank'))?>
+            <?php echo CHtml::linkButton('Download', array('class'=>'btn btn-success','href'=>Yii::app()->createUrl('akreditasi/download')))?>
+        </div>
     </div><!-- /.box -->
 </section><!-- /.content -->

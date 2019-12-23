@@ -21,7 +21,7 @@
  *
  * The followings are the available model relations:
  * @property BerkasAkreditasi[] $berkasAkreditasis
- * @property Klinik $idKlinik
+ * @property KlinikCustom $idKlinik
  */
 class PengajuanAkreditasi extends CActiveRecord
 {

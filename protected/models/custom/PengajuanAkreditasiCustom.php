@@ -229,6 +229,44 @@ class PengajuanAkreditasiCustom extends PengajuanAkreditasi
         ));
     }
 
+    public function searchForPrint()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->condition = 'no_urut IS NOT NULL';
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('t.id_klinik',$this->id_klinik);
+        $criteria->compare('tgl_pengajuan',$this->tgl_pengajuan,true);
+        $criteria->compare('jenis_pengajuan',$this->jenis_pengajuan,true);
+        $criteria->compare('tgl_penetapan',$this->tgl_penetapan,true);
+        $criteria->compare('status',$this->status);
+        $criteria->compare('status_info',$this->status_info);
+        $criteria->compare('status_alamat',$this->status_alamat);
+        $criteria->compare('status_kontak',$this->status_kontak);
+        $criteria->compare('status_fasilitas',$this->status_fasilitas);
+        $criteria->compare('status_foto',$this->status_foto);
+        $criteria->compare('status_dokumen',$this->status_dokumen);
+        $criteria->join = 'left join klinik t2 ON t.id_klinik = t2.id left join alamat t3 on t3.id_klinik = t2.id';
+        if (Yii::app()->user->isSudin()) {
+            $criteria->compare('t3.kota', Yii::app()->user->regency_id);
+        }
+        $criteria->compare('t2.nama', $this->nama_klinik, true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'sort'=>array(
+                'defaultOrder'=>'no_urut ASC'
+            ),
+            'pagination'=>false
+        ));
+    }
+
+    /**
+     * @return array
+     */
     public function relations()
     {
         // NOTE: you may need to adjust the relation name and the related

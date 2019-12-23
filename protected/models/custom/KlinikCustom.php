@@ -156,6 +156,19 @@ class KlinikCustom extends Klinik
         }
     }
 
+    public function getAlamat() {
+        $alamat = AlamatCustom::model()->findByAttributes(array('id_klinik'=>$this->id));
+        if (!empty($alamat)) {
+            $str = $alamat->alamat_1;
+            if (!empty($alamat->alamat_2))
+                $str .= ', '.$alamat->alamat_2;
+            return $str.', '.$alamat->getDistrict().', '.$alamat->getRegency();
+        }
+        else {
+            return null;
+        }
+    }
+
     /**
      * @return PengajuanAkreditasiCustom
      */

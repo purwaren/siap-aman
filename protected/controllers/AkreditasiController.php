@@ -28,7 +28,7 @@ class AkreditasiController extends Controller
 	{
 		return array(
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','view','create','update','admin','delete'),
+				'actions'=>array('index','view','create','update','admin','delete','print'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -148,6 +148,16 @@ class AkreditasiController extends Controller
 			'model'=>$model,
 		));
 	}
+
+	public function actionPrint($status=5) {
+	    $this->layout='//layouts/print';
+        $model=new PengajuanAkreditasiCustom('search');
+        $model->unsetAttributes();  // clear any default values
+        $model->status = $status;
+	    $this->render('print', array(
+	        'model' => $model
+        ));
+    }
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
